@@ -3,10 +3,13 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
-
+    <resource-ref>
+        <res-ref-name>resources</res-ref-name>
+        <mapped-name>resources</mapped-name>
+    </resource-ref>
     <servlet>
         <servlet-name>TestServlet</servlet-name>
-        <servlet-class>com.example.harbor_web_app.HelloServlet</servlet-class>
+        <servlet-class>ru.rsreu.harbor.controller.HelloServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>
