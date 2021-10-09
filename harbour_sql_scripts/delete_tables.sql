@@ -1,0 +1,13 @@
+ALTER TABLE products DROP CONSTRAINT fk_product_pier;
+ALTER TABLE harbour_users DROP CONSTRAINT fk_user_role;
+ALTER TABLE pier_assignments DROP CONSTRAINT fk_pier_assignment_pier;
+ALTER TABLE pier_assignments DROP CONSTRAINT fk_pier_assignment_user;
+ALTER TABLE pilot_assignments DROP CONSTRAINT fk_pilot_assignment_pilot;
+ALTER TABLE pilot_assignments DROP CONSTRAINT fk_pilot_assignment_user;
+DROP TABLE products;
+DROP TABLE piers;
+DROP TABLE pilots;
+DROP TABLE harbour_roles;
+DROP TABLE harbour_users;
+DROP TABLE pier_assignments;
+DROP TABLE pilot_assignments;
