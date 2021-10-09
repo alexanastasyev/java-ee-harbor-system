@@ -8,11 +8,9 @@ import ru.rsreu.harbor.datalayer.configuration.ServerDbConfiguration;
 
 import java.io.*;
 import java.sql.SQLException;
-import java.util.Locale;
 import javax.servlet.http.*;
 
 public class HelloServlet extends HttpServlet {
-
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         PrintWriter printWriter = response.getWriter();
@@ -26,6 +24,5 @@ public class HelloServlet extends HttpServlet {
         } catch (SQLException e) {
             printWriter.write(Resourcer.getString("jdbc.connection.fault"));
         }
-
     }
 }

@@ -31,7 +31,6 @@ public class OracleDbDaoFactory extends DaoFactory {
         ServerDbConfiguration oracleDbConfiguration = (ServerDbConfiguration) dbConfiguration;
         this.connection = DriverManager.getConnection(oracleDbConfiguration.getUrl(), oracleDbConfiguration.getUser(),
                 oracleDbConfiguration.getPassword());
-
     }
 
     @Override

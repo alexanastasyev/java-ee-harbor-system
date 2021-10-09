@@ -1,9 +1,9 @@
 package ru.rsreu.harbor.datalayer.configuration;
 
-public class ServerDbConfiguration extends DbConfiguration {
-    private String url;
-    private String user;
-    private String password;
+public final class ServerDbConfiguration extends DbConfiguration {
+    private final String url;
+    private final String user;
+    private final String password;
 
     public ServerDbConfiguration(String url, String user, String password) {
         this.url = url;
