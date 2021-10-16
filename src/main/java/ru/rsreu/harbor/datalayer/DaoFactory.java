@@ -10,5 +10,7 @@ public abstract class DaoFactory implements AutoCloseable {
         return result;
     }
 
+    public abstract UserDao getUserDao();
+
     public abstract void close() throws SQLException;
 }

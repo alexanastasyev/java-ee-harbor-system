@@ -7,13 +7,25 @@
         <res-ref-name>resources</res-ref-name>
         <mapped-name>resources</mapped-name>
     </resource-ref>
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
     <servlet>
-        <servlet-name>TestServlet</servlet-name>
-        <servlet-class>ru.rsreu.harbor.controller.HelloServlet</servlet-class>
+        <servlet-name>MainServlet</servlet-name>
+        <servlet-class>ru.rsreu.harbor.controller.MainServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>
-        <servlet-name>TestServlet</servlet-name>
-        <url-pattern>/hello</url-pattern>
+        <servlet-name>MainServlet</servlet-name>
+        <url-pattern>/controller</url-pattern>
     </servlet-mapping>
+    
+    <error-page>
+        <error-code>404</error-code>
+        <location>/jsp/error.jsp</location>
+    </error-page>
+    <error-page>
+        <exception-type>java.lang.RuntimeException</exception-type>
+        <location>/jsp/error.jsp</location>
+    </error-page>
 </web-app>

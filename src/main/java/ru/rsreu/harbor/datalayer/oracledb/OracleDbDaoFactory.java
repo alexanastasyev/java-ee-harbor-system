@@ -1,8 +1,10 @@
 package ru.rsreu.harbor.datalayer.oracledb;
 
 import ru.rsreu.harbor.datalayer.DaoFactory;
+import ru.rsreu.harbor.datalayer.UserDao;
 import ru.rsreu.harbor.datalayer.configuration.DbConfiguration;
 import ru.rsreu.harbor.datalayer.configuration.ServerDbConfiguration;
+import ru.rsreu.harbor.datalayer.jdbc.client.JdbcClient;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -34,11 +36,16 @@ public class OracleDbDaoFactory extends DaoFactory {
     }
 
     @Override
+    public UserDao getUserDao() {
+        return new OracleDbUserDao(new JdbcClient(this.connection));
+    }
+
+    @Override
     public void close() throws SQLException {
         try {
             this.connection.close();
         } catch (NullPointerException e) {
-
+            e.printStackTrace();
         }
     }
 }
