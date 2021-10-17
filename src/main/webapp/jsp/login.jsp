@@ -1,3 +1,4 @@
+<%--suppress XmlDefaultAttributeValue, ELValidationInJSP --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -5,7 +6,7 @@
 </head>
 <body>
     <form name="LoginForm" method="POST" action="controller">
-        <input type="hidden" name="command" value="Login"/>
+        <input type="hidden" name="command" value="login"/>
         <label>
             Login: <input name="login" type="text"/>
         </label>

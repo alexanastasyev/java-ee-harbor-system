@@ -31,7 +31,7 @@ public class MainServlet extends HttpServlet {
     public void destroy() {
         try {
             this.daoFactory.close();
-        } catch (SQLException e) {
+        } catch (SQLException | NullPointerException e) {
             e.printStackTrace();
         }
     }
@@ -45,10 +45,11 @@ public class MainServlet extends HttpServlet {
     }
 
     private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String page = null;
         ActionCommandsFactory commandsFactory = new ActionCommandFactoryDbImpl(daoFactory);
         ActionCommand actionCommand = ActionCommandsDefiner.defineCommand(request, commandsFactory);
-        page = actionCommand.execute(request);
+        String page = actionCommand.execute(request);
+
+        // Maybe remove checking
         if (page != null) {
             getServletContext().getRequestDispatcher(page).forward(request, response);
         } else {

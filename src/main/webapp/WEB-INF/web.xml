@@ -3,18 +3,20 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
+
     <resource-ref>
         <res-ref-name>resources</res-ref-name>
         <mapped-name>resources</mapped-name>
     </resource-ref>
+
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
+
     <servlet>
         <servlet-name>MainServlet</servlet-name>
         <servlet-class>ru.rsreu.harbor.controller.MainServlet</servlet-class>
     </servlet>
-
     <servlet-mapping>
         <servlet-name>MainServlet</servlet-name>
         <url-pattern>/controller</url-pattern>
@@ -24,6 +26,7 @@
         <error-code>404</error-code>
         <location>/jsp/error.jsp</location>
     </error-page>
+
     <error-page>
         <exception-type>java.lang.RuntimeException</exception-type>
         <location>/jsp/error.jsp</location>

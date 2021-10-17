@@ -6,7 +6,7 @@ import ru.rsreu.harbor.command.login.LogoutCommand;
 import ru.rsreu.harbor.datalayer.DaoFactory;
 
 public class ActionCommandFactoryDbImpl implements ActionCommandsFactory {
-    private DaoFactory daoFactory;
+    private final DaoFactory daoFactory;
 
     public ActionCommandFactoryDbImpl(DaoFactory daoFactory) {
         this.daoFactory = daoFactory;

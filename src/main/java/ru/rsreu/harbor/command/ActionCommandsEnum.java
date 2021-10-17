@@ -1,5 +1,6 @@
 package ru.rsreu.harbor.command;
 
+@SuppressWarnings("unused")
 public enum ActionCommandsEnum {
     LOGIN {
         @Override

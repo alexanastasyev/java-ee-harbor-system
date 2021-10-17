@@ -6,8 +6,7 @@ import java.sql.SQLException;
 
 public abstract class DaoFactory implements AutoCloseable {
     public static DaoFactory getInstance(DbType dbType, DbConfiguration dbConfiguration) throws SQLException {
-        DaoFactory result = dbType.getDaoFactory(dbConfiguration);
-        return result;
+        return dbType.getDaoFactory(dbConfiguration);
     }
 
     public abstract UserDao getUserDao();

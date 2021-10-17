@@ -8,6 +8,7 @@ public class ActionCommandsDefiner {
     public static ActionCommand defineCommand(HttpServletRequest request, ActionCommandsFactory commandsFactory) {
         ActionCommand actionCommand = new EmptyCommand();
         String action = request.getParameter(Resourcer.getString("request.parameter.command")).toUpperCase();
+        //noinspection ConstantConditions
         if (action == null || action.isEmpty()) {
             return actionCommand;
         }

@@ -10,12 +10,12 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
-public class OracleDbUserDao implements UserDao {
+public class UserDaoOracleDbImpl implements UserDao {
     private static final String USER_BY_LOGIN_SQL = Resourcer.getString("dao.user.login.sql");
 
-    private JdbcClient client;
+    private final JdbcClient client;
 
-    public OracleDbUserDao(JdbcClient client) {
+    public UserDaoOracleDbImpl(JdbcClient client) {
         this.client = client;
     }
 

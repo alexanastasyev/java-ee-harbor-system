@@ -10,26 +10,26 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class OracleDbDaoFactory extends DaoFactory {
-    private static volatile OracleDbDaoFactory instance;
+public class DaoFactoryOracleDbImpl extends DaoFactory {
+    private static volatile DaoFactoryOracleDbImpl instance;
     private Connection connection;
 
-    private OracleDbDaoFactory() {
+    private DaoFactoryOracleDbImpl() {
     }
 
-    public static OracleDbDaoFactory getInstance(DbConfiguration dbConfiguration)
+    public static DaoFactoryOracleDbImpl getInstance(DbConfiguration dbConfiguration)
             throws ClassNotFoundException, SQLException {
-        OracleDbDaoFactory factory = instance;
+        DaoFactoryOracleDbImpl factory = instance;
         if (instance == null) {
-            synchronized (OracleDbDaoFactory.class) {
-                instance = factory = new OracleDbDaoFactory();
-                factory.connected(dbConfiguration);
+            synchronized (DaoFactoryOracleDbImpl.class) {
+                instance = factory = new DaoFactoryOracleDbImpl();
+                factory.connect(dbConfiguration);
             }
         }
         return factory;
     }
 
-    private void connected(DbConfiguration dbConfiguration) throws ClassNotFoundException, SQLException {
+    private void connect(DbConfiguration dbConfiguration) throws SQLException {
         ServerDbConfiguration oracleDbConfiguration = (ServerDbConfiguration) dbConfiguration;
         this.connection = DriverManager.getConnection(oracleDbConfiguration.getUrl(), oracleDbConfiguration.getUser(),
                 oracleDbConfiguration.getPassword());
@@ -37,7 +37,7 @@ public class OracleDbDaoFactory extends DaoFactory {
 
     @Override
     public UserDao getUserDao() {
-        return new OracleDbUserDao(new JdbcClient(this.connection));
+        return new UserDaoOracleDbImpl(new JdbcClient(this.connection));
     }
 
     @Override
