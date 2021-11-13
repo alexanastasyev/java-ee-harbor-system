@@ -1,4 +1,5 @@
 ALTER TABLE products DROP CONSTRAINT fk_product_pier;
+ALTER TABLE products DROP CONSTRAINT fk_product_user;
 ALTER TABLE harbour_users DROP CONSTRAINT fk_user_role;
 ALTER TABLE harbour_users DROP CONSTRAINT fk_user_status;
 ALTER TABLE pier_assignments DROP CONSTRAINT fk_pier_assignment_pier;

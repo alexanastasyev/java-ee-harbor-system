@@ -20,5 +20,9 @@ public abstract class DaoFactory implements AutoCloseable {
 
     public abstract ReportDao getReportDao();
 
+    public abstract ProductDao productDao();
+
+    public abstract PierAssignmentDao pierAssignmentDao();
+
     public abstract void close() throws SQLException;
 }
