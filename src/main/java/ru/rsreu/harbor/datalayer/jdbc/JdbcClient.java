@@ -1,4 +1,4 @@
-package ru.rsreu.harbor.datalayer.jdbc.client;
+package ru.rsreu.harbor.datalayer.jdbc;
 
 import java.sql.*;
 import java.util.ArrayList;

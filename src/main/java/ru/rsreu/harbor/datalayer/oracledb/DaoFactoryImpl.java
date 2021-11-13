@@ -4,7 +4,8 @@ import ru.rsreu.harbor.datalayer.dao.*;
 import ru.rsreu.harbor.datalayer.DaoFactory;
 import ru.rsreu.harbor.datalayer.configuration.DbConfiguration;
 import ru.rsreu.harbor.datalayer.configuration.ServerDbConfiguration;
-import ru.rsreu.harbor.datalayer.jdbc.client.JdbcClient;
+import ru.rsreu.harbor.datalayer.jdbc.JdbcClient;
+import ru.rsreu.harbor.datalayer.jdbc.JdbcQueryExecutor;
 import ru.rsreu.harbor.datalayer.oracledb.dao.*;
 
 import java.sql.Connection;
@@ -16,7 +17,7 @@ public class DaoFactoryImpl extends DaoFactory {
 
     private Connection connection;
 
-    private JdbcClient jdbcClient;
+    private JdbcQueryExecutor jdbcQueryExecutor;
 
     private DaoFactoryImpl() {
     }
@@ -37,36 +38,36 @@ public class DaoFactoryImpl extends DaoFactory {
         ServerDbConfiguration oracleDbConfiguration = (ServerDbConfiguration) dbConfiguration;
         this.connection = DriverManager.getConnection(oracleDbConfiguration.getUrl(), oracleDbConfiguration.getUser(),
                 oracleDbConfiguration.getPassword());
-        this.jdbcClient = new JdbcClient(this.connection);
+        this.jdbcQueryExecutor = new JdbcQueryExecutor(new JdbcClient(this.connection));
     }
 
     @Override
     public UserDao getUserDao() {
-        return new UserDaoImpl(this.jdbcClient, this.getRoleDao(), this.getStatusDao());
+        return new UserDaoImpl(this.jdbcQueryExecutor, this.getRoleDao(), this.getStatusDao());
     }
 
     @Override
     public RoleDao getRoleDao() {
-        return new RoleDaoImpl(this.jdbcClient);
+        return new RoleDaoImpl(this.jdbcQueryExecutor);
     }
 
     @Override
     public StatusDao getStatusDao() {
-        return new StatusDaoImpl(this.jdbcClient);
+        return new StatusDaoImpl(this.jdbcQueryExecutor);
     }
 
     @Override
     public RequestStatusDao getRequestStatusDao() {
-        return new RequestStatusDaoImpl(this.jdbcClient);
+        return new RequestStatusDaoImpl(this.jdbcQueryExecutor);
     }
 
     @Override
     public ReportDao getReportDao() {
-        return new ReportDaoImpl(this.jdbcClient, this.getUserDao());
+        return new ReportDaoImpl(this.jdbcQueryExecutor, this.getUserDao());
     }
 
     public PierDao getPierDao() {
-        return new PierDaoImpl(this.jdbcClient);
+        return new PierDaoImpl(this.jdbcQueryExecutor);
     }
 
     @Override
