@@ -2,7 +2,7 @@ package ru.rsreu.harbor.datalayer;
 
 import com.prutzkow.resourcer.Resourcer;
 import ru.rsreu.harbor.datalayer.configuration.DbConfiguration;
-import ru.rsreu.harbor.datalayer.oracledb.DaoFactoryOracleDbImpl;
+import ru.rsreu.harbor.datalayer.oracledb.DaoFactoryImpl;
 
 import java.sql.SQLException;
 
@@ -13,7 +13,7 @@ public enum DbType {
             DaoFactory oracleDbDaoFactory = null;
             try {
                 Class.forName(Resourcer.getString("jdbc.driver.name")).newInstance();
-                oracleDbDaoFactory = DaoFactoryOracleDbImpl.getInstance(dbConfiguration);
+                oracleDbDaoFactory = DaoFactoryImpl.getInstance(dbConfiguration);
             } catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
                 e.printStackTrace();
             }
