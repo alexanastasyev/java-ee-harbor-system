@@ -1,7 +1,9 @@
 package ru.rsreu.harbor.controller;
 
 import com.prutzkow.resourcer.Resourcer;
-import ru.rsreu.harbor.command.*;
+import ru.rsreu.harbor.controller.command.*;
+import ru.rsreu.harbor.controller.result.ActionCommandResult;
+import ru.rsreu.harbor.controller.result.ActionCommandResultArguments;
 import ru.rsreu.harbor.datalayer.DaoFactory;
 import ru.rsreu.harbor.datalayer.DbType;
 import ru.rsreu.harbor.datalayer.configuration.DbConfiguration;
@@ -35,7 +37,7 @@ public class MainServlet extends HttpServlet {
             e.printStackTrace();
         }
     }
-
+    
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         this.processRequest(request, response);
     }
@@ -47,16 +49,16 @@ public class MainServlet extends HttpServlet {
     private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         ActionCommandsFactory commandsFactory = new ActionCommandFactoryDbImpl(daoFactory);
         ActionCommand actionCommand = ActionCommandsDefiner.defineCommand(request, commandsFactory);
-        String page = actionCommand.execute(request);
+        ActionCommandResult result = actionCommand.execute(request);
 
-        // Maybe remove checking
-        if (page != null) {
-            getServletContext().getRequestDispatcher(page).forward(request, response);
-        } else {
-            page = Resourcer.getString("path.page.index");
-            request.getSession().setAttribute(Resourcer.getString("sessions.attribute.nullPage"),
-                    Resourcer.getString("message.nullPage"));
-            response.sendRedirect(request.getContextPath() + page);
-        }
+        ActionCommandResultArguments arguments = new ActionCommandResultArguments(
+            request,
+            response,
+            getServletContext().getRequestDispatcher(result.getPage()),
+            result.getPage(),
+            result.getJspParameters()
+        );
+
+        result.getActionCommandResultType().executeAction(arguments);
     }
 }

@@ -1,4 +1,4 @@
-package ru.rsreu.harbor.command.login;
+package ru.rsreu.harbor.controller.command.login;
 
 import ru.rsreu.harbor.datalayer.dao.UserDao;
 import ru.rsreu.harbor.datalayer.model.User;

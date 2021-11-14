@@ -1,4 +1,4 @@
-package ru.rsreu.harbor.command;
+package ru.rsreu.harbor.controller.command;
 
 import com.prutzkow.resourcer.Resourcer;
 
@@ -7,13 +7,12 @@ import javax.servlet.http.HttpServletRequest;
 public class ActionCommandsDefiner {
     public static ActionCommand defineCommand(HttpServletRequest request, ActionCommandsFactory commandsFactory) {
         ActionCommand actionCommand = new EmptyCommand();
-        String action = request.getParameter(Resourcer.getString("request.parameter.command")).toUpperCase();
-        //noinspection ConstantConditions
+        String action = request.getParameter(Resourcer.getString("request.parameter.command"));
         if (action == null || action.isEmpty()) {
             return actionCommand;
         }
         try {
-            ActionCommandsEnum currentEnum = ActionCommandsEnum.valueOf(action);
+            ActionCommands currentEnum = ActionCommands.valueOf(action.toUpperCase());
             actionCommand = currentEnum.getCommand(commandsFactory);
         } catch (IllegalArgumentException e) {
             request.setAttribute(Resourcer.getString("request.attribute.wrongAction"),

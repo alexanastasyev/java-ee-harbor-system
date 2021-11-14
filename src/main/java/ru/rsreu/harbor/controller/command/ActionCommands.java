@@ -1,7 +1,7 @@
-package ru.rsreu.harbor.command;
+package ru.rsreu.harbor.controller.command;
 
 @SuppressWarnings("unused")
-public enum ActionCommandsEnum {
+public enum ActionCommands {
     LOGIN {
         @Override
         public ActionCommand getCommand(ActionCommandsFactory commandsFactory) {
@@ -12,6 +12,18 @@ public enum ActionCommandsEnum {
         @Override
         public ActionCommand getCommand(ActionCommandsFactory commandsFactory) {
             return commandsFactory.getLogoutCommand();
+        }
+    },
+    SHOW_MAIN_PAGE {
+        @Override
+        public ActionCommand getCommand(ActionCommandsFactory commandsFactory) {
+            return commandsFactory.getShowMainPageCommand();
+        }
+    },
+    SHOW_LOGIN_PAGE {
+        @Override
+        public ActionCommand getCommand(ActionCommandsFactory commandsFactory) {
+            return commandsFactory.getShowLoginPageCommand();
         }
     };
     

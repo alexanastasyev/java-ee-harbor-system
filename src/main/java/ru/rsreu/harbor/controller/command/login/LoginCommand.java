@@ -1,9 +1,13 @@
-package ru.rsreu.harbor.command.login;
+package ru.rsreu.harbor.controller.command.login;
 
 import com.prutzkow.resourcer.Resourcer;
-import ru.rsreu.harbor.command.ActionCommand;
+import ru.rsreu.harbor.controller.command.ActionCommand;
+import ru.rsreu.harbor.controller.result.ActionCommandResult;
+import ru.rsreu.harbor.controller.result.ActionCommandResultTypes;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
+import java.util.Map;
 
 public class LoginCommand implements ActionCommand {
 
@@ -17,21 +21,22 @@ public class LoginCommand implements ActionCommand {
     }
 
     @Override
-    public String execute(HttpServletRequest request) {
+    public ActionCommandResult execute(HttpServletRequest request) {
         String page;
 
         String login = request.getParameter(LOGIN_PARAMETER_NAME);
         String password = request.getParameter(PASSWORD_PARAMETER_NAME);
 
+        Map<String, String> jspParameters = new HashMap<>();
         if (loginLogic.checkLogin(login, password)) {
-            request.setAttribute(Resourcer.getString("request.attribute.user"), login);
-            page = Resourcer.getString("path.page.main");
+            jspParameters.put(Resourcer.getString("request.attribute.user"), login);
+            page = Resourcer.getString("command.path.showMainPage");
         } else {
-            request.setAttribute(Resourcer.getString("request.attribute.errorLoginPassMessage"),
+            jspParameters.put(Resourcer.getString("request.attribute.errorLoginPassMessage"),
                     Resourcer.getString("message.loginError"));
             page = Resourcer.getString("path.page.login");
         }
 
-        return page;
+        return new ActionCommandResult(page, ActionCommandResultTypes.SEND_REDIRECT, jspParameters);
     }
 }
