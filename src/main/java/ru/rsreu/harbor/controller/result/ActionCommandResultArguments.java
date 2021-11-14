@@ -10,9 +10,15 @@ public class ActionCommandResultArguments {
     private final HttpServletResponse response;
     private final RequestDispatcher requestDispatcher;
     private final String page;
-    private final Map<String, String> jspParameters;
+    private final Map<String, Object> jspParameters;
 
-    public ActionCommandResultArguments(HttpServletRequest request, HttpServletResponse response, RequestDispatcher requestDispatcher, String page, Map<String, String> jspParameters) {
+    public ActionCommandResultArguments(
+            HttpServletRequest request,
+            HttpServletResponse response,
+            RequestDispatcher requestDispatcher,
+            String page,
+            Map<String, Object> jspParameters
+    ) {
         this.request = request;
         this.response = response;
         this.requestDispatcher = requestDispatcher;
@@ -37,7 +43,7 @@ public class ActionCommandResultArguments {
         return page;
     }
 
-    public Map<String, String> getJspParameters() {
+    public Map<String, Object> getJspParameters() {
         return jspParameters;
     }
 

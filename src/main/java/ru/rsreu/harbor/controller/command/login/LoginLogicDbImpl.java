@@ -1,6 +1,8 @@
 package ru.rsreu.harbor.controller.command.login;
 
+import com.prutzkow.resourcer.Resourcer;
 import ru.rsreu.harbor.datalayer.dao.UserDao;
+import ru.rsreu.harbor.datalayer.model.Role;
 import ru.rsreu.harbor.datalayer.model.User;
 
 public class LoginLogicDbImpl implements LoginLogic {
@@ -21,5 +23,25 @@ public class LoginLogicDbImpl implements LoginLogic {
             result = false;
         }
         return result;
+    }
+
+    @Override
+    public String getUserPageCommand(String login) {
+        String result;
+        switch (this.getUserRole(login).getTitle()) {
+            case "admin":
+            {
+                result = Resourcer.getString("command.path.showAdminPage");
+                break;
+            }
+            default: {
+                result = Resourcer.getString("command.path.showMainPage");
+            }
+        }
+        return result;
+    }
+
+    private Role getUserRole(String login) {
+        return userDao.findByLogin(login).getRole();
     }
 }

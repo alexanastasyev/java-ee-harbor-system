@@ -8,4 +8,6 @@ public interface ActionCommandsFactory {
     ActionCommand getShowMainPageCommand();
 
     ActionCommand getShowLoginPageCommand();
+
+    ActionCommand getShowAdminPageCommand();
 }

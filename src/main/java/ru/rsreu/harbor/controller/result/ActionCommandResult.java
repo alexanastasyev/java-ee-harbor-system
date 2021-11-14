@@ -5,9 +5,9 @@ import java.util.Map;
 public class ActionCommandResult {
     private final String page;
     private final ActionCommandResultTypes actionCommandResultType;
-    private final Map<String, String> jspParameters;
+    private final Map<String, Object> jspParameters;
 
-    public ActionCommandResult(String page, ActionCommandResultTypes actionCommandResultType, Map<String, String> jspParameters) {
+    public ActionCommandResult(String page, ActionCommandResultTypes actionCommandResultType, Map<String, Object> jspParameters) {
         this.page = page;
         this.actionCommandResultType = actionCommandResultType;
         this.jspParameters = jspParameters;
@@ -21,7 +21,7 @@ public class ActionCommandResult {
         return actionCommandResultType;
     }
 
-    public Map<String, String> getJspParameters() {
+    public Map<String, Object> getJspParameters() {
         return jspParameters;
     }
 }

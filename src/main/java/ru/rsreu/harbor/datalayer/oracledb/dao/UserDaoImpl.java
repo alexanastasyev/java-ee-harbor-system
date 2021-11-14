@@ -9,10 +9,12 @@ import ru.rsreu.harbor.datalayer.jdbc.RowMapper;
 import ru.rsreu.harbor.datalayer.model.User;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 public class UserDaoImpl implements UserDao {
     private static final String USER_BY_ID_SQL = Resourcer.getString("dao.user.id.sql");
     private static final String USER_BY_LOGIN_SQL = Resourcer.getString("dao.user.login.sql");
+    private static final String USER_ALL_SQL = Resourcer.getString("dao.user.all.sql");
 
     private final JdbcQueryExecutor jdbcQueryExecutor;
 
@@ -34,6 +36,11 @@ public class UserDaoImpl implements UserDao {
     @Override
     public User findByLogin(String login) {
         return this.jdbcQueryExecutor.executeQuery(this.userRowMapper, USER_BY_LOGIN_SQL, login).get(0);
+    }
+
+    @Override
+    public List<User> findAll() {
+        return this.jdbcQueryExecutor.executeQuery(this.userRowMapper, USER_ALL_SQL);
     }
 
     private final RowMapper<User> userRowMapper = (row) -> new User(

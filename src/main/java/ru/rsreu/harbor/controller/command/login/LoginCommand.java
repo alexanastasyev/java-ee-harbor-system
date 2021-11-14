@@ -27,10 +27,10 @@ public class LoginCommand implements ActionCommand {
         String login = request.getParameter(LOGIN_PARAMETER_NAME);
         String password = request.getParameter(PASSWORD_PARAMETER_NAME);
 
-        Map<String, String> jspParameters = new HashMap<>();
+        Map<String, Object> jspParameters = new HashMap<>();
         if (loginLogic.checkLogin(login, password)) {
-            jspParameters.put(Resourcer.getString("request.attribute.user"), login);
-            page = Resourcer.getString("command.path.showMainPage");
+            jspParameters.put(Resourcer.getString("request.mainPage.attribute.user"), login);
+            page = loginLogic.getUserPageCommand(login);
         } else {
             jspParameters.put(Resourcer.getString("request.attribute.errorLoginPassMessage"),
                     Resourcer.getString("message.loginError"));

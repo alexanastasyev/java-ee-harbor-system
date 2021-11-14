@@ -25,6 +25,12 @@ public enum ActionCommands {
         public ActionCommand getCommand(ActionCommandsFactory commandsFactory) {
             return commandsFactory.getShowLoginPageCommand();
         }
+    },
+    SHOW_ADMIN_PAGE {
+        @Override
+        public ActionCommand getCommand(ActionCommandsFactory commandsFactory) {
+            return commandsFactory.getShowAdminPageCommand();
+        }
     };
     
     public abstract ActionCommand getCommand(ActionCommandsFactory commandsFactory);
