@@ -31,6 +31,18 @@ public enum ActionCommands {
         public ActionCommand getCommand(ActionCommandsFactory commandsFactory) {
             return commandsFactory.getShowAdminPageCommand();
         }
+    },
+    SHOW_CREATE_USER_PAGE {
+        @Override
+        public ActionCommand getCommand(ActionCommandsFactory commandsFactory) {
+            return commandsFactory.getShowCreateUserPageCommand();
+        }
+    },
+    CREATE_USER {
+        @Override
+        public ActionCommand getCommand(ActionCommandsFactory commandsFactory) {
+            return commandsFactory.getCreateUserCommand();
+        }
     };
     
     public abstract ActionCommand getCommand(ActionCommandsFactory commandsFactory);

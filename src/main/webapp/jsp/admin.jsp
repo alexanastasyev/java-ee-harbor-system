@@ -27,7 +27,7 @@
             </c:forEach>
         </table>
     <hr />
-    <a href="controller?command=create_user">Add user</a>
+    <a href="controller?command=show_create_user_page">Add user</a>
     <hr />
     <a href="controller?command=logout">Logout</a>
 </body>

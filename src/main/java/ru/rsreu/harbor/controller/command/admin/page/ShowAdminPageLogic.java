@@ -1,4 +1,4 @@
-package ru.rsreu.harbor.controller.command.admin;
+package ru.rsreu.harbor.controller.command.admin.page;
 
 import ru.rsreu.harbor.datalayer.model.User;
 

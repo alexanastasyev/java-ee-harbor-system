@@ -10,4 +10,8 @@ public interface ActionCommandsFactory {
     ActionCommand getShowLoginPageCommand();
 
     ActionCommand getShowAdminPageCommand();
+
+    ActionCommand getShowCreateUserPageCommand();
+
+    ActionCommand getCreateUserCommand();
 }

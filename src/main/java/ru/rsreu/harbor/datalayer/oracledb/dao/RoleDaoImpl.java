@@ -7,9 +7,11 @@ import ru.rsreu.harbor.datalayer.jdbc.RowMapper;
 import ru.rsreu.harbor.datalayer.model.Role;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 public class RoleDaoImpl implements RoleDao {
     private static final String ROLE_BY_ID_SQL = Resourcer.getString("dao.role.id.sql");
+    private static final String ROLE_ALL_SQL = Resourcer.getString("dao.role.all.sql");
 
     private final JdbcQueryExecutor jdbcQueryExecutor;
 
@@ -20,6 +22,11 @@ public class RoleDaoImpl implements RoleDao {
     @Override
     public Role findById(Long id) {
         return this.jdbcQueryExecutor.executeQuery(this.roleRowMapper, ROLE_BY_ID_SQL, id.toString()).get(0);
+    }
+
+    @Override
+    public List<Role> findAll() {
+        return this.jdbcQueryExecutor.executeQuery(this.roleRowMapper, ROLE_ALL_SQL);
     }
 
     private final RowMapper<Role> roleRowMapper = (row) -> new Role(

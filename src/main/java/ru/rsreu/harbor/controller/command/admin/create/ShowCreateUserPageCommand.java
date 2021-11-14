@@ -1,4 +1,4 @@
-package ru.rsreu.harbor.controller.command.admin;
+package ru.rsreu.harbor.controller.command.admin.create;
 
 import com.prutzkow.resourcer.Resourcer;
 import ru.rsreu.harbor.controller.command.ActionCommand;
@@ -9,20 +9,20 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ShowAdminPageCommand implements ActionCommand {
-    private final ShowAdminPageLogic showAdminPageLogic;
+public class ShowCreateUserPageCommand implements ActionCommand {
+    private final ShowCreateUserPageLogic showCreateUserPageLogic;
 
-    public ShowAdminPageCommand(ShowAdminPageLogic showAdminPageLogic) {
-        this.showAdminPageLogic = showAdminPageLogic;
+    public ShowCreateUserPageCommand(ShowCreateUserPageLogic showCreateUserPageLogic) {
+        this.showCreateUserPageLogic = showCreateUserPageLogic;
     }
 
     @Override
     public ActionCommandResult execute(HttpServletRequest request) {
         Map<String, Object> jspParameters = new HashMap<>();
-        jspParameters.put(Resourcer.getString("request.adminPage.attribute.users"), showAdminPageLogic.getAllUsers());
+        jspParameters.put(Resourcer.getString("request.createUserPage.attribute.roles"), showCreateUserPageLogic.getAllRoles());
 
         return new ActionCommandResult(
-                Resourcer.getString("path.page.admin"),
+                Resourcer.getString("path.page.createUser"),
                 ActionCommandResultTypes.FORWARD,
                 jspParameters
         );

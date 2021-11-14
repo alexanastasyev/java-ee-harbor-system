@@ -22,8 +22,10 @@ public class JdbcClient {
         try {
             ResultSet resultSet = statement.executeQuery();
             int columnCount = resultSet.getMetaData().getColumnCount();
-            while (resultSet.next()) {
-                result.add(parseResultSetRowToMap(resultSet, columnCount));
+            if (columnCount > 0) {
+                while (resultSet.next()) {
+                    result.add(parseResultSetRowToMap(resultSet, columnCount));
+                }
             }
         } catch (SQLException | NullPointerException e) {
             e.printStackTrace();

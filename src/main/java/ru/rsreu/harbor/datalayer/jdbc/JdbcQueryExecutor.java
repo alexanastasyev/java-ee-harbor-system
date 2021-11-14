@@ -23,4 +23,12 @@ public class JdbcQueryExecutor {
         }
         return result;
     }
+
+    public <T> void executeTransactionalQuery(String sqlQuery, T object, ObjectMapper<T> objectMapper) {
+        try {
+            jdbcClient.executeQuery(sqlQuery, objectMapper.mapObject(object));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }

@@ -10,4 +10,6 @@ public interface UserDao {
     User findByLogin(String login);
 
     List<User> findAll();
+
+    void saveUser(User user);
 }
