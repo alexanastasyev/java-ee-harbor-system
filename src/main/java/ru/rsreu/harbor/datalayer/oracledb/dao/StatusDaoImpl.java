@@ -10,6 +10,7 @@ import java.math.BigDecimal;
 
 public class StatusDaoImpl implements StatusDao {
     private static final String STATUS_BY_ID_SQL = Resourcer.getString("dao.status.id.sql");
+    private static final String STATUS_BY_TITLE_SQL = Resourcer.getString("dao.status.title.sql");
 
     private final JdbcQueryExecutor jdbcQueryExecutor;
 
@@ -20,6 +21,11 @@ public class StatusDaoImpl implements StatusDao {
     @Override
     public Status findById(Long id) {
         return this.jdbcQueryExecutor.executeQuery(this.statusRowMapper, STATUS_BY_ID_SQL, id.toString()).get(0);
+    }
+
+    @Override
+    public Status findByTitle(String title) {
+        return this.jdbcQueryExecutor.executeQuery(this.statusRowMapper, STATUS_BY_TITLE_SQL, title).get(0);
     }
 
     private final RowMapper<Status> statusRowMapper = (row) -> new Status(

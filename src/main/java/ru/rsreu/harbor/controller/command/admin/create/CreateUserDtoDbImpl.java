@@ -8,8 +8,6 @@ import ru.rsreu.harbor.datalayer.model.User;
 import javax.servlet.http.HttpServletRequest;
 
 public class CreateUserDtoDbImpl implements CreateUserDto {
-    private static final Long ACTIVE_STATUS_ID = 1L;
-
     private final RoleDao roleDao;
     private final StatusDao statusDao;
 
@@ -25,7 +23,7 @@ public class CreateUserDtoDbImpl implements CreateUserDto {
                 request.getParameter(Resourcer.getString("user.form.dto.login")),
                 request.getParameter(Resourcer.getString("user.form.dto.password")),
                 roleDao.findById(Long.valueOf(request.getParameter(Resourcer.getString("user.form.dto.role")))),
-                statusDao.findById(ACTIVE_STATUS_ID)
+                statusDao.findByTitle(Resourcer.getString("db.status.active"))
         );
     }
 }
