@@ -14,4 +14,8 @@ public interface ActionCommandsFactory {
     ActionCommand getShowCreateUserPageCommand();
 
     ActionCommand getCreateUserCommand();
+
+    ActionCommand getShowEditUserPageCommand();
+
+    ActionCommand getEditUserCommand();
 }

@@ -10,7 +10,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class LoginCommand implements ActionCommand {
-
     private static final String LOGIN_PARAMETER_NAME = "login";
     private static final String PASSWORD_PARAMETER_NAME = "password";
 
@@ -34,7 +33,7 @@ public class LoginCommand implements ActionCommand {
         } else {
             jspParameters.put(Resourcer.getString("request.attribute.errorLoginPassMessage"),
                     Resourcer.getString("message.loginError"));
-            page = Resourcer.getString("path.page.login");
+            page = Resourcer.getString("command.path.showLoginPage"); 
         }
 
         return new ActionCommandResult(page, ActionCommandResultTypes.SEND_REDIRECT, jspParameters);

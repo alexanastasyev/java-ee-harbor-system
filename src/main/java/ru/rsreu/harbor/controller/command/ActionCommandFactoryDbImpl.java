@@ -1,8 +1,9 @@
 package ru.rsreu.harbor.controller.command;
 
 import ru.rsreu.harbor.controller.command.admin.create.*;
-import ru.rsreu.harbor.controller.command.admin.page.ShowAdminPageCommand;
-import ru.rsreu.harbor.controller.command.admin.page.ShowAdminPageLogicDbImpl;
+import ru.rsreu.harbor.controller.command.admin.edit.*;
+import ru.rsreu.harbor.controller.command.admin.panel.ShowAdminPageCommand;
+import ru.rsreu.harbor.controller.command.admin.panel.ShowAdminPageLogicDbImpl;
 import ru.rsreu.harbor.controller.command.login.LoginCommand;
 import ru.rsreu.harbor.controller.command.login.LoginLogicDbImpl;
 import ru.rsreu.harbor.controller.command.login.ShowLoginPageCommand;
@@ -51,7 +52,22 @@ public class ActionCommandFactoryDbImpl implements ActionCommandsFactory {
     public ActionCommand getCreateUserCommand() {
         return new CreateUserCommand(
                 new CreateUserLogicDbImpl(daoFactory.getUserDao()),
-                new ShowAdminPageLogicDbImpl(daoFactory.getUserDao()),
-                new CreateUserDtoDbImpl(daoFactory.getRoleDao(), daoFactory.getStatusDao()));
+                new CreateUserDataTransferObjectDbImpl(daoFactory.getRoleDao(), daoFactory.getStatusDao()));
+    }
+
+    @Override
+    public ActionCommand getShowEditUserPageCommand() {
+        return new ShowEditUserPageCommand(
+                new ShowEditUserPageCommandLogicDbImpl(
+                        this.daoFactory.getUserDao(), this.daoFactory.getRoleDao(), this.daoFactory.getStatusDao()));
+    }
+
+    @Override
+    public ActionCommand getEditUserCommand() {
+        return new EditUserCommand(
+                new EditUserLogicDbImpl(this.daoFactory.getUserDao()),
+                new EditUserDataTransferObjectDbImpl(
+                        this.daoFactory.getRoleDao(),
+                        this.daoFactory.getStatusDao()));
     }
 }

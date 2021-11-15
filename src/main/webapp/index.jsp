@@ -5,6 +5,6 @@
     <title>JSP - Hello World</title>
 </head>
 <body>
-    <jsp:forward page="/jsp/login.jsp"/>
+    <jsp:forward page="/controller?command=show_login_page"/>
 </body>
 </html>

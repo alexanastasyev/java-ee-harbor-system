@@ -9,14 +9,18 @@ import ru.rsreu.harbor.datalayer.jdbc.ObjectMapper;
 import ru.rsreu.harbor.datalayer.jdbc.RowMapper;
 import ru.rsreu.harbor.datalayer.model.User;
 
+import java.lang.reflect.Array;
 import java.math.BigDecimal;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Stream;
 
 public class UserDaoImpl implements UserDao {
     private static final String USER_BY_ID_SQL = Resourcer.getString("dao.user.id.sql");
     private static final String USER_BY_LOGIN_SQL = Resourcer.getString("dao.user.login.sql");
     private static final String USER_ALL_SQL = Resourcer.getString("dao.user.all.sql");
-    private static final String SAVE_USER_SQL = Resourcer.getString("dao.user.crate.sql");
+    private static final String SAVE_USER_SQL = Resourcer.getString("dao.user.create.sql");
+    private static final String UPDATE_USER_SQL = Resourcer.getString("dao.user.update.sql");
 
     private final JdbcQueryExecutor jdbcQueryExecutor;
 
@@ -47,7 +51,12 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public void saveUser(User user) {
-        this.jdbcQueryExecutor.executeTransactionalQuery(SAVE_USER_SQL, user, this.userObjectMapper);
+        this.jdbcQueryExecutor.executeTransactionalQuery(SAVE_USER_SQL, user, this.saveUserObjectMapper);
+    }
+
+    @Override
+    public void updateUser(User user) {
+        this.jdbcQueryExecutor.executeTransactionalQuery(UPDATE_USER_SQL, user, this.updateUserObjectMapper);
     }
 
     private final RowMapper<User> userRowMapper = (row) -> new User(
@@ -57,10 +66,18 @@ public class UserDaoImpl implements UserDao {
             roleDao.findById(((BigDecimal) row.get(Resourcer.getString("dao.user.column.roleId"))).longValue()),
             statusDao.findById(((BigDecimal) row.get(Resourcer.getString("dao.user.column.statusId"))).longValue()));
 
-    private final ObjectMapper<User> userObjectMapper = user -> new String[] {
+    private final ObjectMapper<User> saveUserObjectMapper = user -> new String[] {
             user.getLogin(),
             user.getPassword(),
             user.getRole().getId().toString(),
             user.getStatus().getId().toString()
+    };
+
+    private final ObjectMapper<User> updateUserObjectMapper = user -> new String[] {
+            user.getLogin(),
+            user.getPassword(),
+            user.getRole().getId().toString(),
+            user.getStatus().getId().toString(),
+            user.getId().toString()
     };
 }

@@ -1,4 +1,4 @@
-package ru.rsreu.harbor.controller.command.admin.page;
+package ru.rsreu.harbor.controller.command.admin.panel;
 
 import com.prutzkow.resourcer.Resourcer;
 import ru.rsreu.harbor.controller.command.ActionCommand;

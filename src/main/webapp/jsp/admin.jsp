@@ -7,6 +7,7 @@
 </head>
 <body>
     <h1>Welcome, Admin</h1>
+    ${errorMessage}
     <hr/>
         <table>
             <tr>
@@ -23,6 +24,7 @@
                     <td><c:out value="${user.getPassword()}" /></td>
                     <td><c:out value="${user.getRole().getTitle()}" /></td>
                     <td><c:out value="${user.getStatus().getTitle()}" /></td>
+                    <td><a href="controller?command=show_edit_user_page&id=${user.getId()}">Edit</a></td>
                 </tr>
             </c:forEach>
         </table>

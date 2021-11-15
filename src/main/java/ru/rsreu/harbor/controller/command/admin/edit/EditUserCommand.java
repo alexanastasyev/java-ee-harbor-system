@@ -1,4 +1,4 @@
-package ru.rsreu.harbor.controller.command.admin.create;
+package ru.rsreu.harbor.controller.command.admin.edit;
 
 import com.prutzkow.resourcer.Resourcer;
 import ru.rsreu.harbor.controller.command.ActionCommand;
@@ -10,18 +10,18 @@ import ru.rsreu.harbor.datalayer.model.User;
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 
-public class CreateUserCommand implements ActionCommand {
-    private final CreateUserLogic createUserLogic;
+public class EditUserCommand implements ActionCommand {
+    private final EditUserLogic editUserLogic;
     private final DataTransferObject<User> dataTransferObject;
 
-    public CreateUserCommand(CreateUserLogic createUserLogic, DataTransferObject<User> dataTransferObject) {
-        this.createUserLogic = createUserLogic;
+    public EditUserCommand(EditUserLogic editUserLogic, DataTransferObject<User> dataTransferObject) {
+        this.editUserLogic = editUserLogic;
         this.dataTransferObject = dataTransferObject;
     }
 
     @Override
     public ActionCommandResult execute(HttpServletRequest request) {
-        createUserLogic.createUser(dataTransferObject.formModel(request));
+        editUserLogic.updateUser(dataTransferObject.formModel(request));
         return new ActionCommandResult(
                 Resourcer.getString("command.path.showAdminPage"),
                 ActionCommandResultTypes.SEND_REDIRECT,

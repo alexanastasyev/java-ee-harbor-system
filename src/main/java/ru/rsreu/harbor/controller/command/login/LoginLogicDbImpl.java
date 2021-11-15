@@ -6,7 +6,6 @@ import ru.rsreu.harbor.datalayer.model.Role;
 import ru.rsreu.harbor.datalayer.model.User;
 
 public class LoginLogicDbImpl implements LoginLogic {
-
     private final UserDao userDao;
 
     public LoginLogicDbImpl(UserDao userDao) {

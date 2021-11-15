@@ -16,7 +16,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.*;
 
 public class MainServlet extends HttpServlet {
-
     private DaoFactory daoFactory;
 
     public void init(ServletConfig servletConfig) throws ServletException {
