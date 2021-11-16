@@ -2,11 +2,14 @@ ALTER TABLE products DROP CONSTRAINT fk_product_pier;
 ALTER TABLE products DROP CONSTRAINT fk_product_user;
 ALTER TABLE harbour_users DROP CONSTRAINT fk_user_role;
 ALTER TABLE harbour_users DROP CONSTRAINT fk_user_status;
+ALTER TABLE harbour_users DROP CONSTRAINT unique_login_harbour_users;`
 ALTER TABLE pier_assignments DROP CONSTRAINT fk_pier_assignment_pier;
 ALTER TABLE pier_assignments DROP CONSTRAINT fk_pier_assignment_user;
 ALTER TABLE pier_assignments DROP CONSTRAINT fk_pier_assignment_request_status;
 ALTER TABLE reports DROP CONSTRAINT fk_report_user_from;
 ALTER TABLE reports DROP CONSTRAINT fk_report_user_to;
+ALTER TABLE harbour_roles DROP CONSTRAINT unique_title_harbour_roles;
+ALTER TABLE statuses DROP CONSTRAINT unique_title_statuses;
 DROP TABLE products;
 DROP TABLE piers;
 DROP TABLE harbour_roles;
