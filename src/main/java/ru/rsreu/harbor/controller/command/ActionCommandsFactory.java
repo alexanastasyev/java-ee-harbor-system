@@ -18,4 +18,14 @@ public interface ActionCommandsFactory {
     ActionCommand getShowEditUserPageCommand();
 
     ActionCommand getEditUserCommand();
+
+    ActionCommand getShowModeratorUsersPageCommand();
+
+    ActionCommand getHandleUserBlockingCommand();
+
+    ActionCommand getShowModeratorReportsPageCommand();
+
+    ActionCommand getShowReportPageCommand();
+
+    ActionCommand getDeleteReportCommand();
 }

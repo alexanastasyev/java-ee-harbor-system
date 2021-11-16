@@ -55,6 +55,36 @@ public enum ActionCommands {
         public ActionCommand getCommand(ActionCommandsFactory commandsFactory) {
             return commandsFactory.getEditUserCommand();
         }
+    },
+    SHOW_MODERATOR_USERS_PAGE {
+        @Override
+        public ActionCommand getCommand(ActionCommandsFactory commandsFactory) {
+            return commandsFactory.getShowModeratorUsersPageCommand();
+        }
+    },
+    HANDLE_USER_BLOCKING {
+        @Override
+        public ActionCommand getCommand(ActionCommandsFactory commandsFactory) {
+            return commandsFactory.getHandleUserBlockingCommand();
+        }
+    },
+    SHOW_MODERATOR_REPORTS_PAGE {
+        @Override
+        public ActionCommand getCommand(ActionCommandsFactory commandsFactory) {
+            return commandsFactory.getShowModeratorReportsPageCommand();
+        }
+    },
+    SHOW_REPORT_PAGE {
+        @Override
+        public ActionCommand getCommand(ActionCommandsFactory commandsFactory) {
+            return commandsFactory.getShowReportPageCommand();
+        }
+    },
+    DELETE_REPORT {
+        @Override
+        public ActionCommand getCommand(ActionCommandsFactory commandsFactory) {
+            return commandsFactory.getDeleteReportCommand();
+        }
     };
     
     public abstract ActionCommand getCommand(ActionCommandsFactory commandsFactory);

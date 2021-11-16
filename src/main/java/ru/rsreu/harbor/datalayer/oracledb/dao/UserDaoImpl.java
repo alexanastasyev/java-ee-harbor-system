@@ -9,11 +9,8 @@ import ru.rsreu.harbor.datalayer.jdbc.ObjectMapper;
 import ru.rsreu.harbor.datalayer.jdbc.RowMapper;
 import ru.rsreu.harbor.datalayer.model.User;
 
-import java.lang.reflect.Array;
 import java.math.BigDecimal;
-import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Stream;
 
 public class UserDaoImpl implements UserDao {
     private static final String USER_BY_ID_SQL = Resourcer.getString("dao.user.id.sql");
@@ -21,6 +18,8 @@ public class UserDaoImpl implements UserDao {
     private static final String USER_ALL_SQL = Resourcer.getString("dao.user.all.sql");
     private static final String SAVE_USER_SQL = Resourcer.getString("dao.user.create.sql");
     private static final String UPDATE_USER_SQL = Resourcer.getString("dao.user.update.sql");
+    private static final String USER_ALL_WITHOUT_ADMINS_AND_NOT_DELETED =
+            Resourcer.getString("dao.user.all.notAdmins.notDeleted.sql");
 
     private final JdbcQueryExecutor jdbcQueryExecutor;
 
@@ -50,6 +49,11 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
+    public List<User> findUsersNotDeletedWithoutAdmins() {
+        return jdbcQueryExecutor.executeQuery(this.userRowMapper, USER_ALL_WITHOUT_ADMINS_AND_NOT_DELETED);
+    }
+
+    @Override
     public void saveUser(User user) {
         this.jdbcQueryExecutor.executeTransactionalQuery(SAVE_USER_SQL, user, this.saveUserObjectMapper);
     }
@@ -63,8 +67,10 @@ public class UserDaoImpl implements UserDao {
             ((BigDecimal) row.get(Resourcer.getString("dao.user.column.id"))).longValue(),
             row.get(Resourcer.getString("dao.user.column.login")).toString(),
             row.get(Resourcer.getString("dao.user.column.password")).toString(),
-            roleDao.findById(((BigDecimal) row.get(Resourcer.getString("dao.user.column.roleId"))).longValue()),
-            statusDao.findById(((BigDecimal) row.get(Resourcer.getString("dao.user.column.statusId"))).longValue()));
+            roleDao.findById(((BigDecimal) row.get(Resourcer.getString("dao.user.column.roleId")))
+                    .longValue()),
+            statusDao.findById(((BigDecimal) row.get(Resourcer.getString("dao.user.column.statusId")))
+                    .longValue()));
 
     private final ObjectMapper<User> saveUserObjectMapper = user -> new String[] {
             user.getLogin(),

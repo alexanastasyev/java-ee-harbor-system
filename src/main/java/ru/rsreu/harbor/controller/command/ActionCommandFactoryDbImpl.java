@@ -9,6 +9,11 @@ import ru.rsreu.harbor.controller.command.login.LoginLogicDbImpl;
 import ru.rsreu.harbor.controller.command.login.ShowLoginPageCommand;
 import ru.rsreu.harbor.controller.command.logout.LogoutCommand;
 import ru.rsreu.harbor.controller.command.main.ShowMainPageCommand;
+import ru.rsreu.harbor.controller.command.moderator.reports.*;
+import ru.rsreu.harbor.controller.command.moderator.users.HandleUserBlockingCommand;
+import ru.rsreu.harbor.controller.command.moderator.users.HandleUserBlockingLogicDbImpl;
+import ru.rsreu.harbor.controller.command.moderator.users.ShowModeratorUsersPageCommand;
+import ru.rsreu.harbor.controller.command.moderator.users.ShowModeratorUsersPageLogicDbImpl;
 import ru.rsreu.harbor.datalayer.DaoFactory;
 
 public class ActionCommandFactoryDbImpl implements ActionCommandsFactory {
@@ -69,5 +74,34 @@ public class ActionCommandFactoryDbImpl implements ActionCommandsFactory {
                 new EditUserDataTransferObjectDbImpl(
                         this.daoFactory.getRoleDao(),
                         this.daoFactory.getStatusDao()));
+    }
+
+    @Override
+    public ActionCommand getShowModeratorUsersPageCommand() {
+        return new ShowModeratorUsersPageCommand(new ShowModeratorUsersPageLogicDbImpl(this.daoFactory.getUserDao()));
+    }
+
+    @Override
+    public ActionCommand getHandleUserBlockingCommand() {
+        return new HandleUserBlockingCommand(
+                new HandleUserBlockingLogicDbImpl(this.daoFactory.getUserDao(), this.daoFactory.getStatusDao())
+        );
+    }
+
+    @Override
+    public ActionCommand getShowModeratorReportsPageCommand() {
+        return new ShowModeratorReportsPageCommand(
+                new ShowModeratorReportsPageLogicDbImpl(this.daoFactory.getReportDao())
+        );
+    }
+
+    @Override
+    public ActionCommand getShowReportPageCommand() {
+        return new ShowReportPageCommand(new ShowReportPageLogicDbImpl(this.daoFactory.getReportDao()));
+    }
+
+    @Override
+    public ActionCommand getDeleteReportCommand() {
+        return new DeleteReportCommand(new DeleteReportLogicDbImpl(this.daoFactory.getReportDao()));
     }
 }

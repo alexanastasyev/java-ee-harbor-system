@@ -33,6 +33,11 @@ public class LoginLogicDbImpl implements LoginLogic {
                 result = Resourcer.getString("command.path.showAdminPage");
                 break;
             }
+            case "moderator":
+            {
+                result = Resourcer.getString("command.path.showModeratorUsersPage");
+                break;
+            }
             default: {
                 result = Resourcer.getString("command.path.showMainPage");
             }
