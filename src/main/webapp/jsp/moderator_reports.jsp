@@ -19,12 +19,12 @@
         <th>To</th>
         <th></th>
       </tr>
-      <c:forEach var="report" items="${reports}" varStatus="status">
+      <c:forEach var="user" items="${reports}" varStatus="status">
         <tr>
           <td><c:out value="${status.count}" /></td>
-          <td><c:out value="${report.getFromUser().getLogin()}" /></td>
-          <td><c:out value="${report.getToUser().getLogin()}" /></td>
-          <td><a href="controller?command=show_report_page&id=${report.getId()}">Show details</a></td>
+          <td><c:out value="${user.getFromUser().getLogin()}" /></td>
+          <td><c:out value="${user.getToUser().getLogin()}" /></td>
+          <td><a href="controller?command=show_report_page&id=${user.getId()}">Show details</a></td>
         </tr>
       </c:forEach>
     </table>

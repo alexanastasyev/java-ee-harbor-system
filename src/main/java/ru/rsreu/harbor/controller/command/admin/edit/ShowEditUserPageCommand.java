@@ -32,7 +32,7 @@ public class ShowEditUserPageCommand implements ActionCommand {
     private Map<String, Object> formSuccessfulJspParameters(String idParameter) {
         Map<String, Object> result = new HashMap<>();
         result.put(Resourcer.getString("request.editUserPage.attribute.user"),
-                showEditUserPageCommandLogic.getUserById(Long.valueOf(idParameter)));
+                showEditUserPageCommandLogic.getUserById(idParameter));
         result.put(Resourcer.getString("request.editUserPage.attribute.roles"),
                 showEditUserPageCommandLogic.getAllRoles());
         result.put(Resourcer.getString("request.editUserPage.attribute.statuses"),

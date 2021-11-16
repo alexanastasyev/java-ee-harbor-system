@@ -17,14 +17,14 @@
                 <th>Role</th>
                 <th>Status</th>
             </tr>
-            <c:forEach var="report" items="${users}" varStatus="status">
+            <c:forEach var="user" items="${users}" varStatus="status">
                 <tr>
                     <td><c:out value="${status.count}" /></td>
-                    <td><c:out value="${report.getLogin()}" /></td>
-                    <td><c:out value="${report.getPassword()}" /></td>
-                    <td><c:out value="${report.getRole().getTitle()}" /></td>
-                    <td><c:out value="${report.getStatus().getTitle()}" /></td>
-                    <td><a href="controller?command=show_edit_user_page&id=${report.getId()}">Edit</a></td>
+                    <td><c:out value="${user.getLogin()}" /></td>
+                    <td><c:out value="${user.getPassword()}" /></td>
+                    <td><c:out value="${user.getRole().getTitle()}" /></td>
+                    <td><c:out value="${user.getStatus().getTitle()}" /></td>
+                    <td><a href="controller?command=show_edit_user_page&id=${user.getId()}">Edit</a></td>
                 </tr>
             </c:forEach>
         </table>

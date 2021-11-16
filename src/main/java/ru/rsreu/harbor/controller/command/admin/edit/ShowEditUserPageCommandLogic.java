@@ -7,7 +7,7 @@ import ru.rsreu.harbor.datalayer.model.User;
 import java.util.List;
 
 public interface ShowEditUserPageCommandLogic {
-    User getUserById(Long id);
+    User getUserById(String id);
 
     List<Role> getAllRoles();
 

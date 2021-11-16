@@ -21,8 +21,8 @@ public class ShowEditUserPageCommandLogicDbImpl implements ShowEditUserPageComma
     }
 
     @Override
-    public User getUserById(Long id) {
-        return this.userDao.findById(id);
+    public User getUserById(String id) {
+        return this.userDao.findById(Long.valueOf(id));
     }
 
     @Override

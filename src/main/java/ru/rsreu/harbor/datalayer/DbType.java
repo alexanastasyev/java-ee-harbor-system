@@ -4,6 +4,7 @@ import com.prutzkow.resourcer.Resourcer;
 import ru.rsreu.harbor.datalayer.configuration.DbConfiguration;
 import ru.rsreu.harbor.datalayer.oracledb.DaoFactoryImpl;
 
+import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public enum DbType {
@@ -12,9 +13,9 @@ public enum DbType {
         public DaoFactory getDaoFactory(DbConfiguration dbConfiguration) throws SQLException {
             DaoFactory oracleDbDaoFactory = null;
             try {
-                Class.forName(Resourcer.getString("jdbc.driver.name")).newInstance();
+                Class.forName(Resourcer.getString("jdbc.driver.name"));
                 oracleDbDaoFactory = DaoFactoryImpl.getInstance(dbConfiguration);
-            } catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
+            } catch (ClassNotFoundException e) {
                 e.printStackTrace();
             }
             return oracleDbDaoFactory;
