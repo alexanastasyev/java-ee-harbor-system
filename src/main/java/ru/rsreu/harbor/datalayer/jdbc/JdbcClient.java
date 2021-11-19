@@ -14,13 +14,16 @@ public class JdbcClient {
     }
 
     public List<Map<String, Object>> executeQuery(String sql, String... arguments) throws SQLException {
-        return this.parseResultOfQuery(this.getReadyPreparedStatement(sql, arguments));
+        List<Map<String, Object>> result;
+        try (PreparedStatement preparedStatement = this.getReadyPreparedStatement(sql, arguments)) {
+            result = parseResultOfQuery(preparedStatement.executeQuery());
+        }
+        return result;
     }
 
-    private List<Map<String, Object>> parseResultOfQuery(PreparedStatement statement) {
+    private List<Map<String, Object>> parseResultOfQuery(ResultSet resultSet) {
         List<Map<String, Object>> result = new ArrayList<>();
         try {
-            ResultSet resultSet = statement.executeQuery();
             int columnCount = resultSet.getMetaData().getColumnCount();
             if (columnCount > 0) {
                 while (resultSet.next()) {
@@ -29,14 +32,7 @@ public class JdbcClient {
             }
         } catch (SQLException | NullPointerException e) {
             e.printStackTrace();
-        } finally {
-            try {
-                statement.close();
-            } catch (SQLException | NullPointerException e) {
-                e.printStackTrace();
-            }
         }
-
         return result;
     }
 
