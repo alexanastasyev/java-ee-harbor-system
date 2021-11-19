@@ -6,8 +6,6 @@ import ru.rsreu.harbor.controller.result.ActionCommandResult;
 import ru.rsreu.harbor.controller.result.ActionCommandResultTypes;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.HashMap;
-import java.util.Map;
 
 public class LoginCommand implements ActionCommand {
     private static final String LOGIN_PARAMETER_NAME = "login";
@@ -26,16 +24,16 @@ public class LoginCommand implements ActionCommand {
         String login = request.getParameter(LOGIN_PARAMETER_NAME);
         String password = request.getParameter(PASSWORD_PARAMETER_NAME);
 
-        Map<String, Object> jspParameters = new HashMap<>();
         if (loginLogic.checkLogin(login, password)) {
-            jspParameters.put(Resourcer.getString("request.mainPage.attribute.user"), login);
+            request.getSession().setAttribute(
+                    Resourcer.getString("request.mainPage.attribute.user"), login);
             page = loginLogic.getUserPageCommand(login);
         } else {
-            jspParameters.put(Resourcer.getString("request.attribute.errorLoginPassMessage"),
+            request.getSession().setAttribute(Resourcer.getString("request.attribute.errorLoginPassMessage"),
                     Resourcer.getString("message.loginError"));
             page = Resourcer.getString("command.path.showLoginPage"); 
         }
 
-        return new ActionCommandResult(page, ActionCommandResultTypes.SEND_REDIRECT, jspParameters);
+        return new ActionCommandResult(page, ActionCommandResultTypes.SEND_REDIRECT);
     }
 }

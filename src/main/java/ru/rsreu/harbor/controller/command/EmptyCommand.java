@@ -5,7 +5,6 @@ import ru.rsreu.harbor.controller.result.ActionCommandResult;
 import ru.rsreu.harbor.controller.result.ActionCommandResultTypes;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.HashMap;
 
 public class EmptyCommand implements ActionCommand {
 
@@ -13,8 +12,6 @@ public class EmptyCommand implements ActionCommand {
     public ActionCommandResult execute(HttpServletRequest request) {
         return new ActionCommandResult(
                 Resourcer.getString("command.path.showLoginPage"),
-                ActionCommandResultTypes.FORWARD,
-                new HashMap<>()
-        );
+                ActionCommandResultTypes.FORWARD);
     }
 }

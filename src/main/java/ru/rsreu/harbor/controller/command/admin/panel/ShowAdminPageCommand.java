@@ -6,8 +6,6 @@ import ru.rsreu.harbor.controller.result.ActionCommandResult;
 import ru.rsreu.harbor.controller.result.ActionCommandResultTypes;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.HashMap;
-import java.util.Map;
 
 public class ShowAdminPageCommand implements ActionCommand {
     private final ShowAdminPageLogic showAdminPageLogic;
@@ -18,13 +16,10 @@ public class ShowAdminPageCommand implements ActionCommand {
 
     @Override
     public ActionCommandResult execute(HttpServletRequest request) {
-        Map<String, Object> jspParameters = new HashMap<>();
-        jspParameters.put(Resourcer.getString("request.adminPage.attribute.users"), showAdminPageLogic.getAllUsers());
-
+        request.getSession().setAttribute(Resourcer.getString("request.adminPage.attribute.users"),
+                showAdminPageLogic.getAllUsers());
         return new ActionCommandResult(
                 Resourcer.getString("path.page.admin"),
-                ActionCommandResultTypes.FORWARD,
-                jspParameters
-        );
+                ActionCommandResultTypes.FORWARD);
     }
 }

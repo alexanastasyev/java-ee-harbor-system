@@ -6,8 +6,6 @@ import ru.rsreu.harbor.controller.result.ActionCommandResult;
 import ru.rsreu.harbor.controller.result.ActionCommandResultTypes;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.HashMap;
-import java.util.Map;
 
 public class ShowReportPageCommand implements ActionCommand {
     private final ShowReportPageLogic showReportPageLogic;
@@ -18,8 +16,7 @@ public class ShowReportPageCommand implements ActionCommand {
 
     @Override
     public ActionCommandResult execute(HttpServletRequest request) {
-        Map<String, Object> jspParameters = new HashMap<>();
-        jspParameters.put(
+        request.getSession().setAttribute(
                 Resourcer.getString("request.showReportPage.attribute.report"),
                 showReportPageLogic.getReportById(
                         request.getParameter(Resourcer.getString("request.showReport.parameter.id"))
@@ -27,8 +24,6 @@ public class ShowReportPageCommand implements ActionCommand {
         );
         return new ActionCommandResult(
                 Resourcer.getString("path.page.report"),
-                ActionCommandResultTypes.FORWARD,
-                jspParameters
-        );
+                ActionCommandResultTypes.FORWARD);
     }
 }

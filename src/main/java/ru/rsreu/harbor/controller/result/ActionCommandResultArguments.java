@@ -10,21 +10,17 @@ public class ActionCommandResultArguments {
     private final HttpServletResponse response;
     private final RequestDispatcher requestDispatcher;
     private final String page;
-    private final Map<String, Object> jspParameters;
 
     public ActionCommandResultArguments(
             HttpServletRequest request,
             HttpServletResponse response,
             RequestDispatcher requestDispatcher,
-            String page,
-            Map<String, Object> jspParameters
+            String page
     ) {
         this.request = request;
         this.response = response;
         this.requestDispatcher = requestDispatcher;
         this.page = page;
-        this.jspParameters = jspParameters;
-        initParameters();
     }
 
     public HttpServletRequest getRequest() {
@@ -41,13 +37,5 @@ public class ActionCommandResultArguments {
 
     public String getPage() {
         return page;
-    }
-
-    public Map<String, Object> getJspParameters() {
-        return jspParameters;
-    }
-
-    private void initParameters() {
-        this.getJspParameters().forEach((key, value) -> this.getRequest().getSession().setAttribute(key, value));
     }
 }

@@ -8,7 +8,6 @@ import ru.rsreu.harbor.controller.result.ActionCommandResultTypes;
 import ru.rsreu.harbor.datalayer.model.User;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.HashMap;
 
 public class CreateUserCommand implements ActionCommand {
     private final CreateUserLogic createUserLogic;
@@ -24,8 +23,7 @@ public class CreateUserCommand implements ActionCommand {
         createUserLogic.createUser(dataTransferObject.formModel(request));
         return new ActionCommandResult(
                 Resourcer.getString("command.path.showAdminPage"),
-                ActionCommandResultTypes.SEND_REDIRECT,
-                new HashMap<>()
+                ActionCommandResultTypes.SEND_REDIRECT
         );
     }
 }

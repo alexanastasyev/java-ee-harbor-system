@@ -6,8 +6,6 @@ import ru.rsreu.harbor.controller.result.ActionCommandResult;
 import ru.rsreu.harbor.controller.result.ActionCommandResultTypes;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.HashMap;
-import java.util.Map;
 
 public class ShowCreateUserPageCommand implements ActionCommand {
     private final ShowCreateUserPageLogic showCreateUserPageLogic;
@@ -18,13 +16,10 @@ public class ShowCreateUserPageCommand implements ActionCommand {
 
     @Override
     public ActionCommandResult execute(HttpServletRequest request) {
-        Map<String, Object> jspParameters = new HashMap<>();
-        jspParameters.put(Resourcer.getString("request.createUserPage.attribute.roles"), showCreateUserPageLogic.getAllRoles());
-
+        request.getSession().setAttribute(Resourcer.getString("request.createUserPage.attribute.roles"),
+                showCreateUserPageLogic.getAllRoles());
         return new ActionCommandResult(
                 Resourcer.getString("path.page.createUser"),
-                ActionCommandResultTypes.FORWARD,
-                jspParameters
-        );
+                ActionCommandResultTypes.FORWARD);
     }
 }

@@ -8,7 +8,6 @@ import ru.rsreu.harbor.controller.result.ActionCommandResultTypes;
 import ru.rsreu.harbor.datalayer.model.User;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.HashMap;
 
 public class EditUserCommand implements ActionCommand {
     private final EditUserLogic editUserLogic;
@@ -24,8 +23,6 @@ public class EditUserCommand implements ActionCommand {
         editUserLogic.updateUser(dataTransferObject.formModel(request));
         return new ActionCommandResult(
                 Resourcer.getString("command.path.showAdminPage"),
-                ActionCommandResultTypes.SEND_REDIRECT,
-                new HashMap<>()
-        );
+                ActionCommandResultTypes.SEND_REDIRECT);
     }
 }

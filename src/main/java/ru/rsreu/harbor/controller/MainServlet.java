@@ -54,9 +54,7 @@ public class MainServlet extends HttpServlet {
             request,
             response,
             getServletContext().getRequestDispatcher(result.getPage()),
-            result.getPage(),
-            result.getJspParameters()
-        );
+            result.getPage());
 
         result.getActionCommandResultType().executeAction(arguments);
     }

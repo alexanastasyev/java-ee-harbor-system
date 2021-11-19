@@ -6,8 +6,6 @@ import ru.rsreu.harbor.controller.result.ActionCommandResult;
 import ru.rsreu.harbor.controller.result.ActionCommandResultTypes;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.HashMap;
-import java.util.Map;
 
 public class ShowEditUserPageCommand implements ActionCommand {
     private final ShowEditUserPageCommandLogic showEditUserPageCommandLogic;
@@ -20,23 +18,20 @@ public class ShowEditUserPageCommand implements ActionCommand {
     public ActionCommandResult execute(HttpServletRequest request) {
         String idParameter = request.getParameter(
                 Resourcer.getString("request.editUser.parameter.id"));
-
+        this.formSuccessfulJspParameters(idParameter, request);
         return new ActionCommandResult(
                 Resourcer.getString("path.page.editUser"),
-                ActionCommandResultTypes.FORWARD,
-                formSuccessfulJspParameters(idParameter)
-        );
+                ActionCommandResultTypes.FORWARD);
     }
 
 
-    private Map<String, Object> formSuccessfulJspParameters(String idParameter) {
-        Map<String, Object> result = new HashMap<>();
-        result.put(Resourcer.getString("request.editUserPage.attribute.user"),
+    private void formSuccessfulJspParameters(String idParameter,
+                                                            HttpServletRequest request) {
+        request.getSession().setAttribute(Resourcer.getString("request.editUserPage.attribute.user"),
                 showEditUserPageCommandLogic.getUserById(idParameter));
-        result.put(Resourcer.getString("request.editUserPage.attribute.roles"),
+        request.getSession().setAttribute(Resourcer.getString("request.editUserPage.attribute.roles"),
                 showEditUserPageCommandLogic.getAllRoles());
-        result.put(Resourcer.getString("request.editUserPage.attribute.statuses"),
+        request.getSession().setAttribute(Resourcer.getString("request.editUserPage.attribute.statuses"),
                 showEditUserPageCommandLogic.getAllStatuses());
-        return result;
     }
 }

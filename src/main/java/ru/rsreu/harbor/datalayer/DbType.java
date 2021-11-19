@@ -4,7 +4,6 @@ import com.prutzkow.resourcer.Resourcer;
 import ru.rsreu.harbor.datalayer.configuration.DbConfiguration;
 import ru.rsreu.harbor.datalayer.oracledb.DaoFactoryImpl;
 
-import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public enum DbType {
