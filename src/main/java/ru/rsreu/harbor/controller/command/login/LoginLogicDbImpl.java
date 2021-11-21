@@ -1,8 +1,8 @@
 package ru.rsreu.harbor.controller.command.login;
 
-import com.prutzkow.resourcer.Resourcer;
 import ru.rsreu.harbor.datalayer.dao.UserDao;
 import ru.rsreu.harbor.datalayer.model.Role;
+import ru.rsreu.harbor.datalayer.model.Status;
 import ru.rsreu.harbor.datalayer.model.User;
 
 public class LoginLogicDbImpl implements LoginLogic {
@@ -16,7 +16,7 @@ public class LoginLogicDbImpl implements LoginLogic {
     public boolean checkLogin(String login, String password) {
         boolean result;
         try {
-            User user = userDao.findByLogin(login);
+            User user = this.userDao.findByLogin(login);
             result = user.getLogin().equals(login) && user.getPassword().equals(password);
         } catch (NullPointerException e) {
             result = false;
@@ -25,27 +25,12 @@ public class LoginLogicDbImpl implements LoginLogic {
     }
 
     @Override
-    public String getUserPageCommand(String login) {
-        String result;
-        switch (this.getUserRole(login).getTitle()) {
-            case "admin":
-            {
-                result = Resourcer.getString("command.path.showAdminPage");
-                break;
-            }
-            case "moderator":
-            {
-                result = Resourcer.getString("command.path.showModeratorUsersPage");
-                break;
-            }
-            default: {
-                result = Resourcer.getString("command.path.showMainPage");
-            }
-        }
-        return result;
+    public Role getUserRole(String login) {
+        return userDao.findByLogin(login).getRole();
     }
 
-    private Role getUserRole(String login) {
-        return userDao.findByLogin(login).getRole();
+    @Override
+    public Status getUserStatus(String login) {
+        return userDao.findByLogin(login).getStatus();
     }
 }

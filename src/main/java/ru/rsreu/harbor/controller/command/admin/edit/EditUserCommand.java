@@ -2,6 +2,7 @@ package ru.rsreu.harbor.controller.command.admin.edit;
 
 import com.prutzkow.resourcer.Resourcer;
 import ru.rsreu.harbor.controller.command.ActionCommand;
+import ru.rsreu.harbor.controller.filter.role.CommandSupportedRolesTitles;
 import ru.rsreu.harbor.controller.dto.DataTransferObject;
 import ru.rsreu.harbor.controller.result.ActionCommandResult;
 import ru.rsreu.harbor.controller.result.ActionCommandResultTypes;
@@ -9,6 +10,7 @@ import ru.rsreu.harbor.datalayer.model.User;
 
 import javax.servlet.http.HttpServletRequest;
 
+@CommandSupportedRolesTitles(titles = {"admin"})
 public class EditUserCommand implements ActionCommand {
     private final EditUserLogic editUserLogic;
     private final DataTransferObject<User> dataTransferObject;

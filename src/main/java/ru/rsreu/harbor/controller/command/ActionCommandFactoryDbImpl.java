@@ -4,6 +4,7 @@ import ru.rsreu.harbor.controller.command.admin.create.*;
 import ru.rsreu.harbor.controller.command.admin.edit.*;
 import ru.rsreu.harbor.controller.command.admin.panel.ShowAdminPageCommand;
 import ru.rsreu.harbor.controller.command.admin.panel.ShowAdminPageLogicDbImpl;
+import ru.rsreu.harbor.controller.command.inactive.ShowInactivePageCommand;
 import ru.rsreu.harbor.controller.command.login.LoginCommand;
 import ru.rsreu.harbor.controller.command.login.LoginLogicDbImpl;
 import ru.rsreu.harbor.controller.command.login.ShowLoginPageCommand;
@@ -103,5 +104,10 @@ public class ActionCommandFactoryDbImpl implements ActionCommandsFactory {
     @Override
     public ActionCommand getDeleteReportCommand() {
         return new DeleteReportCommand(new DeleteReportLogicDbImpl(this.daoFactory.getReportDao()));
+    }
+
+    @Override
+    public ActionCommand getShowInactivePageCommand() {
+        return new ShowInactivePageCommand();
     }
 }

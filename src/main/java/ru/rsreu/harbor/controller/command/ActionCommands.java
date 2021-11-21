@@ -85,6 +85,12 @@ public enum ActionCommands {
         public ActionCommand getCommand(ActionCommandsFactory commandsFactory) {
             return commandsFactory.getDeleteReportCommand();
         }
+    },
+    SHOW_INACTIVE_PAGE {
+        @Override
+        public ActionCommand getCommand(ActionCommandsFactory commandsFactory) {
+            return commandsFactory.getShowInactivePageCommand();
+        }
     };
     
     public abstract ActionCommand getCommand(ActionCommandsFactory commandsFactory);
