@@ -11,7 +11,7 @@ public class EmptyCommand implements ActionCommand {
     @Override
     public ActionCommandResult execute(HttpServletRequest request) {
         return new ActionCommandResult(
-                Resourcer.getString("command.path.showLoginPage"),
-                ActionCommandResultTypes.FORWARD);
+                Resourcer.getString("command.path.showMainPage"),
+                ActionCommandResultTypes.SEND_REDIRECT);
     }
 }

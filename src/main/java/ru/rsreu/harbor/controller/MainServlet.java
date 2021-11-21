@@ -17,6 +17,7 @@ import javax.servlet.http.*;
 
 public class MainServlet extends HttpServlet {
     private DaoFactory daoFactory;
+    private ActionCommandsFactory commandsFactory;
 
     public void init(ServletConfig servletConfig) throws ServletException {
         super.init(servletConfig);
@@ -27,6 +28,8 @@ public class MainServlet extends HttpServlet {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        this.commandsFactory = new ActionCommandFactoryDbImpl(daoFactory);
+        this.initServletContext();
     }
 
     public void destroy() {
@@ -46,8 +49,7 @@ public class MainServlet extends HttpServlet {
     }
 
     private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        ActionCommandsFactory commandsFactory = new ActionCommandFactoryDbImpl(daoFactory);
-        ActionCommand actionCommand = ActionCommandsDefiner.defineCommand(request, commandsFactory);
+        ActionCommand actionCommand = ActionCommandsDefiner.defineCommand(request, this.commandsFactory);
         ActionCommandResult result = actionCommand.execute(request);
 
         ActionCommandResultArguments arguments = new ActionCommandResultArguments(
@@ -57,5 +59,12 @@ public class MainServlet extends HttpServlet {
             result.getPage());
 
         result.getActionCommandResultType().executeAction(arguments);
+    }
+
+    private void initServletContext() {
+        getServletContext().setAttribute(Resourcer.getString("servlet.context.attribute.name.allRoles"),
+                this.daoFactory.getRoleDao().findAll());
+        getServletContext().setAttribute(Resourcer.getString("servlet.context.attribute.name.commandsFactory"),
+                this.commandsFactory);
     }
 }

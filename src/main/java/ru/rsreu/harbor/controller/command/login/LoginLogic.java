@@ -1,6 +1,9 @@
 package ru.rsreu.harbor.controller.command.login;
 
+import ru.rsreu.harbor.datalayer.model.Role;
+
 public interface LoginLogic {
     boolean checkLogin(String login, String password);
-    String getUserPageCommand(String login);
+
+    Role getUserRole(String login);
 }

@@ -16,4 +16,12 @@ public class Role {
     public String getTitle() {
         return title;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (! (obj instanceof Role)) {
+            return false;
+        }
+        return this.getTitle().equals(((Role) obj).getTitle());
+    }
 }
