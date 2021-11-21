@@ -1,4 +1,4 @@
-package ru.rsreu.harbor.controller.filter;
+package ru.rsreu.harbor.controller.filter.role;
 
 import ru.rsreu.harbor.controller.command.ActionCommand;
 import ru.rsreu.harbor.datalayer.model.Role;

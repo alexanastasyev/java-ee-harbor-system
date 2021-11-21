@@ -1,9 +1,9 @@
-package ru.rsreu.harbor.controller.filter;
+package ru.rsreu.harbor.controller.filter.role;
 
 import com.prutzkow.resourcer.Resourcer;
+import ru.rsreu.harbor.controller.MainServlet;
 import ru.rsreu.harbor.controller.command.ActionCommand;
 import ru.rsreu.harbor.controller.command.ActionCommandsDefiner;
-import ru.rsreu.harbor.controller.command.ActionCommandsFactory;
 import ru.rsreu.harbor.datalayer.model.Role;
 
 import javax.servlet.*;
@@ -18,7 +18,8 @@ public class RoleFilter extends HttpFilter {
     @Override
     protected void doFilter(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
             throws IOException, ServletException {
-        ActionCommand currentCommand = defineCurrentCommand(request);
+        ActionCommand currentCommand = ActionCommandsDefiner.defineCommand(
+                request, MainServlet.getActionCommandFactoryFromServletContext(request.getServletContext()));
         List<Role> supportedRoles = defineCommandSupportedRoles(request, currentCommand);
         Role userRole = (Role) request.getSession().getAttribute(
                 Resourcer.getString("session.attribute.name.role"));
@@ -32,20 +33,11 @@ public class RoleFilter extends HttpFilter {
         }
     }
 
-    @SuppressWarnings("unchecked")
     private List<Role> defineCommandSupportedRoles(HttpServletRequest request, ActionCommand command) {
-        List<Role> allRoles = (List<Role>) request.getServletContext()
-                .getAttribute(Resourcer.getString("servlet.context.attribute.name.allRoles"));
+        List<Role> allRoles = MainServlet.getAllRolesFromServletContext(request.getServletContext());
         ActionCommandSupportedRolesDefiner actionCommandSupportedRolesDefiner =
                 new ActionCommandSupportedRolesDefiner(allRoles);
         return actionCommandSupportedRolesDefiner.getSupportedRoles(command.getClass());
-    }
-
-    private ActionCommand defineCurrentCommand(HttpServletRequest request) {
-        return ActionCommandsDefiner
-                .defineCommand(request, (ActionCommandsFactory) request.getServletContext()
-                        .getAttribute(
-                                Resourcer.getString("servlet.context.attribute.name.commandsFactory")));
     }
 
     private boolean isRoleSupported(List<Role> supportedRoles, Role role) {

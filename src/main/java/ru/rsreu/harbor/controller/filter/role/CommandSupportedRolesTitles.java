@@ -1,4 +1,4 @@
-package ru.rsreu.harbor.controller.filter;
+package ru.rsreu.harbor.controller.filter.role;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;

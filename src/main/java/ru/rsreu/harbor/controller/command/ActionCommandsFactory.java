@@ -28,4 +28,6 @@ public interface ActionCommandsFactory {
     ActionCommand getShowReportPageCommand();
 
     ActionCommand getDeleteReportCommand();
+
+    ActionCommand getShowInactivePageCommand();
 }

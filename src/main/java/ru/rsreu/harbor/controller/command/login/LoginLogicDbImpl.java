@@ -2,6 +2,7 @@ package ru.rsreu.harbor.controller.command.login;
 
 import ru.rsreu.harbor.datalayer.dao.UserDao;
 import ru.rsreu.harbor.datalayer.model.Role;
+import ru.rsreu.harbor.datalayer.model.Status;
 import ru.rsreu.harbor.datalayer.model.User;
 
 public class LoginLogicDbImpl implements LoginLogic {
@@ -23,7 +24,13 @@ public class LoginLogicDbImpl implements LoginLogic {
         return result;
     }
 
+    @Override
     public Role getUserRole(String login) {
         return userDao.findByLogin(login).getRole();
+    }
+
+    @Override
+    public Status getUserStatus(String login) {
+        return userDao.findByLogin(login).getStatus();
     }
 }

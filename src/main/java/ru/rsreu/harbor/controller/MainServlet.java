@@ -8,10 +8,13 @@ import ru.rsreu.harbor.datalayer.DaoFactory;
 import ru.rsreu.harbor.datalayer.DbType;
 import ru.rsreu.harbor.datalayer.configuration.DbConfiguration;
 import ru.rsreu.harbor.datalayer.configuration.ServerDbConfiguration;
+import ru.rsreu.harbor.datalayer.model.Role;
 
 import java.io.*;
 import java.sql.SQLException;
+import java.util.List;
 import javax.servlet.ServletConfig;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.*;
 
@@ -19,10 +22,23 @@ public class MainServlet extends HttpServlet {
     private DaoFactory daoFactory;
     private ActionCommandsFactory commandsFactory;
 
+    public static ActionCommandsFactory getActionCommandFactoryFromServletContext(ServletContext context) {
+        return (ActionCommandsFactory) context.getAttribute(
+                Resourcer.getString("servlet.context.attribute.name.commandsFactory"));
+    }
+
+    @SuppressWarnings("unchecked")
+    public static List<Role> getAllRolesFromServletContext(ServletContext context) {
+        return (List<Role>) context.getAttribute(
+                Resourcer.getString("servlet.context.attribute.name.allRoles"));
+    }
+
     public void init(ServletConfig servletConfig) throws ServletException {
         super.init(servletConfig);
-        DbConfiguration dbConfiguration = new ServerDbConfiguration(Resourcer.getString("jdbc.driver.url"),
-                Resourcer.getString("jdbc.driver.user"), Resourcer.getString("jdbc.driver.password"));
+        DbConfiguration dbConfiguration = new ServerDbConfiguration(
+                Resourcer.getString("jdbc.driver.url"),
+                Resourcer.getString("jdbc.driver.user"),
+                Resourcer.getString("jdbc.driver.password"));
         try {
             this.daoFactory = DaoFactory.getInstance(DbType.ORACLE, dbConfiguration);
         } catch (SQLException e) {
@@ -66,5 +82,7 @@ public class MainServlet extends HttpServlet {
                 this.daoFactory.getRoleDao().findAll());
         getServletContext().setAttribute(Resourcer.getString("servlet.context.attribute.name.commandsFactory"),
                 this.commandsFactory);
+        getServletContext().setAttribute(Resourcer.getString("servlet.context.attribute.name.activeStatus"),
+                this.daoFactory.getStatusDao().findByTitle(Resourcer.getString("db.status.active")));
     }
 }

@@ -21,10 +21,19 @@
         <servlet-name>MainServlet</servlet-name>
         <url-pattern>/controller</url-pattern>
     </servlet-mapping>
-    
+
+    <filter>
+        <filter-name>statusFilter</filter-name>
+        <filter-class>ru.rsreu.harbor.controller.filter.status.StatusFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>statusFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
     <filter>
         <filter-name>roleFilter</filter-name>
-        <filter-class>ru.rsreu.harbor.controller.filter.RoleFilter</filter-class>
+        <filter-class>ru.rsreu.harbor.controller.filter.role.RoleFilter</filter-class>
     </filter>
     <filter-mapping>
         <filter-name>roleFilter</filter-name>
