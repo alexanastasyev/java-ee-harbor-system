@@ -3,8 +3,9 @@
 <html>
 <head>
     <title>Sign in page</title>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/js/script.js" ></script>
 </head>
-<body>
+<body onload="noBack()">
     <form name="LoginForm" method="POST" action="controller">
         <input type="hidden" name="command" value="login"/>
         <label>

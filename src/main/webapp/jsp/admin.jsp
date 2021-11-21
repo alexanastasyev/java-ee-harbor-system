@@ -4,8 +4,9 @@
 <html>
 <head>
     <title>Welcome, Admin</title>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/js/script.js" ></script>
 </head>
-<body>
+<body onload="noBack()">
     <h1>Welcome, Admin</h1>
     ${errorMessage}
     <hr/>
