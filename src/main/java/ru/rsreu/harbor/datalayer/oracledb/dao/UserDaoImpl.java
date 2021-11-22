@@ -49,17 +49,17 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public List<User> findUsersNotDeletedWithoutAdmins() {
+    public List<User> findNotDeletedWithoutAdmins() {
         return jdbcQueryExecutor.executeQuery(this.userRowMapper, USER_ALL_WITHOUT_ADMINS_AND_NOT_DELETED);
     }
 
     @Override
-    public void saveUser(User user) {
+    public void save(User user) {
         this.jdbcQueryExecutor.executeTransactionalQuery(SAVE_USER_SQL, user, this.saveUserObjectMapper);
     }
 
     @Override
-    public void updateUser(User user) {
+    public void update(User user) {
         this.jdbcQueryExecutor.executeTransactionalQuery(UPDATE_USER_SQL, user, this.updateUserObjectMapper);
     }
 

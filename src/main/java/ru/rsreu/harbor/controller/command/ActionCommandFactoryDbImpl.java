@@ -4,6 +4,7 @@ import ru.rsreu.harbor.controller.command.admin.create.*;
 import ru.rsreu.harbor.controller.command.admin.edit.*;
 import ru.rsreu.harbor.controller.command.admin.panel.ShowAdminPageCommand;
 import ru.rsreu.harbor.controller.command.admin.panel.ShowAdminPageLogicDbImpl;
+import ru.rsreu.harbor.controller.command.admin.pier.*;
 import ru.rsreu.harbor.controller.command.inactive.ShowInactivePageCommand;
 import ru.rsreu.harbor.controller.command.login.LoginCommand;
 import ru.rsreu.harbor.controller.command.login.LoginLogicDbImpl;
@@ -109,5 +110,22 @@ public class ActionCommandFactoryDbImpl implements ActionCommandsFactory {
     @Override
     public ActionCommand getShowInactivePageCommand() {
         return new ShowInactivePageCommand();
+    }
+
+    @Override
+    public ActionCommand getShowAdminPierPageCommand() {
+        return new ShowAdminPiersPageCommand(
+                new ShowAdminPiersPageLogicDbImpl(this.daoFactory.getPierDao(),
+                        this.daoFactory.getPierAssignmentDao()));
+    }
+
+    @Override
+    public ActionCommand getCreatePierCommand() {
+        return new CreatePierCommand(new CreatePierLogicDbImpl(this.daoFactory.getPierDao()));
+    }
+
+    @Override
+    public ActionCommand getDeletePierCommand() {
+        return new DeletePierCommand(new DeletePierLogicDbImpl(this.daoFactory.getPierDao()));
     }
 }

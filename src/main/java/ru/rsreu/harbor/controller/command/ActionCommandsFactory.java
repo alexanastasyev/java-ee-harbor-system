@@ -30,4 +30,10 @@ public interface ActionCommandsFactory {
     ActionCommand getDeleteReportCommand();
 
     ActionCommand getShowInactivePageCommand();
+
+    ActionCommand getShowAdminPierPageCommand();
+
+    ActionCommand getCreatePierCommand();
+
+    ActionCommand getDeletePierCommand();
 }

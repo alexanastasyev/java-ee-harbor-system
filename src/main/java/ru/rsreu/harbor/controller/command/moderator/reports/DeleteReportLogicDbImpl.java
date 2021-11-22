@@ -11,6 +11,6 @@ public class DeleteReportLogicDbImpl implements DeleteReportLogic {
 
     @Override
     public void deleteReport(String id) {
-        reportDao.deleteById(this.reportDao.findById(Long.valueOf(id)));
+        reportDao.delete(this.reportDao.findById(Long.valueOf(id)));
     }
 }

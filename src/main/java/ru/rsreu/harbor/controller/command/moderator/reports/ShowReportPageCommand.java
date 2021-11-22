@@ -18,7 +18,7 @@ public class ShowReportPageCommand implements ActionCommand {
 
     @Override
     public ActionCommandResult execute(HttpServletRequest request) {
-        request.getSession().setAttribute(
+        request.setAttribute(
                 Resourcer.getString("request.showReportPage.attribute.report"),
                 showReportPageLogic.getReportById(
                         request.getParameter(Resourcer.getString("request.showReport.parameter.id"))

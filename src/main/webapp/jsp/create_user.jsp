@@ -28,5 +28,6 @@
         <br/>
         <input type="submit" value="Create">
     </form>
+    <a href="controller?command=show_admin_page">Back</a>
 </body>
 </html>

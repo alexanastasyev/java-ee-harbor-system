@@ -33,7 +33,7 @@ public class LoginCommand implements ActionCommand {
             request.getSession().setAttribute(Resourcer.getString("session.attribute.name.status"),
                     this.loginLogic.getUserStatus(login));
         } else {
-            request.getSession().setAttribute(Resourcer.getString("request.attribute.errorLoginPassMessage"),
+            request.setAttribute(Resourcer.getString("request.attribute.errorLoginPassMessage"),
                     Resourcer.getString("message.loginError"));
             page = Resourcer.getString("command.path.showLoginPage"); 
         }

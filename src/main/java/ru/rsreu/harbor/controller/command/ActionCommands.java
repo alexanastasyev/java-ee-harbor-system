@@ -91,6 +91,24 @@ public enum ActionCommands {
         public ActionCommand getCommand(ActionCommandsFactory commandsFactory) {
             return commandsFactory.getShowInactivePageCommand();
         }
+    },
+    SHOW_ADMIN_PIERS_PAGE {
+        @Override
+        public ActionCommand getCommand(ActionCommandsFactory commandsFactory) {
+            return commandsFactory.getShowAdminPierPageCommand();
+        }
+    },
+    CREATE_PIER {
+        @Override
+        public ActionCommand getCommand(ActionCommandsFactory commandsFactory) {
+            return commandsFactory.getCreatePierCommand();
+        }
+    },
+    DELETE_PIER {
+        @Override
+        public ActionCommand getCommand(ActionCommandsFactory commandsFactory) {
+            return commandsFactory.getDeletePierCommand();
+        }
     };
     
     public abstract ActionCommand getCommand(ActionCommandsFactory commandsFactory);

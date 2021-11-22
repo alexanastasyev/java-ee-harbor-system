@@ -11,9 +11,9 @@ public interface UserDao {
 
     List<User> findAll();
 
-    List<User> findUsersNotDeletedWithoutAdmins();
+    List<User> findNotDeletedWithoutAdmins();
 
-    void saveUser(User user);
+    void save(User user);
 
-    void updateUser(User user);
+    void update(User user);
 }

@@ -67,15 +67,16 @@ public class DaoFactoryImpl extends DaoFactory {
     }
 
     @Override
-    public ProductDao productDao() {
+    public ProductDao getProductDao() {
         return new ProductDaoImpl(this.jdbcQueryExecutor, this.getUserDao(), this.getPierDao());
     }
 
     @Override
-    public PierAssignmentDao pierAssignmentDao() {
+    public PierAssignmentDao getPierAssignmentDao() {
         return new PierAssignmentDaoImpl(this.jdbcQueryExecutor, this.getPierDao(), this.getUserDao(), this.getRequestStatusDao());
     }
 
+    @Override
     public PierDao getPierDao() {
         return new PierDaoImpl(this.jdbcQueryExecutor);
     }

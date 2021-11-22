@@ -18,7 +18,7 @@ public class ShowCreateUserPageCommand implements ActionCommand {
 
     @Override
     public ActionCommandResult execute(HttpServletRequest request) {
-        request.getSession().setAttribute(Resourcer.getString("request.createUserPage.attribute.roles"),
+        request.setAttribute(Resourcer.getString("request.createUserPage.attribute.roles"),
                 showCreateUserPageLogic.getAllRoles());
         return new ActionCommandResult(
                 Resourcer.getString("path.page.createUser"),

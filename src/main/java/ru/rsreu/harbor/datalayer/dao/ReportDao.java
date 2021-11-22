@@ -9,5 +9,5 @@ public interface ReportDao {
 
     List<Report> findAll();
 
-    void deleteById(Report report);
+    void delete(Report report);
 }

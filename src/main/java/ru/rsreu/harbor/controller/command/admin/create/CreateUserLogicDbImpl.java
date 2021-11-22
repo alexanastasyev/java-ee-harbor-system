@@ -12,6 +12,6 @@ public class CreateUserLogicDbImpl implements CreateUserLogic {
 
     @Override
     public void createUser(User user) {
-        this.userDao.saveUser(user);
+        this.userDao.save(user);
     }
 }

@@ -19,7 +19,7 @@ public class HandleUserBlockingLogicDbImpl implements HandleUserBlockingLogic {
     public void handleUserBlocking(String id) {
         User user = userDao.findById(Long.valueOf(id));
         Status newStatus = getNewStatus(user.getStatus());
-        userDao.updateUser(new User(
+        userDao.update(new User(
                 user.getId(),
                 user.getLogin(),
                 user.getPassword(),

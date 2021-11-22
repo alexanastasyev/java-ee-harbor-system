@@ -8,7 +8,7 @@
 <body>
     <form name="EditUserForm" method="POST" action="controller">
         <input type="hidden" name="command" value="edit_user"/>
-        <input type="hidden" name="id" value="${user.getId()}">
+        <input type="hidden" name="id" value="${user.getId()}"/>
         <label>
             Login: <input name="login" type="text" value="${user.getLogin()}"/>
         </label>

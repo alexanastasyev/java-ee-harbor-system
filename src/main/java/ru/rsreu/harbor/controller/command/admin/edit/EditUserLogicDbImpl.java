@@ -12,6 +12,6 @@ public class EditUserLogicDbImpl implements EditUserLogic{
 
     @Override
     public void updateUser(User user) {
-        this.userDao.updateUser(user);
+        this.userDao.update(user);
     }
 }

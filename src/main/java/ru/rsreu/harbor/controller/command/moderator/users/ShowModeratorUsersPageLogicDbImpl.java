@@ -14,6 +14,6 @@ public class ShowModeratorUsersPageLogicDbImpl implements ShowModeratorUsersPage
 
     @Override
     public List<User> getUsers() {
-        return userDao.findUsersNotDeletedWithoutAdmins();
+        return userDao.findNotDeletedWithoutAdmins();
     }
 }

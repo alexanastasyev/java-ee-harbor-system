@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 
 @CommandSupportedRolesTitles(titles = {"moderator"})
 public class ShowModeratorReportsPageCommand implements ActionCommand {
-
     ShowModeratorReportsPageLogic showModeratorReportsPageLogic;
 
     public ShowModeratorReportsPageCommand(ShowModeratorReportsPageLogic showModeratorReportsPageLogic) {
@@ -19,7 +18,7 @@ public class ShowModeratorReportsPageCommand implements ActionCommand {
 
     @Override
     public ActionCommandResult execute(HttpServletRequest request) {
-        request.getSession().setAttribute(
+        request.setAttribute(
                 Resourcer.getString("request.showModeratorReportsPage.attribute.reports"),
                 showModeratorReportsPageLogic.getReports()
         );

@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 public class ShowMainPageCommand implements ActionCommand {
     @Override
     public ActionCommandResult execute(HttpServletRequest request) {
-
         return new ActionCommandResult(
                 getPageByRole((Role) request.getSession()
                         .getAttribute(Resourcer.getString("session.attribute.name.role"))),

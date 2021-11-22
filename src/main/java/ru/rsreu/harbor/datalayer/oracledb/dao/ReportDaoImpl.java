@@ -35,7 +35,7 @@ public class ReportDaoImpl implements ReportDao {
     }
 
     @Override
-    public void deleteById(Report report) {
+    public void delete(Report report) {
         this.jdbcQueryExecutor.executeTransactionalQuery(REPORT_DELETE_ID_SQL, report, deleteRowMapper);
     }
 

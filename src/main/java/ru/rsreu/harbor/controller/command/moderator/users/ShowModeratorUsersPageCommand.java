@@ -18,7 +18,7 @@ public class ShowModeratorUsersPageCommand implements ActionCommand {
 
     @Override
     public ActionCommandResult execute(HttpServletRequest request) {
-        request.getSession().setAttribute(
+        request.setAttribute(
                 Resourcer.getString("request.moderatorUsersPage.attribute.users"),
                 showModeratorUsersPageLogic.getUsers());
         return new ActionCommandResult(

@@ -28,11 +28,11 @@ public class ShowEditUserPageCommand implements ActionCommand {
 
 
     private void formSuccessfulJspParameters(String idParameter, HttpServletRequest request) {
-        request.getSession().setAttribute(Resourcer.getString("request.editUserPage.attribute.user"),
+        request.setAttribute(Resourcer.getString("request.editUserPage.attribute.user"),
                 showEditUserPageCommandLogic.getUserById(idParameter));
-        request.getSession().setAttribute(Resourcer.getString("request.editUserPage.attribute.roles"),
+        request.setAttribute(Resourcer.getString("request.editUserPage.attribute.roles"),
                 showEditUserPageCommandLogic.getAllRoles());
-        request.getSession().setAttribute(Resourcer.getString("request.editUserPage.attribute.statuses"),
+        request.setAttribute(Resourcer.getString("request.editUserPage.attribute.statuses"),
                 showEditUserPageCommandLogic.getAllStatuses());
     }
 }

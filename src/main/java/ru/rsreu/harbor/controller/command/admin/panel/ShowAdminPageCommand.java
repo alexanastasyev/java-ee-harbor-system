@@ -18,7 +18,7 @@ public class ShowAdminPageCommand implements ActionCommand {
 
     @Override
     public ActionCommandResult execute(HttpServletRequest request) {
-        request.getSession().setAttribute(Resourcer.getString("request.adminPage.attribute.users"),
+        request.setAttribute(Resourcer.getString("request.adminPage.attribute.users"),
                 showAdminPageLogic.getAllUsers());
 
         return new ActionCommandResult(
