@@ -26,6 +26,7 @@ public class ShowReportPageCommand implements ActionCommand {
         );
         return new ActionCommandResult(
                 Resourcer.getString("path.page.report"),
-                ActionCommandResultTypes.FORWARD);
+                ActionCommandResultTypes.FORWARD
+        );
     }
 }

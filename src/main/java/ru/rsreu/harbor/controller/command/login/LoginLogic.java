@@ -7,5 +7,6 @@ public interface LoginLogic {
     boolean checkLogin(String login, String password);
 
     Role getUserRole(String login);
+
     Status getUserStatus(String login);
 }

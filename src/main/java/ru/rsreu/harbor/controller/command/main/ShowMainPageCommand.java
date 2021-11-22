@@ -14,7 +14,8 @@ public class ShowMainPageCommand implements ActionCommand {
         return new ActionCommandResult(
                 getPageByRole((Role) request.getSession()
                         .getAttribute(Resourcer.getString("session.attribute.name.role"))),
-                ActionCommandResultTypes.SEND_REDIRECT);
+                ActionCommandResultTypes.SEND_REDIRECT
+        );
     }
 
     private static String getPageByRole(Role role) {

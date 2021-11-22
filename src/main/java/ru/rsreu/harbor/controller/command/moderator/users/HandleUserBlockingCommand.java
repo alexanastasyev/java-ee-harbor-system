@@ -19,11 +19,14 @@ public class HandleUserBlockingCommand implements ActionCommand {
     @Override
     public ActionCommandResult execute(HttpServletRequest request) {
         handleUserBlockingLogic.handleUserBlocking(
-                request.getParameter(Resourcer.getString("request.handleUserBlockingCommand.parameter.id")));
+                request.getParameter(Resourcer.getString("request.handleUserBlockingCommand.parameter.id"))
+        );
         String page = request.getParameter(
-                Resourcer.getString("request.handleUserBlockingCommand.parameter.nextPage"));
+                Resourcer.getString("request.handleUserBlockingCommand.parameter.nextPage")
+        );
         return new ActionCommandResult(
                 page,
-                ActionCommandResultTypes.SEND_REDIRECT);
+                ActionCommandResultTypes.SEND_REDIRECT
+        );
     }
 }

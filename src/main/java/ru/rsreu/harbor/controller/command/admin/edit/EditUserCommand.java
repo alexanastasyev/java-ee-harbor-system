@@ -25,6 +25,7 @@ public class EditUserCommand implements ActionCommand {
         editUserLogic.updateUser(dataTransferObject.formModel(request));
         return new ActionCommandResult(
                 Resourcer.getString("command.path.showAdminPage"),
-                ActionCommandResultTypes.SEND_REDIRECT);
+                ActionCommandResultTypes.SEND_REDIRECT
+        );
     }
 }

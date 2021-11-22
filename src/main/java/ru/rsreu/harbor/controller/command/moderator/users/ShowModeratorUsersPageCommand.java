@@ -20,9 +20,11 @@ public class ShowModeratorUsersPageCommand implements ActionCommand {
     public ActionCommandResult execute(HttpServletRequest request) {
         request.setAttribute(
                 Resourcer.getString("request.moderatorUsersPage.attribute.users"),
-                showModeratorUsersPageLogic.getUsers());
+                showModeratorUsersPageLogic.getUsers()
+        );
         return new ActionCommandResult(
                 Resourcer.getString("path.page.moderatorUsers"),
-                ActionCommandResultTypes.FORWARD);
+                ActionCommandResultTypes.FORWARD
+        );
     }
 }

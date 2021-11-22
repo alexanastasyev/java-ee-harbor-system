@@ -26,6 +26,7 @@ public class ShowAdminPiersPageCommand implements ActionCommand {
                 this.showAdminPiersPageLogic.getPiersAvailabilities(piers));
         return new ActionCommandResult(
                 Resourcer.getString("path.page.adminPiers"),
-                ActionCommandResultTypes.FORWARD);
+                ActionCommandResultTypes.FORWARD
+        );
     }
 }

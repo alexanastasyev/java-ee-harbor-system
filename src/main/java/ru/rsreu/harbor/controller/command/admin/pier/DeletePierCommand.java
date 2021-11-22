@@ -19,9 +19,11 @@ public class DeletePierCommand implements ActionCommand {
     @Override
     public ActionCommandResult execute(HttpServletRequest request) {
         this.deletePierLogic.deletePierById(request.getParameter(
-                Resourcer.getString("request.deletePierCommand.parameter.id")));
+                Resourcer.getString("request.deletePierCommand.parameter.id")
+        ));
         return new ActionCommandResult(
                 Resourcer.getString("command.path.showAdminPiersPage"),
-                ActionCommandResultTypes.SEND_REDIRECT);
+                ActionCommandResultTypes.SEND_REDIRECT
+        );
     }
 }

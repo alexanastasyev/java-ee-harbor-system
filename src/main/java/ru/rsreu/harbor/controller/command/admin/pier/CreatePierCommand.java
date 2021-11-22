@@ -21,6 +21,7 @@ public class CreatePierCommand implements ActionCommand {
         this.createPierLogic.createPier();
         return new ActionCommandResult(
                 Resourcer.getString("command.path.showAdminPiersPage"),
-                ActionCommandResultTypes.SEND_REDIRECT);
+                ActionCommandResultTypes.SEND_REDIRECT
+        );
     }
 }

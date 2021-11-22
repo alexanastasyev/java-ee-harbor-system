@@ -12,6 +12,7 @@ public class ShowLoginPageCommand implements ActionCommand {
     public ActionCommandResult execute(HttpServletRequest request) {
         return new ActionCommandResult(
                 Resourcer.getString("path.page.login"),
-                ActionCommandResultTypes.FORWARD);
+                ActionCommandResultTypes.FORWARD
+        );
     }
 }

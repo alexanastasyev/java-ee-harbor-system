@@ -23,6 +23,7 @@ public class ShowAdminPageCommand implements ActionCommand {
 
         return new ActionCommandResult(
                 Resourcer.getString("path.page.admin"),
-                ActionCommandResultTypes.FORWARD);
+                ActionCommandResultTypes.FORWARD
+        );
     }
 }

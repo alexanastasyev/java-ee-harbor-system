@@ -13,6 +13,7 @@ public class LogoutCommand implements ActionCommand {
         request.getSession().invalidate();
         return new ActionCommandResult(
                 Resourcer.getString("command.path.showLoginPage"),
-                ActionCommandResultTypes.SEND_REDIRECT);
+                ActionCommandResultTypes.SEND_REDIRECT
+        );
     }
 }

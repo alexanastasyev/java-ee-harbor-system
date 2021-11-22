@@ -23,6 +23,7 @@ public class DeleteReportCommand implements ActionCommand {
         );
         return new ActionCommandResult(
                 Resourcer.getString("command.path.showModeratorReportsPage"),
-                ActionCommandResultTypes.SEND_REDIRECT);
+                ActionCommandResultTypes.SEND_REDIRECT
+        );
     }
 }

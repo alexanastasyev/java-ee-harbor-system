@@ -25,9 +25,10 @@ public class LoginCommand implements ActionCommand {
         String password = request.getParameter(PASSWORD_PARAMETER_NAME);
 
         if (loginLogic.checkLogin(login, password)) {
-            request.getSession().setAttribute(
-                    Resourcer.getString("request.mainPage.attribute.user"), login);
             page = Resourcer.getString("command.path.showMainPage");
+            request.getSession().setAttribute(
+                    Resourcer.getString("request.mainPage.attribute.user"), login
+            );
             request.getSession().setAttribute(Resourcer.getString("session.attribute.name.role"),
                     this.loginLogic.getUserRole(login));
             request.getSession().setAttribute(Resourcer.getString("session.attribute.name.status"),

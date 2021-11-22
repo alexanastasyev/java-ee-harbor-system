@@ -24,6 +24,7 @@ public class ShowModeratorReportsPageCommand implements ActionCommand {
         );
         return new ActionCommandResult(
                 Resourcer.getString("path.page.moderatorReports"),
-                ActionCommandResultTypes.FORWARD);
+                ActionCommandResultTypes.FORWARD
+        );
     }
 }

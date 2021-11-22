@@ -12,6 +12,7 @@ public class ShowInactivePageCommand implements ActionCommand {
     public ActionCommandResult execute(HttpServletRequest request) {
         return new ActionCommandResult(
                 Resourcer.getString("path.page.inactive"),
-                ActionCommandResultTypes.FORWARD);
+                ActionCommandResultTypes.FORWARD
+        );
     }
 }

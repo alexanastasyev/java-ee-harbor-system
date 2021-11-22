@@ -10,7 +10,7 @@
     <h1>Welcome, Admin</h1>
     ${errorMessage}
     <hr/>
-    <a href="controller?command=show_admin_pier_page">Piers</a>
+    <a href="controller?command=show_admin_piers_page">Piers</a>
     <hr/>
         <table>
             <tr>

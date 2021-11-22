@@ -19,11 +19,13 @@ public class ShowEditUserPageCommand implements ActionCommand {
     @Override
     public ActionCommandResult execute(HttpServletRequest request) {
         String idParameter = request.getParameter(
-                Resourcer.getString("request.editUser.parameter.id"));
+                Resourcer.getString("request.editUser.parameter.id")
+        );
         this.formSuccessfulJspParameters(idParameter, request);
         return new ActionCommandResult(
                 Resourcer.getString("path.page.editUser"),
-                ActionCommandResultTypes.FORWARD);
+                ActionCommandResultTypes.FORWARD
+        );
     }
 
 
