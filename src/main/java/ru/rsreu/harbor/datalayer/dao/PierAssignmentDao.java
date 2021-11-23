@@ -9,6 +9,8 @@ import java.util.List;
 public interface PierAssignmentDao {
     PierAssignment findById(Long id);
 
+    List<PierAssignment> findAll();
+
     List<PierAssignment> findByPier(Pier pier);
 
     PierAssignment findByCaptain(User captain);

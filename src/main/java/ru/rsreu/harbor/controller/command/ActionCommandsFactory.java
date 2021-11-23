@@ -46,4 +46,10 @@ public interface ActionCommandsFactory {
     ActionCommand getArrivePierCommand();
 
     ActionCommand getRequestDepartmentCommand();
+
+    ActionCommand getShowDispatcherMainPageCommand();
+
+    ActionCommand getApproveArrivalRequestCommand();
+
+    ActionCommand getApproveDepartmentRequestCommand();
 }

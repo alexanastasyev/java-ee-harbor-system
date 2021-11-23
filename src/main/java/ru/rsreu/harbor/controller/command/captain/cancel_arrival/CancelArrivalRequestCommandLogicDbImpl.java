@@ -1,4 +1,4 @@
-package ru.rsreu.harbor.controller.command.captain.cancel;
+package ru.rsreu.harbor.controller.command.captain.cancel_arrival;
 
 import ru.rsreu.harbor.datalayer.dao.PierAssignmentDao;
 import ru.rsreu.harbor.datalayer.dao.UserDao;

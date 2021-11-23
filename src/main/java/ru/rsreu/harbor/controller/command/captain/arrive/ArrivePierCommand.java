@@ -1,4 +1,4 @@
-package ru.rsreu.harbor.controller.command.captain.arrvie;
+package ru.rsreu.harbor.controller.command.captain.arrive;
 
 import com.prutzkow.resourcer.Resourcer;
 import ru.rsreu.harbor.controller.command.ActionCommand;

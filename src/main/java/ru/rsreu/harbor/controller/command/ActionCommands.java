@@ -151,6 +151,24 @@ public enum ActionCommands {
         public ActionCommand getCommand(ActionCommandsFactory commandsFactory) {
             return commandsFactory.getCancelArrivalRequestCommand();
         }
+    },
+    SHOW_DISPATCHER_MAIN_PAGE {
+        @Override
+        public ActionCommand getCommand(ActionCommandsFactory commandsFactory) {
+            return commandsFactory.getShowDispatcherMainPageCommand();
+        }
+    },
+    APPROVE_ARRIVAL_REQUEST {
+        @Override
+        public ActionCommand getCommand(ActionCommandsFactory commandsFactory) {
+            return commandsFactory.getApproveArrivalRequestCommand();
+        }
+    },
+    APPROVE_DEPARTMENT_REQUEST {
+        @Override
+        public ActionCommand getCommand(ActionCommandsFactory commandsFactory) {
+            return commandsFactory.getApproveDepartmentRequestCommand();
+        }
     };
 
     public abstract ActionCommand getCommand(ActionCommandsFactory commandsFactory);

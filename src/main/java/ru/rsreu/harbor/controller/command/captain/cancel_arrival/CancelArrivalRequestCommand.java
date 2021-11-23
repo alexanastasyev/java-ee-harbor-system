@@ -1,4 +1,4 @@
-package ru.rsreu.harbor.controller.command.captain.cancel;
+package ru.rsreu.harbor.controller.command.captain.cancel_arrival;
 
 import com.prutzkow.resourcer.Resourcer;
 import ru.rsreu.harbor.controller.command.ActionCommand;

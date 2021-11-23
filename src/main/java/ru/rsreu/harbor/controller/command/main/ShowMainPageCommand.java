@@ -39,6 +39,11 @@ public class ShowMainPageCommand implements ActionCommand {
                 result = Resourcer.getString("command.path.showCaptainMainPage");
                 break;
             }
+            case "dispatcher":
+            {
+                result = Resourcer.getString("command.path.showDispatcherMainPage");
+                break;
+            }
             default: {
                 result = Resourcer.getString("command.path.showLoginPage");
             }

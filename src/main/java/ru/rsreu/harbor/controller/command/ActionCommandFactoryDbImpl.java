@@ -5,19 +5,26 @@ import ru.rsreu.harbor.controller.command.admin.edit.*;
 import ru.rsreu.harbor.controller.command.admin.panel.ShowAdminPageCommand;
 import ru.rsreu.harbor.controller.command.admin.panel.ShowAdminPageLogicDbImpl;
 import ru.rsreu.harbor.controller.command.admin.pier.*;
-import ru.rsreu.harbor.controller.command.captain.arrvie.ArrivePierCommand;
-import ru.rsreu.harbor.controller.command.captain.arrvie.ArrivePierCommandLogicDbImpl;
+import ru.rsreu.harbor.controller.command.captain.arrive.ArrivePierCommand;
+import ru.rsreu.harbor.controller.command.captain.arrive.ArrivePierCommandLogicDbImpl;
 import ru.rsreu.harbor.controller.command.captain.request_arrival.RequestArrivalCommand;
 import ru.rsreu.harbor.controller.command.captain.request_arrival.RequestArrivalCommandLogicDbImpl;
-import ru.rsreu.harbor.controller.command.captain.cancel.CancelArrivalRequestCommand;
-import ru.rsreu.harbor.controller.command.captain.cancel.CancelArrivalRequestCommandLogicDbImpl;
+import ru.rsreu.harbor.controller.command.captain.cancel_arrival.CancelArrivalRequestCommand;
+import ru.rsreu.harbor.controller.command.captain.cancel_arrival.CancelArrivalRequestCommandLogicDbImpl;
 import ru.rsreu.harbor.controller.command.captain.main.ShowCaptainMainPageCommand;
 import ru.rsreu.harbor.controller.command.captain.main.ShowCaptainMainPageCommandLogicDbImpl;
 import ru.rsreu.harbor.controller.command.captain.request_department.RequestDepartmentCommand;
 import ru.rsreu.harbor.controller.command.captain.request_department.RequestDepartmentCommandLogicDbImpl;
+import ru.rsreu.harbor.controller.command.dispatcher.approve_arrival.ApproveArrivalRequestCommand;
+import ru.rsreu.harbor.controller.command.dispatcher.approve_arrival.ApproveArrivalRequestCommandLogicDbImpl;
+import ru.rsreu.harbor.controller.command.dispatcher.approve_arrival.ArrivalRequestFormDto;
+import ru.rsreu.harbor.controller.command.dispatcher.approve_department.ApproveDepartmentRequestCommand;
+import ru.rsreu.harbor.controller.command.dispatcher.approve_department.ApproveDepartmentRequestCommandLogicDbImpl;
+import ru.rsreu.harbor.controller.command.dispatcher.main.ShowDispatcherMainPageCommand;
+import ru.rsreu.harbor.controller.command.dispatcher.main.ShowDispatcherMainPageCommandLogicDbImpl;
 import ru.rsreu.harbor.controller.command.inactive.ShowInactivePageCommand;
 import ru.rsreu.harbor.controller.command.login.LoginCommand;
-import ru.rsreu.harbor.controller.command.login.LoginLogicDbImpl;
+import ru.rsreu.harbor.controller.command.login.LoginCommandLogicDbImpl;
 import ru.rsreu.harbor.controller.command.login.ShowLoginPageCommand;
 import ru.rsreu.harbor.controller.command.logout.LogoutCommand;
 import ru.rsreu.harbor.controller.command.main.ShowMainPageCommand;
@@ -37,7 +44,7 @@ public class ActionCommandFactoryDbImpl implements ActionCommandsFactory {
 
     @Override
     public ActionCommand getLoginCommand() {
-        return new LoginCommand(new LoginLogicDbImpl(daoFactory.getUserDao()));
+        return new LoginCommand(new LoginCommandLogicDbImpl(daoFactory.getUserDao()));
     }
 
     @Override
@@ -180,5 +187,34 @@ public class ActionCommandFactoryDbImpl implements ActionCommandsFactory {
                 this.daoFactory.getRequestStatusDao(),
                 this.daoFactory.getPierAssignmentDao()
         ));
+    }
+
+    @Override
+    public ActionCommand getShowDispatcherMainPageCommand() {
+        return new ShowDispatcherMainPageCommand(new ShowDispatcherMainPageCommandLogicDbImpl(
+                this.daoFactory.getPierDao(),
+                this.daoFactory.getPierAssignmentDao()
+        ));
+    }
+
+    @Override
+    public ActionCommand getApproveArrivalRequestCommand() {
+        return new ApproveArrivalRequestCommand(
+                new ApproveArrivalRequestCommandLogicDbImpl(
+                        this.daoFactory.getPierDao(),
+                        this.daoFactory.getRequestStatusDao(),
+                        this.daoFactory.getPierAssignmentDao()),
+                new ArrivalRequestFormDto()
+        );
+    }
+
+    @Override
+    public ActionCommand getApproveDepartmentRequestCommand() {
+        return new ApproveDepartmentRequestCommand(
+                new ApproveDepartmentRequestCommandLogicDbImpl(
+                        this.daoFactory.getRequestStatusDao(),
+                        this.daoFactory.getPierAssignmentDao()
+                )
+        );
     }
 }

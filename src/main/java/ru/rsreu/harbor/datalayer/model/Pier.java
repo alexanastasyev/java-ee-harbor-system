@@ -1,5 +1,7 @@
 package ru.rsreu.harbor.datalayer.model;
 
+import java.util.Objects;
+
 public class Pier {
     private final Long id;
 
@@ -9,5 +11,18 @@ public class Pier {
 
     public Long getId() {
         return id;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Pier pier = (Pier) o;
+        return Objects.equals(id, pier.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }

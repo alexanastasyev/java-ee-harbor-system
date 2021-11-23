@@ -28,6 +28,8 @@ public class PierAssignmentDaoImpl implements PierAssignmentDao {
             Resourcer.getString("dao.pier_assignment.delete.sql");
     private static final String UPDATE_PIER_ASSIGNMENT_SQL =
             Resourcer.getString("dao.pier_assignment.update.sql");
+    private static final String PIER_ASSIGNMENT_ALL_SQL =
+            Resourcer.getString("dao.pier_assignment.all.sql");
 
     private final JdbcQueryExecutor jdbcQueryExecutor;
     private PierDao pierDao;
@@ -49,10 +51,15 @@ public class PierAssignmentDaoImpl implements PierAssignmentDao {
     @Override
     public PierAssignment findById(Long id) {
         return this.jdbcQueryExecutor.executeQuery(
-                this.pierAssignmentRowMapper,
-                PIER_ASSIGNMENT_BY_ID_SQL,
-                id.toString())
+                        this.pierAssignmentRowMapper,
+                        PIER_ASSIGNMENT_BY_ID_SQL,
+                        id.toString())
                 .get(0);
+    }
+
+    @Override
+    public List<PierAssignment> findAll() {
+        return this.jdbcQueryExecutor.executeQuery(this.pierAssignmentRowMapper, PIER_ASSIGNMENT_ALL_SQL);
     }
 
     @Override
@@ -107,28 +114,29 @@ public class PierAssignmentDaoImpl implements PierAssignmentDao {
         return new PierAssignment(
                 ((BigDecimal) row.get(Resourcer.getString("dao.pier_assignment.column.id"))).longValue(),
                 (pierId != null) ? this.pierDao.findById(pierId.longValue()) : new Pier(-1L),
-                userDao.findById(((BigDecimal) row.get(Resourcer.getString("dao.pier_assignment.column.user_id")))
-                        .longValue()),
+                userDao.findById((
+                        (BigDecimal) row.get(Resourcer.getString("dao.pier_assignment.column.user_id"))
+                ).longValue()),
                 requestStatusDao.findById(((BigDecimal) row.get(
                         Resourcer.getString("dao.pier_assignment.column.request_status_id"))
                 ).longValue())
         );
     };
 
-    private final ObjectMapper<PierAssignment> createPierAssignmentObjectMapper = (pierAssignment) -> new String[] {
+    private final ObjectMapper<PierAssignment> createPierAssignmentObjectMapper = (pierAssignment) -> new String[]{
             null,
             pierAssignment.getCaptain().getId().toString(),
             pierAssignment.getRequestStatus().getId().toString()
     };
 
-    private final ObjectMapper<PierAssignment> updatePierAssignmentObjectMapper = (pierAssignment) -> new String[] {
+    private final ObjectMapper<PierAssignment> updatePierAssignmentObjectMapper = (pierAssignment) -> new String[]{
             pierAssignment.getPier().getId().toString(),
             pierAssignment.getCaptain().getId().toString(),
             pierAssignment.getRequestStatus().getId().toString(),
             pierAssignment.getId().toString()
     };
 
-    private final ObjectMapper<PierAssignment> deletePierAssignmentObjectMapper = (pierAssignment) -> new String[] {
+    private final ObjectMapper<PierAssignment> deletePierAssignmentObjectMapper = (pierAssignment) -> new String[]{
             pierAssignment.getId().toString()
     };
 }

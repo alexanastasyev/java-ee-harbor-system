@@ -3,7 +3,7 @@ package ru.rsreu.harbor.controller.command.login;
 import ru.rsreu.harbor.datalayer.model.Role;
 import ru.rsreu.harbor.datalayer.model.Status;
 
-public interface LoginLogic {
+public interface LoginCommandLogic {
     boolean checkLogin(String login, String password);
 
     Role getUserRole(String login);

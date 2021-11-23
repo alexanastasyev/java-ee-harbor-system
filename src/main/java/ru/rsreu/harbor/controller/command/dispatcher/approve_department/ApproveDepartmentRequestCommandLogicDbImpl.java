@@ -1,31 +1,33 @@
-package ru.rsreu.harbor.controller.command.captain.arrvie;
+package ru.rsreu.harbor.controller.command.dispatcher.approve_department;
 
 import com.prutzkow.resourcer.Resourcer;
 import ru.rsreu.harbor.datalayer.dao.PierAssignmentDao;
 import ru.rsreu.harbor.datalayer.dao.RequestStatusDao;
-import ru.rsreu.harbor.datalayer.dao.UserDao;
 import ru.rsreu.harbor.datalayer.model.PierAssignment;
 
-public class ArrivePierCommandLogicDbImpl implements ArrivePierCommandLogic {
-    private final UserDao userDao;
+public class ApproveDepartmentRequestCommandLogicDbImpl implements ApproveDepartmentRequestCommandLogic {
     private final RequestStatusDao requestStatusDao;
     private final PierAssignmentDao pierAssignmentDao;
 
-    public ArrivePierCommandLogicDbImpl(UserDao userDao, RequestStatusDao requestStatusDao, PierAssignmentDao pierAssignmentDao) {
-        this.userDao = userDao;
+    public ApproveDepartmentRequestCommandLogicDbImpl(
+            RequestStatusDao requestStatusDao,
+            PierAssignmentDao pierAssignmentDao
+    ) {
         this.requestStatusDao = requestStatusDao;
         this.pierAssignmentDao = pierAssignmentDao;
     }
 
     @Override
-    public void arrivePier(String captainLogin) {
-        PierAssignment oldPierAssignment = this.pierAssignmentDao.findByCaptain(this.userDao.findByLogin(captainLogin));
+    public void approveDepartmentRequest(String pierAssignmentId) {
+        PierAssignment oldPierAssignment = this.pierAssignmentDao.findById(Long.valueOf(pierAssignmentId));
         this.pierAssignmentDao.update(
                 new PierAssignment(
                         oldPierAssignment.getId(),
                         oldPierAssignment.getPier(),
                         oldPierAssignment.getCaptain(),
-                        this.requestStatusDao.findByTitle(Resourcer.getString("db.requestStatus.locked"))
+                        this.requestStatusDao.findByTitle(
+                                Resourcer.getString("db.requestStatus.approved_department")
+                        )
                 )
         );
     }

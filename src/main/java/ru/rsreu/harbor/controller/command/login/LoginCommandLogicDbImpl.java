@@ -5,10 +5,10 @@ import ru.rsreu.harbor.datalayer.model.Role;
 import ru.rsreu.harbor.datalayer.model.Status;
 import ru.rsreu.harbor.datalayer.model.User;
 
-public class LoginLogicDbImpl implements LoginLogic {
+public class LoginCommandLogicDbImpl implements LoginCommandLogic {
     private final UserDao userDao;
 
-    public LoginLogicDbImpl(UserDao userDao) {
+    public LoginCommandLogicDbImpl(UserDao userDao) {
         this.userDao = userDao;
     }
 

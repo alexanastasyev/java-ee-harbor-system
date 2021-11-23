@@ -11,10 +11,10 @@ public class LoginCommand implements ActionCommand {
     private static final String LOGIN_PARAMETER_NAME = "login";
     private static final String PASSWORD_PARAMETER_NAME = "password";
 
-    private final LoginLogic loginLogic;
+    private final LoginCommandLogic loginCommandLogic;
 
-    public LoginCommand(LoginLogic loginLogic) {
-        this.loginLogic = loginLogic;
+    public LoginCommand(LoginCommandLogic loginCommandLogic) {
+        this.loginCommandLogic = loginCommandLogic;
     }
 
     @Override
@@ -24,15 +24,15 @@ public class LoginCommand implements ActionCommand {
         String login = request.getParameter(LOGIN_PARAMETER_NAME);
         String password = request.getParameter(PASSWORD_PARAMETER_NAME);
 
-        if (loginLogic.checkLogin(login, password)) {
+        if (loginCommandLogic.checkLogin(login, password)) {
             page = Resourcer.getString("command.path.showMainPage");
             request.getSession().setAttribute(
                     Resourcer.getString("request.mainPage.attribute.user"), login
             );
             request.getSession().setAttribute(Resourcer.getString("session.attribute.name.role"),
-                    this.loginLogic.getUserRole(login));
+                    this.loginCommandLogic.getUserRole(login));
             request.getSession().setAttribute(Resourcer.getString("session.attribute.name.status"),
-                    this.loginLogic.getUserStatus(login));
+                    this.loginCommandLogic.getUserStatus(login));
         } else {
             request.setAttribute(Resourcer.getString("request.attribute.errorLoginPassMessage"),
                     Resourcer.getString("message.loginError"));
