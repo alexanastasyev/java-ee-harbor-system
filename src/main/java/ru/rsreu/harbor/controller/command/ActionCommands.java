@@ -109,7 +109,49 @@ public enum ActionCommands {
         public ActionCommand getCommand(ActionCommandsFactory commandsFactory) {
             return commandsFactory.getDeletePierCommand();
         }
+    },
+    SHOW_CAPTAIN_MAIN_PAGE {
+        @Override
+        public ActionCommand getCommand(ActionCommandsFactory commandsFactory) {
+            return commandsFactory.getShowCaptainMainPageCommand();
+        }
+    },
+    REQUEST_ARRIVAL {
+        @Override
+        public ActionCommand getCommand(ActionCommandsFactory commandsFactory) {
+            return commandsFactory.getRequestArrivalCommand();
+        }
+    },
+    CANCEL_ARRIVAL_REQUEST{
+        @Override
+        public ActionCommand getCommand(ActionCommandsFactory commandsFactory) {
+            return commandsFactory.getCancelArrivalRequestCommand();
+        }
+    },
+    ARRIVE_PIER {
+        @Override
+        public ActionCommand getCommand(ActionCommandsFactory commandsFactory) {
+            return commandsFactory.getArrivePierCommand();
+        }
+    },
+    REQUEST_DEPARTMENT {
+        @Override
+        public ActionCommand getCommand(ActionCommandsFactory commandsFactory) {
+            return commandsFactory.getRequestDepartmentCommand();
+        }
+    },
+    CANCEL_DEPARTMENT_REQUEST {
+        @Override
+        public ActionCommand getCommand(ActionCommandsFactory commandsFactory) {
+            return commandsFactory.getArrivePierCommand();
+        }
+    },
+    DEPART_PIER {
+        @Override
+        public ActionCommand getCommand(ActionCommandsFactory commandsFactory) {
+            return commandsFactory.getCancelArrivalRequestCommand();
+        }
     };
-    
+
     public abstract ActionCommand getCommand(ActionCommandsFactory commandsFactory);
 }

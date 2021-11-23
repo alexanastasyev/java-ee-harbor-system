@@ -5,6 +5,16 @@ import ru.rsreu.harbor.controller.command.admin.edit.*;
 import ru.rsreu.harbor.controller.command.admin.panel.ShowAdminPageCommand;
 import ru.rsreu.harbor.controller.command.admin.panel.ShowAdminPageLogicDbImpl;
 import ru.rsreu.harbor.controller.command.admin.pier.*;
+import ru.rsreu.harbor.controller.command.captain.arrvie.ArrivePierCommand;
+import ru.rsreu.harbor.controller.command.captain.arrvie.ArrivePierCommandLogicDbImpl;
+import ru.rsreu.harbor.controller.command.captain.request_arrival.RequestArrivalCommand;
+import ru.rsreu.harbor.controller.command.captain.request_arrival.RequestArrivalCommandLogicDbImpl;
+import ru.rsreu.harbor.controller.command.captain.cancel.CancelArrivalRequestCommand;
+import ru.rsreu.harbor.controller.command.captain.cancel.CancelArrivalRequestCommandLogicDbImpl;
+import ru.rsreu.harbor.controller.command.captain.main.ShowCaptainMainPageCommand;
+import ru.rsreu.harbor.controller.command.captain.main.ShowCaptainMainPageCommandLogicDbImpl;
+import ru.rsreu.harbor.controller.command.captain.request_department.RequestDepartmentCommand;
+import ru.rsreu.harbor.controller.command.captain.request_department.RequestDepartmentCommandLogicDbImpl;
 import ru.rsreu.harbor.controller.command.inactive.ShowInactivePageCommand;
 import ru.rsreu.harbor.controller.command.login.LoginCommand;
 import ru.rsreu.harbor.controller.command.login.LoginLogicDbImpl;
@@ -127,5 +137,48 @@ public class ActionCommandFactoryDbImpl implements ActionCommandsFactory {
     @Override
     public ActionCommand getDeletePierCommand() {
         return new DeletePierCommand(new DeletePierLogicDbImpl(this.daoFactory.getPierDao()));
+    }
+
+    @Override
+    public ActionCommand getShowCaptainMainPageCommand() {
+        return new ShowCaptainMainPageCommand(new ShowCaptainMainPageCommandLogicDbImpl(
+                this.daoFactory.getUserDao(),
+                this.daoFactory.getPierAssignmentDao()
+        ));
+    }
+
+    @Override
+    public ActionCommand getRequestArrivalCommand() {
+        return new RequestArrivalCommand(new RequestArrivalCommandLogicDbImpl(
+                this.daoFactory.getUserDao(),
+                this.daoFactory.getPierAssignmentDao(),
+                this.daoFactory.getRequestStatusDao()
+        ));
+    }
+
+    @Override
+    public ActionCommand getCancelArrivalRequestCommand() {
+        return new CancelArrivalRequestCommand(new CancelArrivalRequestCommandLogicDbImpl(
+                this.daoFactory.getUserDao(),
+                this.daoFactory.getPierAssignmentDao()
+        ));
+    }
+
+    @Override
+    public ActionCommand getArrivePierCommand() {
+        return new ArrivePierCommand(new ArrivePierCommandLogicDbImpl(
+           this.daoFactory.getUserDao(),
+           this.daoFactory.getRequestStatusDao(),
+           this.daoFactory.getPierAssignmentDao()
+        ));
+    }
+
+    @Override
+    public ActionCommand getRequestDepartmentCommand() {
+        return new RequestDepartmentCommand(new RequestDepartmentCommandLogicDbImpl(
+                this.daoFactory.getUserDao(),
+                this.daoFactory.getRequestStatusDao(),
+                this.daoFactory.getPierAssignmentDao()
+        ));
     }
 }

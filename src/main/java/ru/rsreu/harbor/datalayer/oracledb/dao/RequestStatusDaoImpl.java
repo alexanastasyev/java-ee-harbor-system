@@ -9,7 +9,10 @@ import ru.rsreu.harbor.datalayer.model.RequestStatus;
 import java.math.BigDecimal;
 
 public class RequestStatusDaoImpl implements RequestStatusDao {
-    private static final String REQUEST_STATUS_BY_ID_SQL = Resourcer.getString("dao.request_status.id.sql");
+    private static final String REQUEST_STATUS_BY_ID_SQL =
+            Resourcer.getString("dao.request_status.id.sql");
+    private static final String REQUEST_STATUS_BY_TITLE_SQL =
+            Resourcer.getString("dao.request_status.title.sql");
 
     private final JdbcQueryExecutor jdbcQueryExecutor;
 
@@ -20,6 +23,11 @@ public class RequestStatusDaoImpl implements RequestStatusDao {
     @Override
     public RequestStatus findById(Long id) {
         return this.jdbcQueryExecutor.executeQuery(this.requestStatusRowMapper, REQUEST_STATUS_BY_ID_SQL, id.toString()).get(0);
+    }
+
+    @Override
+    public RequestStatus findByTitle(String title) {
+        return this.jdbcQueryExecutor.executeQuery(this.requestStatusRowMapper, REQUEST_STATUS_BY_TITLE_SQL, title).get(0);
     }
 
     private final RowMapper<RequestStatus> requestStatusRowMapper = (row) -> new RequestStatus(

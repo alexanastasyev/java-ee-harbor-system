@@ -36,4 +36,14 @@ public interface ActionCommandsFactory {
     ActionCommand getCreatePierCommand();
 
     ActionCommand getDeletePierCommand();
+
+    ActionCommand getShowCaptainMainPageCommand();
+
+    ActionCommand getRequestArrivalCommand();
+
+    ActionCommand getCancelArrivalRequestCommand();
+
+    ActionCommand getArrivePierCommand();
+
+    ActionCommand getRequestDepartmentCommand();
 }
