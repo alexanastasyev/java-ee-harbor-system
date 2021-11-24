@@ -20,8 +20,8 @@ public class UserDaoImpl implements UserDao {
     private static final String USER_ALL_SQL = Resourcer.getString("dao.user.all.sql");
     private static final String SAVE_USER_SQL = Resourcer.getString("dao.user.create.sql");
     private static final String UPDATE_USER_SQL = Resourcer.getString("dao.user.update.sql");
-    private static final String USER_ALL_WITHOUT_ADMINS_AND_NOT_DELETED =
-            Resourcer.getString("dao.user.all.notAdmins.notDeleted.sql");
+    private static final String USER_ALL_WITHOUT_ADMINS_WITHOUT_MODERATORS_AND_NOT_DELETED_SQL =
+            Resourcer.getString("dao.user.all.notAdmins.notModerators.notDeleted.sql");
     private static final String USER_ALL_EXCLUDE_USER =
             Resourcer.getString("dao.user.all.notAdminsAndModerators.notDeleted.excludeUser.sql");
 
@@ -55,8 +55,9 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public List<User> findAllNotDeletedWithoutAdmins() {
-        return jdbcQueryExecutor.executeQuery(this.userRowMapper, USER_ALL_WITHOUT_ADMINS_AND_NOT_DELETED);
+    public List<User> findAllNotDeletedWithoutAdminsAndModerators() {
+        return jdbcQueryExecutor.executeQuery(this.userRowMapper,
+                USER_ALL_WITHOUT_ADMINS_WITHOUT_MODERATORS_AND_NOT_DELETED_SQL);
     }
 
     @Override

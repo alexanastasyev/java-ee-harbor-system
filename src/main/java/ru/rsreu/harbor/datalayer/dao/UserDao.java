@@ -12,7 +12,7 @@ public interface UserDao {
 
     List<User> findAll();
 
-    List<User> findAllNotDeletedWithoutAdmins();
+    List<User> findAllNotDeletedWithoutAdminsAndModerators();
 
     List<User> findAllNotDeletedWithoutAdminsAndModeratorsExcludeUser(User user);
 
