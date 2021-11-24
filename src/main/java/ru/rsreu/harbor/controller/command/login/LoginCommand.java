@@ -25,7 +25,7 @@ public class LoginCommand implements ActionCommand {
         String password = request.getParameter(PASSWORD_PARAMETER_NAME);
         User user = this.loginCommandLogic.getUserByLogin(login);
         String page;
-        if (loginCommandLogic.checkLogin(user, password)) {
+        if (loginCommandLogic.checkLogin(user.getPassword(), password)) {
             page = Resourcer.getString("command.path.showMainPage");
             this.formSuccessfulJspParameters(user, request);
             return new ActionCommandResult(page, ActionCommandResultTypes.FORWARD);

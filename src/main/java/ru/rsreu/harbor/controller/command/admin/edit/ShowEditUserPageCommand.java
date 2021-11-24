@@ -23,7 +23,14 @@ public class ShowEditUserPageCommand implements ActionCommand {
         String idParameter = request.getParameter(
                 Resourcer.getString("request.editUser.parameter.id"));
         if (!(idParameter == null || idParameter.isEmpty())) {
-            this.formSuccessfulJspParameters(this.showEditUserPageCommandLogic.getUserById(idParameter), request);
+            this.formSuccessfulJspParameters(
+                    this.showEditUserPageCommandLogic.getUserByLogin(
+                            request.getSession().getAttribute(
+                                    Resourcer.getString("session.attribute.name.user")
+                            ).toString()
+                    ),
+                    this.showEditUserPageCommandLogic.getUserById(idParameter),
+                    request);
         } else {
             throw new ShowEditUserPageException();
         }
@@ -34,13 +41,14 @@ public class ShowEditUserPageCommand implements ActionCommand {
         );
     }
 
-
-    private void formSuccessfulJspParameters(User user, HttpServletRequest request) {
+    private void formSuccessfulJspParameters(User sessionUser, User editingUser, HttpServletRequest request) {
+        request.setAttribute(Resourcer.getString("request.editUserPage.attribute.isSelfEditing"),
+                this.showEditUserPageCommandLogic.isSelfEditing(sessionUser, editingUser));
         request.setAttribute(Resourcer.getString("request.editUserPage.attribute.user"),
-                user);
+                editingUser);
         request.setAttribute(Resourcer.getString("request.editUserPage.attribute.roles"),
-                showEditUserPageCommandLogic.getAllRoles());
+                this.showEditUserPageCommandLogic.getAllRoles());
         request.setAttribute(Resourcer.getString("request.editUserPage.attribute.statuses"),
-                showEditUserPageCommandLogic.getAllStatuses());
+                this.showEditUserPageCommandLogic.getAllStatuses());
     }
 }

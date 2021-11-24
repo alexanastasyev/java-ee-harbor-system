@@ -6,5 +6,5 @@ import ru.rsreu.harbor.datalayer.model.User;
 public interface LoginCommandLogic {
     User getUserByLogin(String login) throws LoginFaultException;
 
-    boolean checkLogin(User user, String password);
+    boolean checkLogin(String verifiablePassword, String password);
 }

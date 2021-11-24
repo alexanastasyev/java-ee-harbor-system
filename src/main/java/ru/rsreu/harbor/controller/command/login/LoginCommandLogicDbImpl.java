@@ -17,7 +17,7 @@ public class LoginCommandLogicDbImpl implements LoginCommandLogic {
     }
 
     @Override
-    public boolean checkLogin(User user, String password) {
-        return user.getPassword().equals(password);
+    public boolean checkLogin(String verifiablePassword, String password) {
+        return verifiablePassword.equals(password);
     }
 }

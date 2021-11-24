@@ -31,6 +31,11 @@ public class ShowEditUserPageCommandLogicDbImpl implements ShowEditUserPageComma
     }
 
     @Override
+    public User getUserByLogin(String login) {
+        return this.userDao.findByLogin(login).orElseThrow(IllegalArgumentException::new);
+    }
+
+    @Override
     public List<Role> getAllRoles() {
         return this.roleDao.findAll();
     }
@@ -38,5 +43,10 @@ public class ShowEditUserPageCommandLogicDbImpl implements ShowEditUserPageComma
     @Override
     public List<Status> getAllStatuses() {
         return this.statusDao.findAll();
+    }
+
+    @Override
+    public boolean isSelfEditing(User sessionUser, User editingUser) {
+        return sessionUser.equals(editingUser);
     }
 }

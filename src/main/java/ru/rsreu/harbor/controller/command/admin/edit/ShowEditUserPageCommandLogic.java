@@ -10,7 +10,11 @@ import java.util.List;
 public interface ShowEditUserPageCommandLogic {
     User getUserById(String id) throws ShowEditUserPageException;
 
+    User getUserByLogin(String login);
+
     List<Role> getAllRoles();
 
     List<Status> getAllStatuses();
+
+    boolean isSelfEditing(User sessionUser, User editingUser);
 }
