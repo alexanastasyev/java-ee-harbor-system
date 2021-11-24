@@ -169,6 +169,18 @@ public enum ActionCommands {
         public ActionCommand getCommand(ActionCommandsFactory commandsFactory) {
             return commandsFactory.getApproveDepartmentRequestCommand();
         }
+    },
+    SHOW_CREATE_REPORT_PAGE {
+        @Override
+        public ActionCommand getCommand(ActionCommandsFactory commandsFactory) {
+            return commandsFactory.getShowCreateReportPageCommand();
+        }
+    },
+    CREATE_REPORT {
+        @Override
+        public ActionCommand getCommand(ActionCommandsFactory commandsFactory) {
+            return commandsFactory.getCreateReportCommand();
+        }
     };
 
     public abstract ActionCommand getCommand(ActionCommandsFactory commandsFactory);

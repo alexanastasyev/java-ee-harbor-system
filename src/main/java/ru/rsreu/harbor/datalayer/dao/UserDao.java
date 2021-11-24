@@ -11,7 +11,9 @@ public interface UserDao {
 
     List<User> findAll();
 
-    List<User> findNotDeletedWithoutAdmins();
+    List<User> findAllNotDeletedWithoutAdmins();
+
+    List<User> findAllNotDeletedWithoutAdminsAndModeratorsExcludeUser(User user);
 
     void save(User user);
 

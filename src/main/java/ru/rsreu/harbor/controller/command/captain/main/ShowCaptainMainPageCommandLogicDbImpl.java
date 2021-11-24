@@ -14,7 +14,12 @@ public class ShowCaptainMainPageCommandLogicDbImpl implements ShowCaptainMainPag
     private final RequestStatusDao requestStatusDao;
     private final PierAssignmentDao pierAssignmentDao;
 
-    public ShowCaptainMainPageCommandLogicDbImpl(UserDao userDao, PierDao pierDao, RequestStatusDao requestStatusDao, PierAssignmentDao pierAssignmentDao) {
+    public ShowCaptainMainPageCommandLogicDbImpl(
+            UserDao userDao,
+            PierDao pierDao,
+            RequestStatusDao requestStatusDao,
+            PierAssignmentDao pierAssignmentDao
+    ) {
         this.userDao = userDao;
         this.pierDao = pierDao;
         this.requestStatusDao = requestStatusDao;

@@ -52,4 +52,8 @@ public interface ActionCommandsFactory {
     ActionCommand getApproveArrivalRequestCommand();
 
     ActionCommand getApproveDepartmentRequestCommand();
+
+    ActionCommand getShowCreateReportPageCommand();
+
+    ActionCommand getCreateReportCommand();
 }

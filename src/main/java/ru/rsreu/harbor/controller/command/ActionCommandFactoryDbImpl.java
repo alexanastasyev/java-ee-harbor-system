@@ -17,7 +17,7 @@ import ru.rsreu.harbor.controller.command.captain.request_department.RequestDepa
 import ru.rsreu.harbor.controller.command.captain.request_department.RequestDepartmentCommandLogicDbImpl;
 import ru.rsreu.harbor.controller.command.dispatcher.approve_arrival.ApproveArrivalRequestCommand;
 import ru.rsreu.harbor.controller.command.dispatcher.approve_arrival.ApproveArrivalRequestCommandLogicDbImpl;
-import ru.rsreu.harbor.controller.command.dispatcher.approve_arrival.ArrivalRequestFormDto;
+import ru.rsreu.harbor.controller.command.dispatcher.approve_arrival.ArrivalRequestFormDataTransferObjectDbImpl;
 import ru.rsreu.harbor.controller.command.dispatcher.approve_department.ApproveDepartmentRequestCommand;
 import ru.rsreu.harbor.controller.command.dispatcher.approve_department.ApproveDepartmentRequestCommandLogicDbImpl;
 import ru.rsreu.harbor.controller.command.dispatcher.main.ShowDispatcherMainPageCommand;
@@ -33,6 +33,11 @@ import ru.rsreu.harbor.controller.command.moderator.users.HandleUserBlockingComm
 import ru.rsreu.harbor.controller.command.moderator.users.HandleUserBlockingLogicDbImpl;
 import ru.rsreu.harbor.controller.command.moderator.users.ShowModeratorUsersPageCommand;
 import ru.rsreu.harbor.controller.command.moderator.users.ShowModeratorUsersPageLogicDbImpl;
+import ru.rsreu.harbor.controller.command.report_system.create.CreateReportCommand;
+import ru.rsreu.harbor.controller.command.report_system.create.CreateReportCommandLogicDbImpl;
+import ru.rsreu.harbor.controller.command.report_system.create.CreateReportDataTransferObjectDbImpl;
+import ru.rsreu.harbor.controller.command.report_system.page.ShowCreateReportPageCommand;
+import ru.rsreu.harbor.controller.command.report_system.page.ShowCreateReportPageCommandLogicDbImpl;
 import ru.rsreu.harbor.datalayer.DaoFactory;
 
 public class ActionCommandFactoryDbImpl implements ActionCommandsFactory {
@@ -204,7 +209,7 @@ public class ActionCommandFactoryDbImpl implements ActionCommandsFactory {
                         this.daoFactory.getPierDao(),
                         this.daoFactory.getRequestStatusDao(),
                         this.daoFactory.getPierAssignmentDao()),
-                new ArrivalRequestFormDto()
+                new ArrivalRequestFormDataTransferObjectDbImpl()
         );
     }
 
@@ -214,6 +219,27 @@ public class ActionCommandFactoryDbImpl implements ActionCommandsFactory {
                 new ApproveDepartmentRequestCommandLogicDbImpl(
                         this.daoFactory.getRequestStatusDao(),
                         this.daoFactory.getPierAssignmentDao()
+                )
+        );
+    }
+
+    @Override
+    public ActionCommand getShowCreateReportPageCommand() {
+        return new ShowCreateReportPageCommand(
+                new ShowCreateReportPageCommandLogicDbImpl(
+                        this.daoFactory.getUserDao()
+                )
+        );
+    }
+
+    @Override
+    public ActionCommand getCreateReportCommand() {
+        return new CreateReportCommand(
+                new CreateReportCommandLogicDbImpl(
+                        this.daoFactory.getReportDao()
+                ),
+                new CreateReportDataTransferObjectDbImpl(
+                        this.daoFactory.getUserDao()
                 )
         );
     }

@@ -65,6 +65,9 @@
             </form>
         </c:when>
     </c:choose>
+    <hr/>
+    <a href="controller?command=show_create_report_page">Report</a>
+    <hr/>
     <a href="controller?command=logout">Logout</a>
     </body>
 </html>

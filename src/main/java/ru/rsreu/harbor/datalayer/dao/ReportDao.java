@@ -9,5 +9,7 @@ public interface ReportDao {
 
     List<Report> findAll();
 
+    void save(Report report);
+
     void delete(Report report);
 }

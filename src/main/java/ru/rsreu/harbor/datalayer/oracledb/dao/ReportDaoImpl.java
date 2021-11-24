@@ -15,6 +15,7 @@ public class ReportDaoImpl implements ReportDao {
     private static final String REPORT_BY_ID_SQL = Resourcer.getString("dao.report.id.sql");
     private static final String REPORT_ALL_SQL = Resourcer.getString("dao.report.all.sql");
     private static final String REPORT_DELETE_ID_SQL = Resourcer.getString("dao.report.delete.id.sql");
+    private static final String SAVE_REPORT_SQL = Resourcer.getString("dao.report.save.sql");
 
     private final JdbcQueryExecutor jdbcQueryExecutor;
     private UserDao userDao;
@@ -35,8 +36,13 @@ public class ReportDaoImpl implements ReportDao {
     }
 
     @Override
+    public void save(Report report) {
+        this.jdbcQueryExecutor.executeTransactionalQuery(SAVE_REPORT_SQL, report, this.createReportObjectMapper);
+    }
+
+    @Override
     public void delete(Report report) {
-        this.jdbcQueryExecutor.executeTransactionalQuery(REPORT_DELETE_ID_SQL, report, deleteRowMapper);
+        this.jdbcQueryExecutor.executeTransactionalQuery(REPORT_DELETE_ID_SQL, report, deleteReportObjectMapper);
     }
 
     private final RowMapper<Report> reportRowMapper = (row) -> new Report(
@@ -48,7 +54,13 @@ public class ReportDaoImpl implements ReportDao {
             row.get(Resourcer.getString("dao.report.column.text")).toString()
     );
 
-    private final ObjectMapper<Report> deleteRowMapper = (report) -> new String[] {
+    private final ObjectMapper<Report> createReportObjectMapper = (report) -> new String[] {
+            report.getFromUser().getId().toString(),
+            report.getToUser().getId().toString(),
+            report.getText()
+    };
+
+    private final ObjectMapper<Report> deleteReportObjectMapper = (report) -> new String[] {
             report.getId().toString()
     };
 }

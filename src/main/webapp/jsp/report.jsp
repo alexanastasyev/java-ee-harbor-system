@@ -22,9 +22,7 @@
                 <td>${report.getText()}</td>
             </tr>
         </table>
-
         <hr/>
-
         <form method="POST" action="controller">
             <input type="hidden" name="command" value="handle_user_blocking">
             <input type="hidden" name="id" value="${report.getToUser().getId()}">
