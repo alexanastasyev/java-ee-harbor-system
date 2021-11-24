@@ -1,5 +1,6 @@
 package ru.rsreu.harbor.controller.command.admin.edit;
 
+import ru.rsreu.harbor.controller.exception.ShowEditUserPageException;
 import ru.rsreu.harbor.datalayer.dao.RoleDao;
 import ru.rsreu.harbor.datalayer.dao.StatusDao;
 import ru.rsreu.harbor.datalayer.dao.UserDao;
@@ -21,8 +22,12 @@ public class ShowEditUserPageCommandLogicDbImpl implements ShowEditUserPageComma
     }
 
     @Override
-    public User getUserById(String id) {
-        return this.userDao.findById(Long.valueOf(id));
+    public User getUserById(String id) throws ShowEditUserPageException {
+        try {
+            return this.userDao.findById(Long.valueOf(id)).orElseThrow(ShowEditUserPageException::new);
+        } catch (NumberFormatException exception) {
+            throw new ShowEditUserPageException();
+        }
     }
 
     @Override

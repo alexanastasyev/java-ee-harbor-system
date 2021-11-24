@@ -2,8 +2,10 @@ package ru.rsreu.harbor.datalayer.dao;
 
 import ru.rsreu.harbor.datalayer.model.RequestStatus;
 
-public interface RequestStatusDao {
-    RequestStatus findById(Long id);
+import java.util.Optional;
 
-    RequestStatus findByTitle(String title);
+public interface RequestStatusDao {
+    Optional<RequestStatus> findById(Long id);
+
+    Optional<RequestStatus> findByTitle(String title);
 }

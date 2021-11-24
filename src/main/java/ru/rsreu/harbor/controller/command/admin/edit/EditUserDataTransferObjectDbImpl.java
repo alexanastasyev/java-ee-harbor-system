@@ -23,8 +23,12 @@ public class EditUserDataTransferObjectDbImpl implements DataTransferObject<User
                 Long.valueOf(request.getParameter(Resourcer.getString("user.form.dto.id"))),
                 request.getParameter(Resourcer.getString("user.form.dto.login")),
                 request.getParameter(Resourcer.getString("user.form.dto.password")),
-                this.roleDao.findById(Long.valueOf(request.getParameter(Resourcer.getString("user.form.dto.role")))),
-                this.statusDao.findById(Long.valueOf(request.getParameter(Resourcer.getString("user.form.dto.status"))))
+                this.roleDao.findById(
+                                Long.valueOf(request.getParameter(Resourcer.getString("user.form.dto.role"))))
+                        .orElseThrow(IllegalArgumentException::new),
+                this.statusDao.findById(
+                                Long.valueOf(request.getParameter(Resourcer.getString("user.form.dto.status"))))
+                        .orElseThrow(IllegalArgumentException::new)
         );
     }
 }

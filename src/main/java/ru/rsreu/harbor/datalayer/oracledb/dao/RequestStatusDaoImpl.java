@@ -5,8 +5,10 @@ import ru.rsreu.harbor.datalayer.dao.RequestStatusDao;
 import ru.rsreu.harbor.datalayer.jdbc.JdbcQueryExecutor;
 import ru.rsreu.harbor.datalayer.jdbc.RowMapper;
 import ru.rsreu.harbor.datalayer.model.RequestStatus;
+import ru.rsreu.harbor.datalayer.util.OptionalCreator;
 
 import java.math.BigDecimal;
+import java.util.Optional;
 
 public class RequestStatusDaoImpl implements RequestStatusDao {
     private static final String REQUEST_STATUS_BY_ID_SQL =
@@ -21,13 +23,16 @@ public class RequestStatusDaoImpl implements RequestStatusDao {
     }
 
     @Override
-    public RequestStatus findById(Long id) {
-        return this.jdbcQueryExecutor.executeQuery(this.requestStatusRowMapper, REQUEST_STATUS_BY_ID_SQL, id.toString()).get(0);
+    public Optional<RequestStatus> findById(Long id) {
+        return OptionalCreator.createOptionalObjectFromList(
+                this.jdbcQueryExecutor.executeQuery(
+                        this.requestStatusRowMapper, REQUEST_STATUS_BY_ID_SQL, id.toString()));
     }
 
     @Override
-    public RequestStatus findByTitle(String title) {
-        return this.jdbcQueryExecutor.executeQuery(this.requestStatusRowMapper, REQUEST_STATUS_BY_TITLE_SQL, title).get(0);
+    public Optional<RequestStatus> findByTitle(String title) {
+        return OptionalCreator.createOptionalObjectFromList(
+                this.jdbcQueryExecutor.executeQuery(this.requestStatusRowMapper, REQUEST_STATUS_BY_TITLE_SQL, title));
     }
 
     private final RowMapper<RequestStatus> requestStatusRowMapper = (row) -> new RequestStatus(

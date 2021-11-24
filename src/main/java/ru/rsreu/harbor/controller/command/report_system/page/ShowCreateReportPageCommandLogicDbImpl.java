@@ -14,7 +14,7 @@ public class ShowCreateReportPageCommandLogicDbImpl implements ShowCreateReportP
 
     @Override
     public User getUserByLogin(String userLogin) {
-        return this.userDao.findByLogin(userLogin);
+        return this.userDao.findByLogin(userLogin).orElseThrow(IllegalArgumentException::new);
     }
 
     @Override

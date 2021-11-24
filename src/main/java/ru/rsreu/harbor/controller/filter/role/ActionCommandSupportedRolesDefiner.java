@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 
 public class ActionCommandSupportedRolesDefiner {
     private final List<Role> allRoles;
+
     public ActionCommandSupportedRolesDefiner(List<Role> allRoles) {
         this.allRoles = allRoles;
     }
@@ -26,7 +27,7 @@ public class ActionCommandSupportedRolesDefiner {
 
     private List<Role> formSupportedRoles(CommandSupportedRolesTitles commandSupportedRolesTitles) {
         List<String> supportedRolesTitles = Arrays.asList(commandSupportedRolesTitles.titles());
-        return  allRoles.stream().filter(role ->
+        return allRoles.stream().filter(role ->
                 (supportedRolesTitles.contains(role.getTitle()))).collect(Collectors.toList());
     }
 

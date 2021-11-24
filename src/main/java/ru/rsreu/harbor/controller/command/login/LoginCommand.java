@@ -2,8 +2,10 @@ package ru.rsreu.harbor.controller.command.login;
 
 import com.prutzkow.resourcer.Resourcer;
 import ru.rsreu.harbor.controller.command.ActionCommand;
+import ru.rsreu.harbor.controller.exception.LoginFaultException;
 import ru.rsreu.harbor.controller.result.ActionCommandResult;
 import ru.rsreu.harbor.controller.result.ActionCommandResultTypes;
+import ru.rsreu.harbor.datalayer.model.User;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -18,27 +20,27 @@ public class LoginCommand implements ActionCommand {
     }
 
     @Override
-    public ActionCommandResult execute(HttpServletRequest request) {
-        String page;
-
+    public ActionCommandResult execute(HttpServletRequest request) throws LoginFaultException {
         String login = request.getParameter(LOGIN_PARAMETER_NAME);
         String password = request.getParameter(PASSWORD_PARAMETER_NAME);
-
-        if (loginCommandLogic.checkLogin(login, password)) {
+        User user = this.loginCommandLogic.getUserByLogin(login);
+        String page;
+        if (loginCommandLogic.checkLogin(user, password)) {
             page = Resourcer.getString("command.path.showMainPage");
-            request.getSession().setAttribute(
-                    Resourcer.getString("request.mainPage.attribute.user"), login
-            );
-            request.getSession().setAttribute(Resourcer.getString("session.attribute.name.role"),
-                    this.loginCommandLogic.getUserRole(login));
-            request.getSession().setAttribute(Resourcer.getString("session.attribute.name.status"),
-                    this.loginCommandLogic.getUserStatus(login));
+            this.formSuccessfulJspParameters(user, request);
+            return new ActionCommandResult(page, ActionCommandResultTypes.FORWARD);
         } else {
-            request.setAttribute(Resourcer.getString("request.attribute.errorLoginPassMessage"),
-                    Resourcer.getString("message.loginError"));
-            page = Resourcer.getString("command.path.showLoginPage"); 
+            throw new LoginFaultException();
         }
+    }
 
-        return new ActionCommandResult(page, ActionCommandResultTypes.SEND_REDIRECT);
+    private void formSuccessfulJspParameters(User user, HttpServletRequest request) {
+        request.getSession().setAttribute(
+                Resourcer.getString("request.mainPage.attribute.user"), user.getLogin()
+        );
+        request.getSession().setAttribute(Resourcer.getString("session.attribute.name.role"),
+                user.getRole());
+        request.getSession().setAttribute(Resourcer.getString("session.attribute.name.status"),
+                user.getStatus());
     }
 }

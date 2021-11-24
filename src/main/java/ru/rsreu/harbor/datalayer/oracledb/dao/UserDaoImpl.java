@@ -8,9 +8,11 @@ import ru.rsreu.harbor.datalayer.jdbc.JdbcQueryExecutor;
 import ru.rsreu.harbor.datalayer.jdbc.ObjectMapper;
 import ru.rsreu.harbor.datalayer.jdbc.RowMapper;
 import ru.rsreu.harbor.datalayer.model.User;
+import ru.rsreu.harbor.datalayer.util.OptionalCreator;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Optional;
 
 public class UserDaoImpl implements UserDao {
     private static final String USER_BY_ID_SQL = Resourcer.getString("dao.user.id.sql");
@@ -36,13 +38,15 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public User findById(Long id) {
-        return this.jdbcQueryExecutor.executeQuery(this.userRowMapper, USER_BY_ID_SQL, id.toString()).get(0);
+    public Optional<User> findById(Long id) {
+        return OptionalCreator.createOptionalObjectFromList(
+                this.jdbcQueryExecutor.executeQuery(this.userRowMapper, USER_BY_ID_SQL, id.toString()));
     }
 
     @Override
-    public User findByLogin(String login) {
-        return this.jdbcQueryExecutor.executeQuery(this.userRowMapper, USER_BY_LOGIN_SQL, login).get(0);
+    public Optional<User> findByLogin(String login) {
+        return OptionalCreator.createOptionalObjectFromList(
+                this.jdbcQueryExecutor.executeQuery(this.userRowMapper, USER_BY_LOGIN_SQL, login));
     }
 
     @Override
@@ -75,18 +79,18 @@ public class UserDaoImpl implements UserDao {
             row.get(Resourcer.getString("dao.user.column.login")).toString(),
             row.get(Resourcer.getString("dao.user.column.password")).toString(),
             roleDao.findById(((BigDecimal) row.get(Resourcer.getString("dao.user.column.roleId")))
-                    .longValue()),
+                    .longValue()).orElseThrow(IllegalArgumentException::new),
             statusDao.findById(((BigDecimal) row.get(Resourcer.getString("dao.user.column.statusId")))
-                    .longValue()));
+                    .longValue()).orElseThrow(IllegalArgumentException::new));
 
-    private final ObjectMapper<User> saveUserObjectMapper = user -> new String[] {
+    private final ObjectMapper<User> saveUserObjectMapper = user -> new String[]{
             user.getLogin(),
             user.getPassword(),
             user.getRole().getId().toString(),
             user.getStatus().getId().toString()
     };
 
-    private final ObjectMapper<User> updateUserObjectMapper = user -> new String[] {
+    private final ObjectMapper<User> updateUserObjectMapper = user -> new String[]{
             user.getLogin(),
             user.getPassword(),
             user.getRole().getId().toString(),

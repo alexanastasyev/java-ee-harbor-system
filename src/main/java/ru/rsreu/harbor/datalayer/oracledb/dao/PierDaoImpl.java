@@ -6,9 +6,11 @@ import ru.rsreu.harbor.datalayer.jdbc.JdbcQueryExecutor;
 import ru.rsreu.harbor.datalayer.jdbc.ObjectMapper;
 import ru.rsreu.harbor.datalayer.jdbc.RowMapper;
 import ru.rsreu.harbor.datalayer.model.Pier;
+import ru.rsreu.harbor.datalayer.util.OptionalCreator;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Optional;
 
 public class PierDaoImpl implements PierDao {
     private static final String PIER_BY_ID_SQL = Resourcer.getString("dao.pier.id.sql");
@@ -23,8 +25,9 @@ public class PierDaoImpl implements PierDao {
     }
 
     @Override
-    public Pier findById(Long id) {
-        return this.jdbcQueryExecutor.executeQuery(this.pierRowMapper, PIER_BY_ID_SQL, id.toString()).get(0);
+    public Optional<Pier> findById(Long id) {
+        return OptionalCreator.createOptionalObjectFromList(
+                this.jdbcQueryExecutor.executeQuery(this.pierRowMapper, PIER_BY_ID_SQL, id.toString()));
     }
 
     @Override

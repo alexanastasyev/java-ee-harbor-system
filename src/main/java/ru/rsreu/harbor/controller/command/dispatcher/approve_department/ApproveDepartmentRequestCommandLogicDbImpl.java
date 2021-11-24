@@ -19,7 +19,9 @@ public class ApproveDepartmentRequestCommandLogicDbImpl implements ApproveDepart
 
     @Override
     public void approveDepartmentRequest(String pierAssignmentId) {
-        PierAssignment oldPierAssignment = this.pierAssignmentDao.findById(Long.valueOf(pierAssignmentId));
+        PierAssignment oldPierAssignment =
+                this.pierAssignmentDao.findById(Long.valueOf(pierAssignmentId))
+                        .orElseThrow(IllegalArgumentException::new);
         this.pierAssignmentDao.update(
                 new PierAssignment(
                         oldPierAssignment.getId(),
@@ -27,7 +29,7 @@ public class ApproveDepartmentRequestCommandLogicDbImpl implements ApproveDepart
                         oldPierAssignment.getCaptain(),
                         this.requestStatusDao.findByTitle(
                                 Resourcer.getString("db.requestStatus.approved_department")
-                        )
+                        ).orElseThrow(IllegalArgumentException::new)
                 )
         );
     }

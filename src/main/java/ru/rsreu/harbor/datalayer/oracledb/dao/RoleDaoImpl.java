@@ -5,9 +5,11 @@ import ru.rsreu.harbor.datalayer.dao.RoleDao;
 import ru.rsreu.harbor.datalayer.jdbc.JdbcQueryExecutor;
 import ru.rsreu.harbor.datalayer.jdbc.RowMapper;
 import ru.rsreu.harbor.datalayer.model.Role;
+import ru.rsreu.harbor.datalayer.util.OptionalCreator;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Optional;
 
 public class RoleDaoImpl implements RoleDao {
     private static final String ROLE_BY_ID_SQL = Resourcer.getString("dao.role.id.sql");
@@ -20,8 +22,9 @@ public class RoleDaoImpl implements RoleDao {
     }
 
     @Override
-    public Role findById(Long id) {
-        return this.jdbcQueryExecutor.executeQuery(this.roleRowMapper, ROLE_BY_ID_SQL, id.toString()).get(0);
+    public Optional<Role> findById(Long id) {
+        return OptionalCreator.createOptionalObjectFromList(
+                this.jdbcQueryExecutor.executeQuery(this.roleRowMapper, ROLE_BY_ID_SQL, id.toString()));
     }
 
     @Override

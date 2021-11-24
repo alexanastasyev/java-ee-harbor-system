@@ -12,6 +12,6 @@ public class ShowReportPageLogicDbImpl implements ShowReportPageLogic {
 
     @Override
     public Report getReportById(String id) {
-        return reportDao.findById(Long.valueOf(id));
+        return reportDao.findById(Long.valueOf(id)).orElseThrow(IllegalArgumentException::new);
     }
 }

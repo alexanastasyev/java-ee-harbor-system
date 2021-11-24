@@ -25,14 +25,16 @@ public class ApproveArrivalRequestCommandLogicDbImpl implements ApproveArrivalRe
 
     @Override
     public void approveArrivalRequest(ArrivalRequestForm arrivalRequestForm) {
-        PierAssignment oldPierAssignment = this.pierAssignmentDao.findById(arrivalRequestForm.getPierAssignmentId());
+        PierAssignment oldPierAssignment = this.pierAssignmentDao.findById(arrivalRequestForm.getPierAssignmentId())
+                .orElseThrow(IllegalArgumentException::new);
         this.pierAssignmentDao.update(
                 new PierAssignment(
                         oldPierAssignment.getId(),
-                        this.pierDao.findById(arrivalRequestForm.getPierId()),
+                        this.pierDao.findById(arrivalRequestForm.getPierId()).orElseThrow(IllegalArgumentException::new),
                         oldPierAssignment.getCaptain(),
                         this.requestStatusDao.findByTitle(
-                                Resourcer.getString("db.requestStatus.approved_arrival"))
+                                        Resourcer.getString("db.requestStatus.approved_arrival"))
+                                .orElseThrow(IllegalArgumentException::new)
                 )
         );
     }

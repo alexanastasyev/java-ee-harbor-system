@@ -23,8 +23,11 @@ public class CreateUserDataTransferObjectDbImpl implements DataTransferObject<Us
                 null,
                 request.getParameter(Resourcer.getString("user.form.dto.login")),
                 request.getParameter(Resourcer.getString("user.form.dto.password")),
-                roleDao.findById(Long.valueOf(request.getParameter(Resourcer.getString("user.form.dto.role")))),
+                roleDao.findById(
+                                Long.valueOf(request.getParameter(Resourcer.getString("user.form.dto.role"))))
+                        .orElseThrow(IllegalArgumentException::new),
                 statusDao.findByTitle(Resourcer.getString("db.status.active"))
+                        .orElseThrow(IllegalArgumentException::new)
         );
     }
 }

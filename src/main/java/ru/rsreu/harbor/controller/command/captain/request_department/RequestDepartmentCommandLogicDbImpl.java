@@ -20,13 +20,17 @@ public class RequestDepartmentCommandLogicDbImpl implements RequestDepartmentCom
 
     @Override
     public void requestDepartment(String captainLogin) {
-        PierAssignment oldPierAssignment = this.pierAssignmentDao.findByCaptain(this.userDao.findByLogin(captainLogin));
+        PierAssignment oldPierAssignment = this.pierAssignmentDao.findByCaptain(
+                        this.userDao.findByLogin(captainLogin).orElseThrow(IllegalArgumentException::new))
+                .orElseThrow(IllegalArgumentException::new);
         this.pierAssignmentDao.update(
                 new PierAssignment(
                         oldPierAssignment.getId(),
                         oldPierAssignment.getPier(),
                         oldPierAssignment.getCaptain(),
-                        this.requestStatusDao.findByTitle(Resourcer.getString("db.requestStatus.requested_department"))
+                        this.requestStatusDao.findByTitle(
+                                        Resourcer.getString("db.requestStatus.requested_department"))
+                                .orElseThrow(IllegalArgumentException::new)
                 )
         );
     }

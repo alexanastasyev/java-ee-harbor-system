@@ -3,11 +3,12 @@ package ru.rsreu.harbor.datalayer.dao;
 import ru.rsreu.harbor.datalayer.model.Status;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface StatusDao {
-    Status findById(Long id);
+    Optional<Status> findById(Long id);
 
-    Status findByTitle(String title);
+    Optional<Status> findByTitle(String title);
 
     List<Status> findAll();
 }

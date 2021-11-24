@@ -4,9 +4,8 @@
 <html>
 <head>
     <title>Welcome, Captain</title>
-    <script type="text/javascript" src="${pageContext.request.contextPath}/js/script.js" ></script>
 </head>
-    <body onload="noBack()">
+    <body>
     <h1>Welcome, Captain</h1>
     <hr />
     <c:choose>
