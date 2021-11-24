@@ -20,6 +20,9 @@
         <c:when test="${pierAssignment.getRequestStatus().getTitle().equals('requested_arrival')}">
             <h2>Your arrival request number: ${pierAssignment.getId()}, captain</h2>
             <form method="post" action="controller">
+                <c:if test="${!isFreePiers}">
+                    <h2>There are no free piers at the moment</h2>
+                </c:if>
                 <input type="hidden" name="command" value="cancel_arrival_request"/>
                 <input type="submit" value="Cancel request"/>
             </form>

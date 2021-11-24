@@ -150,7 +150,7 @@ public class ActionCommandFactoryDbImpl implements ActionCommandsFactory {
     public ActionCommand getShowCaptainMainPageCommand() {
         return new ShowCaptainMainPageCommand(new ShowCaptainMainPageCommandLogicDbImpl(
                 this.daoFactory.getUserDao(),
-                this.daoFactory.getPierAssignmentDao()
+                this.daoFactory.getPierDao(), this.daoFactory.getRequestStatusDao(), this.daoFactory.getPierAssignmentDao()
         ));
     }
 
