@@ -1,4 +1,4 @@
-package ru.rsreu.harbor.controller.command.admin.create;
+package ru.rsreu.harbor.controller.command.admin.user.create;
 
 import ru.rsreu.harbor.datalayer.model.Role;
 

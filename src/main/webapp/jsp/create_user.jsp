@@ -6,6 +6,11 @@
     <title>Create user</title>
 </head>
 <body>
+    <c:if test="${errorMessage != null}">
+        <p style="color: red">${errorMessage}</p>
+        <c:remove var="errorMessage" scope="session" />
+        <hr/>
+    </c:if>
     <form name="CreateUserForm" method="POST" action="controller">
         <input type="hidden" name="command" value="create_user"/>
         <label>

@@ -58,16 +58,15 @@ public class MainServlet extends HttpServlet {
     }
     
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
         this.processRequest(request, response);
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
         this.processRequest(request, response);
     }
 
     private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
         ActionCommand actionCommand = ActionCommandsDefiner.defineCommand(request, this.commandsFactory);
         ActionCommandResult result;
         try {

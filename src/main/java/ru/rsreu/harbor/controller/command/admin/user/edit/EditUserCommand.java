@@ -1,7 +1,8 @@
-package ru.rsreu.harbor.controller.command.admin.create;
+package ru.rsreu.harbor.controller.command.admin.user.edit;
 
 import com.prutzkow.resourcer.Resourcer;
 import ru.rsreu.harbor.controller.command.ActionCommand;
+import ru.rsreu.harbor.controller.exception.EditUserException;
 import ru.rsreu.harbor.controller.filter.role.CommandSupportedRolesTitles;
 import ru.rsreu.harbor.controller.dto.DataTransferObject;
 import ru.rsreu.harbor.controller.result.ActionCommandResult;
@@ -11,18 +12,22 @@ import ru.rsreu.harbor.datalayer.model.User;
 import javax.servlet.http.HttpServletRequest;
 
 @CommandSupportedRolesTitles(titles = {"admin"})
-public class CreateUserCommand implements ActionCommand {
-    private final CreateUserLogic createUserLogic;
+public class EditUserCommand implements ActionCommand {
+    private final EditUserLogic editUserLogic;
     private final DataTransferObject<User> dataTransferObject;
 
-    public CreateUserCommand(CreateUserLogic createUserLogic, DataTransferObject<User> dataTransferObject) {
-        this.createUserLogic = createUserLogic;
+    public EditUserCommand(EditUserLogic editUserLogic, DataTransferObject<User> dataTransferObject) {
+        this.editUserLogic = editUserLogic;
         this.dataTransferObject = dataTransferObject;
     }
 
     @Override
-    public ActionCommandResult execute(HttpServletRequest request) {
-        createUserLogic.createUser(dataTransferObject.formModel(request));
+    public ActionCommandResult execute(HttpServletRequest request) throws EditUserException {
+        try {
+            editUserLogic.updateUser(dataTransferObject.formModel(request));
+        } catch (IllegalArgumentException exception) {
+            throw new EditUserException();
+        }
         return new ActionCommandResult(
                 Resourcer.getString("command.path.showAdminPage"),
                 ActionCommandResultTypes.SEND_REDIRECT
