@@ -1,7 +1,7 @@
 package ru.rsreu.harbor.controller.command;
 
-import ru.rsreu.harbor.controller.command.admin.create.*;
-import ru.rsreu.harbor.controller.command.admin.edit.*;
+import ru.rsreu.harbor.controller.command.admin.user.create.*;
+import ru.rsreu.harbor.controller.command.admin.user.edit.*;
 import ru.rsreu.harbor.controller.command.admin.panel.ShowAdminPageCommand;
 import ru.rsreu.harbor.controller.command.admin.panel.ShowAdminPageLogicDbImpl;
 import ru.rsreu.harbor.controller.command.admin.pier.*;
@@ -81,7 +81,8 @@ public class ActionCommandFactoryDbImpl implements ActionCommandsFactory {
     public ActionCommand getCreateUserCommand() {
         return new CreateUserCommand(
                 new CreateUserLogicDbImpl(daoFactory.getUserDao()),
-                new CreateUserDataTransferObjectDbImpl(daoFactory.getRoleDao(), daoFactory.getStatusDao()));
+                new CreateUserDataTransferObjectDbImpl(this.daoFactory.getUserDao(),
+                        daoFactory.getRoleDao(), daoFactory.getStatusDao()));
     }
 
     @Override
@@ -96,6 +97,7 @@ public class ActionCommandFactoryDbImpl implements ActionCommandsFactory {
         return new EditUserCommand(
                 new EditUserLogicDbImpl(this.daoFactory.getUserDao()),
                 new EditUserDataTransferObjectDbImpl(
+                        this.daoFactory.getUserDao(),
                         this.daoFactory.getRoleDao(),
                         this.daoFactory.getStatusDao()));
     }

@@ -1,12 +1,10 @@
 package ru.rsreu.harbor.controller.command.login;
 
-import ru.rsreu.harbor.datalayer.model.Role;
-import ru.rsreu.harbor.datalayer.model.Status;
+import ru.rsreu.harbor.controller.exception.LoginFaultException;
+import ru.rsreu.harbor.datalayer.model.User;
 
 public interface LoginCommandLogic {
-    boolean checkLogin(String login, String password);
+    User getUserByLogin(String login) throws LoginFaultException;
 
-    Role getUserRole(String login);
-
-    Status getUserStatus(String login);
+    boolean checkLogin(String verifiablePassword, String password);
 }

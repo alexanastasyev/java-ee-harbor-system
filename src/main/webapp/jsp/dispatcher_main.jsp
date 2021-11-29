@@ -4,9 +4,8 @@
 <html>
 <head>
     <title>Welcome, Dispatcher</title>
-    <script type="text/javascript" src="${pageContext.request.contextPath}/js/script.js" ></script>
 </head>
-    <body onload="noBack()">
+    <body>
         <h1>Welcome, Dispatcher</h1>
         <hr/>
         <table>

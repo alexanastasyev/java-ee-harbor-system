@@ -1,4 +1,4 @@
-package ru.rsreu.harbor.controller.command.admin.edit;
+package ru.rsreu.harbor.controller.command.admin.user.edit;
 
 import ru.rsreu.harbor.datalayer.dao.UserDao;
 import ru.rsreu.harbor.datalayer.model.User;

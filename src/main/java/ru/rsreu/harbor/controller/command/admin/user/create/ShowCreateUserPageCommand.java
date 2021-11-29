@@ -1,4 +1,4 @@
-package ru.rsreu.harbor.controller.command.admin.create;
+package ru.rsreu.harbor.controller.command.admin.user.create;
 
 import com.prutzkow.resourcer.Resourcer;
 import ru.rsreu.harbor.controller.command.ActionCommand;

@@ -1,11 +1,11 @@
 <%--suppress XmlDefaultAttributeValue, ELValidationInJSP --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
     <title>Sign in page</title>
-    <script type="text/javascript" src="${pageContext.request.contextPath}/js/script.js" ></script>
 </head>
-<body onload="noBack()">
+<body>
     <form name="LoginForm" method="POST" action="controller">
         <input type="hidden" name="command" value="login"/>
         <label>
@@ -16,12 +16,8 @@
             Password: <input name="password" type="password"/>
         </label>
         <br/>
-        <br/>
-            ${errorLoginPassMessage}
-        <br/>
-            ${wrongAction}
-        <br/>
-            ${nullPage}
+        <p style="color: red">${errorMessage}</p>
+        <c:remove var="errorMessage" scope="session" />
         <input type="submit" value="Sign In">
     </form>
 </body>

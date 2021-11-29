@@ -20,10 +20,10 @@ public class CreateReportDataTransferObjectDbImpl implements DataTransferObject<
                 null,
                 this.userDao.findById(Long.valueOf(request.getParameter(
                         Resourcer.getString("request.createReportCommand.parameter.fromUserId")
-                ))),
+                ))).orElseThrow(IllegalArgumentException::new),
                 this.userDao.findById(Long.valueOf(request.getParameter(
                         Resourcer.getString("request.createReportCommand.parameter.toUserId")
-                ))),
+                ))).orElseThrow(IllegalArgumentException::new),
                 request.getParameter(Resourcer.getString("request.createReportCommand.parameter.reportText"))
         );
     }

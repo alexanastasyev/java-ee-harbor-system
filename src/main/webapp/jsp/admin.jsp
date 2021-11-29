@@ -4,11 +4,15 @@
 <html>
 <head>
     <title>Welcome, Admin</title>
-    <script type="text/javascript" src="${pageContext.request.contextPath}/js/script.js" ></script>
 </head>
-<body onload="noBack()">
+<body>
     <h1>Welcome, Admin</h1>
-    ${errorMessage}
+    <c:if test="${errorMessage != null}">
+        <hr/>
+        <p style="color: red">${errorMessage}</p>
+        <c:remove var="errorMessage" scope="session" />
+    </c:if>
+
     <hr/>
     <a href="controller?command=show_admin_piers_page">Piers</a>
     <hr/>

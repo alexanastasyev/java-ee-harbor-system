@@ -11,9 +11,11 @@ import ru.rsreu.harbor.datalayer.jdbc.RowMapper;
 import ru.rsreu.harbor.datalayer.model.Pier;
 import ru.rsreu.harbor.datalayer.model.PierAssignment;
 import ru.rsreu.harbor.datalayer.model.User;
+import ru.rsreu.harbor.datalayer.util.OptionalCreator;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Optional;
 
 public class PierAssignmentDaoImpl implements PierAssignmentDao {
     private static final String PIER_ASSIGNMENT_BY_ID_SQL =
@@ -49,12 +51,11 @@ public class PierAssignmentDaoImpl implements PierAssignmentDao {
     }
 
     @Override
-    public PierAssignment findById(Long id) {
-        return this.jdbcQueryExecutor.executeQuery(
-                        this.pierAssignmentRowMapper,
-                        PIER_ASSIGNMENT_BY_ID_SQL,
-                        id.toString())
-                .get(0);
+    public Optional<PierAssignment> findById(Long id) {
+        return OptionalCreator.createOptionalObjectFromList(this.jdbcQueryExecutor.executeQuery(
+                this.pierAssignmentRowMapper,
+                PIER_ASSIGNMENT_BY_ID_SQL,
+                id.toString()));
     }
 
     @Override
@@ -71,16 +72,11 @@ public class PierAssignmentDaoImpl implements PierAssignmentDao {
     }
 
     @Override
-    public PierAssignment findByCaptain(User captain) {
-        List<PierAssignment> queryResult = this.jdbcQueryExecutor.executeQuery(
+    public Optional<PierAssignment> findByCaptain(User captain) {
+        return OptionalCreator.createOptionalObjectFromList(this.jdbcQueryExecutor.executeQuery(
                 this.pierAssignmentRowMapper,
                 PIER_ASSIGNMENT_BY_USER_ID_SQL,
-                captain.getId().toString());
-        PierAssignment result = null;
-        if (!queryResult.isEmpty()) {
-            result = queryResult.get(0);
-        }
-        return result;
+                captain.getId().toString()));
     }
 
     @Override
@@ -113,13 +109,15 @@ public class PierAssignmentDaoImpl implements PierAssignmentDao {
         BigDecimal pierId = (BigDecimal) row.get(Resourcer.getString("dao.pier_assignment.column.pier_id"));
         return new PierAssignment(
                 ((BigDecimal) row.get(Resourcer.getString("dao.pier_assignment.column.id"))).longValue(),
-                (pierId != null) ? this.pierDao.findById(pierId.longValue()) : new Pier(-1L),
+                (pierId != null) ?
+                        this.pierDao.findById(pierId.longValue()).orElseThrow(IllegalArgumentException::new)
+                        : new Pier(-1L),
                 userDao.findById((
                         (BigDecimal) row.get(Resourcer.getString("dao.pier_assignment.column.user_id"))
-                ).longValue()),
+                ).longValue()).orElseThrow(IllegalArgumentException::new),
                 requestStatusDao.findById(((BigDecimal) row.get(
                         Resourcer.getString("dao.pier_assignment.column.request_status_id"))
-                ).longValue())
+                ).longValue()).orElseThrow(IllegalArgumentException::new)
         );
     };
 

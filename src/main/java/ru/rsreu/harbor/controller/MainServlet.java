@@ -2,6 +2,7 @@ package ru.rsreu.harbor.controller;
 
 import com.prutzkow.resourcer.Resourcer;
 import ru.rsreu.harbor.controller.command.*;
+import ru.rsreu.harbor.controller.exception.ActionCommandException;
 import ru.rsreu.harbor.controller.result.ActionCommandResult;
 import ru.rsreu.harbor.controller.result.ActionCommandResultArguments;
 import ru.rsreu.harbor.datalayer.DaoFactory;
@@ -65,15 +66,19 @@ public class MainServlet extends HttpServlet {
     }
 
     private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
         ActionCommand actionCommand = ActionCommandsDefiner.defineCommand(request, this.commandsFactory);
-        ActionCommandResult result = actionCommand.execute(request);
-
+        ActionCommandResult result;
+        try {
+            result = actionCommand.execute(request);
+        } catch (ActionCommandException exception) {
+            result = exception.getActionCommandResult(request);
+        }
         ActionCommandResultArguments arguments = new ActionCommandResultArguments(
-            request,
-            response,
-            getServletContext().getRequestDispatcher(result.getPage()),
-            result.getPage());
-
+                request,
+                response,
+                getServletContext().getRequestDispatcher(result.getPage()),
+                result.getPage());
         result.getActionCommandResultType().executeAction(arguments);
     }
 
@@ -83,6 +88,6 @@ public class MainServlet extends HttpServlet {
         getServletContext().setAttribute(Resourcer.getString("servlet.context.attribute.name.commandsFactory"),
                 this.commandsFactory);
         getServletContext().setAttribute(Resourcer.getString("servlet.context.attribute.name.activeStatus"),
-                this.daoFactory.getStatusDao().findByTitle(Resourcer.getString("db.status.active")));
+                this.daoFactory.getStatusDao().findByTitle(Resourcer.getString("db.status.active")).orElse(null));
     }
 }

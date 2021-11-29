@@ -19,13 +19,16 @@ public class ArrivePierCommandLogicDbImpl implements ArrivePierCommandLogic {
 
     @Override
     public void arrivePier(String captainLogin) {
-        PierAssignment oldPierAssignment = this.pierAssignmentDao.findByCaptain(this.userDao.findByLogin(captainLogin));
+        PierAssignment oldPierAssignment = this.pierAssignmentDao.findByCaptain(
+                        this.userDao.findByLogin(captainLogin).orElseThrow(IllegalArgumentException::new))
+                .orElseThrow(IllegalArgumentException::new);
         this.pierAssignmentDao.update(
                 new PierAssignment(
                         oldPierAssignment.getId(),
                         oldPierAssignment.getPier(),
                         oldPierAssignment.getCaptain(),
                         this.requestStatusDao.findByTitle(Resourcer.getString("db.requestStatus.locked"))
+                                .orElseThrow(IllegalArgumentException::new)
                 )
         );
     }

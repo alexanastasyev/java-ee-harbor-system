@@ -29,8 +29,8 @@ public class ShowCaptainMainPageCommandLogicDbImpl implements ShowCaptainMainPag
     @Override
     public PierAssignment getPierAssignmentByCaptain(String captainLogin) {
         return this.pierAssignmentDao.findByCaptain(
-                this.userDao.findByLogin(captainLogin)
-        );
+                        this.userDao.findByLogin(captainLogin).orElseThrow(IllegalArgumentException::new))
+                .orElse(null);
     }
 
     @Override
@@ -50,6 +50,6 @@ public class ShowCaptainMainPageCommandLogicDbImpl implements ShowCaptainMainPag
         }
         return this.requestStatusDao.findByTitle(
                 Resourcer.getString("db.requestStatus.requested_arrival")
-        ).getTitle().equals(pierAssignment.getRequestStatus().getTitle());
+        ).orElseThrow(IllegalArgumentException::new).getTitle().equals(pierAssignment.getRequestStatus().getTitle());
     }
 }

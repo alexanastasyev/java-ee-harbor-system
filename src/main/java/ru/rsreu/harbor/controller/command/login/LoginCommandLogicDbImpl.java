@@ -1,8 +1,7 @@
 package ru.rsreu.harbor.controller.command.login;
 
+import ru.rsreu.harbor.controller.exception.LoginFaultException;
 import ru.rsreu.harbor.datalayer.dao.UserDao;
-import ru.rsreu.harbor.datalayer.model.Role;
-import ru.rsreu.harbor.datalayer.model.Status;
 import ru.rsreu.harbor.datalayer.model.User;
 
 public class LoginCommandLogicDbImpl implements LoginCommandLogic {
@@ -13,24 +12,12 @@ public class LoginCommandLogicDbImpl implements LoginCommandLogic {
     }
 
     @Override
-    public boolean checkLogin(String login, String password) {
-        boolean result;
-        try {
-            User user = this.userDao.findByLogin(login);
-            result = user.getLogin().equals(login) && user.getPassword().equals(password);
-        } catch (NullPointerException e) {
-            result = false;
-        }
-        return result;
+    public User getUserByLogin(String login) throws LoginFaultException {
+        return this.userDao.findByLogin(login).orElseThrow(LoginFaultException::new);
     }
 
     @Override
-    public Role getUserRole(String login) {
-        return userDao.findByLogin(login).getRole();
-    }
-
-    @Override
-    public Status getUserStatus(String login) {
-        return userDao.findByLogin(login).getStatus();
+    public boolean checkLogin(String verifiablePassword, String password) {
+        return verifiablePassword.equals(password);
     }
 }

@@ -3,7 +3,6 @@ package ru.rsreu.harbor.controller.result;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.Map;
 
 public class ActionCommandResultArguments {
     private final HttpServletRequest request;

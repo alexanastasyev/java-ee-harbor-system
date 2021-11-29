@@ -5,15 +5,16 @@ import ru.rsreu.harbor.datalayer.model.PierAssignment;
 import ru.rsreu.harbor.datalayer.model.User;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface PierAssignmentDao {
-    PierAssignment findById(Long id);
+    Optional<PierAssignment> findById(Long id);
 
     List<PierAssignment> findAll();
 
     List<PierAssignment> findByPier(Pier pier);
 
-    PierAssignment findByCaptain(User captain);
+    Optional<PierAssignment> findByCaptain(User captain);
 
     void save(PierAssignment pierAssignment);
 

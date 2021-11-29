@@ -22,8 +22,9 @@ public class RequestArrivalCommandLogicDbImpl implements RequestArrivalCommandLo
         this.pierAssignmentDao.save(new PierAssignment(
                 null,
                 null,
-                this.userDao.findByLogin(captainLogin),
+                this.userDao.findByLogin(captainLogin).orElseThrow(IllegalArgumentException::new),
                 this.requestStatusDao.findByTitle(Resourcer.getString("db.requestStatus.requested_arrival"))
+                        .orElseThrow(IllegalArgumentException::new)
         ));
     }
 }

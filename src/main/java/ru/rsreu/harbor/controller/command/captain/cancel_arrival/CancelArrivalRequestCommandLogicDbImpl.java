@@ -14,6 +14,8 @@ public class CancelArrivalRequestCommandLogicDbImpl implements CancelArrivalRequ
 
     @Override
     public void deleteRequestByCaptain(String captainLogin) {
-        this.pierAssignmentDao.delete(this.pierAssignmentDao.findByCaptain(this.userDao.findByLogin(captainLogin)));
+        this.pierAssignmentDao.delete(this.pierAssignmentDao.findByCaptain(
+                        this.userDao.findByLogin(captainLogin).orElseThrow(IllegalArgumentException::new))
+                .orElseThrow(IllegalArgumentException::new));
     }
 }

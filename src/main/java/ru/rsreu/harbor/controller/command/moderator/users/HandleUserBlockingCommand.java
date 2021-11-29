@@ -2,6 +2,7 @@ package ru.rsreu.harbor.controller.command.moderator.users;
 
 import com.prutzkow.resourcer.Resourcer;
 import ru.rsreu.harbor.controller.command.ActionCommand;
+import ru.rsreu.harbor.controller.exception.HandleUserBlockingException;
 import ru.rsreu.harbor.controller.filter.role.CommandSupportedRolesTitles;
 import ru.rsreu.harbor.controller.result.ActionCommandResult;
 import ru.rsreu.harbor.controller.result.ActionCommandResultTypes;
@@ -17,7 +18,7 @@ public class HandleUserBlockingCommand implements ActionCommand {
     }
 
     @Override
-    public ActionCommandResult execute(HttpServletRequest request) {
+    public ActionCommandResult execute(HttpServletRequest request) throws HandleUserBlockingException {
         handleUserBlockingLogic.handleUserBlocking(
                 request.getParameter(Resourcer.getString("request.handleUserBlockingCommand.parameter.id"))
         );

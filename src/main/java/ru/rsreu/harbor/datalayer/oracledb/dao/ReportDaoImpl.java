@@ -7,9 +7,11 @@ import ru.rsreu.harbor.datalayer.jdbc.JdbcQueryExecutor;
 import ru.rsreu.harbor.datalayer.jdbc.ObjectMapper;
 import ru.rsreu.harbor.datalayer.jdbc.RowMapper;
 import ru.rsreu.harbor.datalayer.model.Report;
+import ru.rsreu.harbor.datalayer.util.OptionalCreator;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Optional;
 
 public class ReportDaoImpl implements ReportDao {
     private static final String REPORT_BY_ID_SQL = Resourcer.getString("dao.report.id.sql");
@@ -26,8 +28,9 @@ public class ReportDaoImpl implements ReportDao {
     }
 
     @Override
-    public Report findById(Long id) {
-        return this.jdbcQueryExecutor.executeQuery(reportRowMapper, REPORT_BY_ID_SQL, id.toString()).get(0);
+    public Optional<Report> findById(Long id) {
+        return OptionalCreator.createOptionalObjectFromList(
+                this.jdbcQueryExecutor.executeQuery(reportRowMapper, REPORT_BY_ID_SQL, id.toString()));
     }
 
     @Override
@@ -48,19 +51,19 @@ public class ReportDaoImpl implements ReportDao {
     private final RowMapper<Report> reportRowMapper = (row) -> new Report(
             ((BigDecimal) row.get(Resourcer.getString("dao.report.column.id"))).longValue(),
             userDao.findById(((BigDecimal) row.get(Resourcer.getString("dao.report.column.from_id")))
-                    .longValue()),
+                    .longValue()).orElseThrow(IllegalArgumentException::new),
             userDao.findById(((BigDecimal) row.get(Resourcer.getString("dao.report.column.to_id")))
-                    .longValue()),
+                    .longValue()).orElseThrow(IllegalArgumentException::new),
             row.get(Resourcer.getString("dao.report.column.text")).toString()
     );
 
-    private final ObjectMapper<Report> createReportObjectMapper = (report) -> new String[] {
+    private final ObjectMapper<Report> createReportObjectMapper = (report) -> new String[]{
             report.getFromUser().getId().toString(),
             report.getToUser().getId().toString(),
             report.getText()
     };
 
-    private final ObjectMapper<Report> deleteReportObjectMapper = (report) -> new String[] {
+    private final ObjectMapper<Report> deleteReportObjectMapper = (report) -> new String[]{
             report.getId().toString()
     };
 }

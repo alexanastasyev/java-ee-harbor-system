@@ -3,15 +3,16 @@ package ru.rsreu.harbor.datalayer.dao;
 import ru.rsreu.harbor.datalayer.model.User;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface UserDao {
-    User findById(Long id);
+    Optional<User> findById(Long id);
 
-    User findByLogin(String login);
+    Optional<User> findByLogin(String login);
 
     List<User> findAll();
 
-    List<User> findAllNotDeletedWithoutAdmins();
+    List<User> findAllNotDeletedWithoutAdminsAndModerators();
 
     List<User> findAllNotDeletedWithoutAdminsAndModeratorsExcludeUser(User user);
 

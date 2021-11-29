@@ -1,6 +1,7 @@
 package ru.rsreu.harbor.controller.command.moderator.users;
 
 import com.prutzkow.resourcer.Resourcer;
+import ru.rsreu.harbor.controller.exception.HandleUserBlockingException;
 import ru.rsreu.harbor.datalayer.dao.StatusDao;
 import ru.rsreu.harbor.datalayer.dao.UserDao;
 import ru.rsreu.harbor.datalayer.model.Status;
@@ -16,8 +17,8 @@ public class HandleUserBlockingLogicDbImpl implements HandleUserBlockingLogic {
     }
 
     @Override
-    public void handleUserBlocking(String id) {
-        User user = userDao.findById(Long.valueOf(id));
+    public void handleUserBlocking(String id) throws HandleUserBlockingException {
+        User user = userDao.findById(Long.valueOf(id)).orElseThrow(HandleUserBlockingException::new);
         Status newStatus = getNewStatus(user.getStatus());
         userDao.update(new User(
                 user.getId(),
@@ -35,6 +36,6 @@ public class HandleUserBlockingLogicDbImpl implements HandleUserBlockingLogic {
         } else {
             newStatusTitle = Resourcer.getString("db.status.active");
         }
-        return statusDao.findByTitle(newStatusTitle);
+        return statusDao.findByTitle(newStatusTitle).orElseThrow(IllegalArgumentException::new);
     }
 }

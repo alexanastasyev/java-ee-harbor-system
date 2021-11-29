@@ -39,7 +39,6 @@
         <filter-name>statusFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
-
     <filter>
         <filter-name>roleFilter</filter-name>
         <filter-class>ru.rsreu.harbor.controller.filter.role.RoleFilter</filter-class>

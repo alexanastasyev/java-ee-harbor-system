@@ -3,9 +3,10 @@ package ru.rsreu.harbor.datalayer.dao;
 import ru.rsreu.harbor.datalayer.model.Report;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ReportDao {
-    Report findById(Long id);
+    Optional<Report> findById(Long id);
 
     List<Report> findAll();
 
