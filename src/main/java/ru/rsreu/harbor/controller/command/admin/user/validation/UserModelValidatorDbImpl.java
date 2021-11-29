@@ -6,6 +6,9 @@ import ru.rsreu.harbor.datalayer.dao.UserDao;
 
 public class UserModelValidatorDbImpl implements UserModelValidator {
     private final static String NOT_EMPTY_OR_WHITE_SPACE_REGEX_PATTERN = "^\\S+$";
+    private final static long ADMIN_ROLE_ID = 1L;
+    private final static long ACTIVE_STATUS_ID = 1L;
+
 
     private final UserDao userDao;
     private final RoleDao roleDao;
@@ -31,14 +34,34 @@ public class UserModelValidatorDbImpl implements UserModelValidator {
 
     @Override
     public boolean isEditUserFormDataValid(
+            String sessionLogin,
             String idParameter,
             String login,
             String password,
             String roleIdParameter,
             String statusIdParameter) {
-        return (isUserWithLoginNotExists(login) || isOldLoginEqualsNew(login, idParameter)) &&
+        return (!isAdminSelfEditingValid(sessionLogin, idParameter) ||
+                isAdminRole(roleIdParameter) && isActiveStatus(statusIdParameter)) &&
+                (isUserWithLoginNotExists(login) || isOldLoginEqualsNew(login, idParameter)) &&
                 isValidLogin(login) && isValidPassword(password) &&
                 this.isValidRole(roleIdParameter) && this.isValidStatus(statusIdParameter);
+    }
+
+
+    private boolean isActiveStatus(String statusIdParameter) {
+        return this.statusDao.findById(Long.valueOf(statusIdParameter)).orElseThrow(IllegalArgumentException::new)
+                .getId().equals(ACTIVE_STATUS_ID);
+    }
+
+    private boolean isAdminRole(String roleIdParameter) {
+        return this.roleDao.findById(Long.valueOf(roleIdParameter)).orElseThrow(IllegalArgumentException::new)
+                .getId().equals(ADMIN_ROLE_ID);
+    }
+
+    private boolean isAdminSelfEditingValid(String sessionLogin, String idParameter) {
+        return this.userDao.findByLogin(sessionLogin).orElseThrow(IllegalArgumentException::new).getId().equals(
+                this.userDao.findById(Long.valueOf(idParameter)).orElseThrow(IllegalArgumentException::new).getId()
+        );
     }
 
     private boolean isUserWithLoginNotExists(String login) {
@@ -49,7 +72,7 @@ public class UserModelValidatorDbImpl implements UserModelValidator {
         return this.userDao.findByLogin(login).orElseThrow(IllegalArgumentException::new).getId()
                 .equals(
                         userDao.findById(
-                                Long.valueOf(idParameter)).orElseThrow(IllegalArgumentException::new)
+                                        Long.valueOf(idParameter)).orElseThrow(IllegalArgumentException::new)
                                 .getId());
     }
 

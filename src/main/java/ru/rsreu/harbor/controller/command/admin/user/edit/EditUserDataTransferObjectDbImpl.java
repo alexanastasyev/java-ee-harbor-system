@@ -27,13 +27,15 @@ public class EditUserDataTransferObjectDbImpl implements DataTransferObject<User
 
     @Override
     public User formModel(HttpServletRequest request) {
+        String sessionLogin = request.getSession().getAttribute(
+                Resourcer.getString("session.attribute.name.user")).toString();
         String idParameter = request.getParameter(Resourcer.getString("user.form.dto.id"));
         String login = request.getParameter(Resourcer.getString("user.form.dto.login"));
         String password = request.getParameter(Resourcer.getString("user.form.dto.password"));
         String roleIdParameter = request.getParameter(Resourcer.getString("user.form.dto.role"));
         String statusIdParameter = request.getParameter(Resourcer.getString("user.form.dto.status"));
         if (this.userModelValidator.isEditUserFormDataValid(
-                idParameter, login, password, roleIdParameter, statusIdParameter)) {
+                sessionLogin, idParameter, login, password, roleIdParameter, statusIdParameter)) {
             return new User(
                     Long.valueOf(idParameter),
                     login,

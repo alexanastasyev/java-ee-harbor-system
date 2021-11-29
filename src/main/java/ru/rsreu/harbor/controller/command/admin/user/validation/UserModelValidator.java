@@ -8,6 +8,7 @@ public interface UserModelValidator {
             String statusIdParameter);
 
     boolean isEditUserFormDataValid(
+            String sessionLogin,
             String idParameter,
             String login,
             String password,
