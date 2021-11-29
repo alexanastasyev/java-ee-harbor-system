@@ -5,6 +5,11 @@
 <head>
     <title>Welcome, Dispatcher</title>
 </head>
+    <c:if test="${errorMessage != null}">
+        <hr/>
+        <p style="color: red">${errorMessage}</p>
+        <c:remove var="errorMessage" scope="session" />
+    </c:if>
     <body>
         <h1>Welcome, Dispatcher</h1>
         <hr/>

@@ -5,6 +5,11 @@
 <head>
     <title>Report</title>
 </head>
+    <c:if test="${errorMessage != null}">
+        <hr/>
+        <p style="color: red">${errorMessage}</p>
+        <c:remove var="errorMessage" scope="session" />
+    </c:if>
     <body>
         <a href="controller?command=show_moderator_reports_page">Back</a>
         <hr/>
