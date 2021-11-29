@@ -7,7 +7,11 @@
 </head>
 <body>
 <h1>Welcome, moderator</h1>
-${errorMessage}
+<c:if test="${errorMessage != null}">
+    <hr/>
+    <p style="color: red">${errorMessage}</p>
+    <c:remove var="errorMessage" scope="session" />
+</c:if>
 <hr/>
 <a href="controller?command=show_moderator_reports_page">Reports</a>
 <hr/>

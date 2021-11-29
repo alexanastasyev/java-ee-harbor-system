@@ -19,9 +19,13 @@ public class HandleUserBlockingCommand implements ActionCommand {
 
     @Override
     public ActionCommandResult execute(HttpServletRequest request) throws HandleUserBlockingException {
-        handleUserBlockingLogic.handleUserBlocking(
-                request.getParameter(Resourcer.getString("request.handleUserBlockingCommand.parameter.id"))
-        );
+        try {
+            handleUserBlockingLogic.handleUserBlocking(
+                    request.getParameter(
+                            Resourcer.getString("request.handleUserBlockingCommand.parameter.id")));
+        } catch (IllegalArgumentException exception) {
+            throw new HandleUserBlockingException();
+        }
         String page = request.getParameter(
                 Resourcer.getString("request.handleUserBlockingCommand.parameter.nextPage")
         );

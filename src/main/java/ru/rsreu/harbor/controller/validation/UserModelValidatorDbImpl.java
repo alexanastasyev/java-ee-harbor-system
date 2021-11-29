@@ -1,4 +1,4 @@
-package ru.rsreu.harbor.controller.command.admin.user.validation;
+package ru.rsreu.harbor.controller.validation;
 
 import ru.rsreu.harbor.datalayer.dao.RoleDao;
 import ru.rsreu.harbor.datalayer.dao.StatusDao;
@@ -49,19 +49,32 @@ public class UserModelValidatorDbImpl implements UserModelValidator {
 
 
     private boolean isActiveStatus(String statusIdParameter) {
-        return this.statusDao.findById(Long.valueOf(statusIdParameter)).orElseThrow(IllegalArgumentException::new)
-                .getId().equals(ACTIVE_STATUS_ID);
+        try {
+            return this.statusDao.findById(Long.valueOf(statusIdParameter)).orElseThrow(IllegalArgumentException::new)
+                    .getId().equals(ACTIVE_STATUS_ID);
+        } catch (NumberFormatException exception) {
+            throw new IllegalArgumentException();
+        }
+
     }
 
     private boolean isAdminRole(String roleIdParameter) {
-        return this.roleDao.findById(Long.valueOf(roleIdParameter)).orElseThrow(IllegalArgumentException::new)
-                .getId().equals(ADMIN_ROLE_ID);
+        try {
+            return this.roleDao.findById(Long.valueOf(roleIdParameter)).orElseThrow(IllegalArgumentException::new)
+                    .getId().equals(ADMIN_ROLE_ID);
+        } catch (NumberFormatException exception) {
+            throw new IllegalArgumentException();
+        }
     }
 
     private boolean isAdminSelfEditingValid(String sessionLogin, String idParameter) {
-        return this.userDao.findByLogin(sessionLogin).orElseThrow(IllegalArgumentException::new).getId().equals(
-                this.userDao.findById(Long.valueOf(idParameter)).orElseThrow(IllegalArgumentException::new).getId()
-        );
+        try {
+            return this.userDao.findByLogin(sessionLogin).orElseThrow(IllegalArgumentException::new).getId().equals(
+                    this.userDao.findById(Long.valueOf(idParameter)).orElseThrow(IllegalArgumentException::new).getId()
+            );
+        } catch (NumberFormatException exception) {
+            throw new IllegalArgumentException();
+        }
     }
 
     private boolean isUserWithLoginNotExists(String login) {
@@ -69,19 +82,33 @@ public class UserModelValidatorDbImpl implements UserModelValidator {
     }
 
     private boolean isOldLoginEqualsNew(String login, String idParameter) {
-        return this.userDao.findByLogin(login).orElseThrow(IllegalArgumentException::new).getId()
-                .equals(
-                        userDao.findById(
-                                        Long.valueOf(idParameter)).orElseThrow(IllegalArgumentException::new)
-                                .getId());
+        try {
+            return this.userDao.findByLogin(login).orElseThrow(IllegalArgumentException::new).getId()
+                    .equals(
+                            userDao.findById(
+                                            Long.valueOf(idParameter)).orElseThrow(IllegalArgumentException::new)
+                                    .getId());
+        } catch (NumberFormatException exception) {
+            throw new IllegalArgumentException();
+        }
+
     }
 
     private boolean isValidRole(String roleIdParameter) {
-        return this.roleDao.findById(Long.valueOf(roleIdParameter)).isPresent();
+        try {
+            return this.roleDao.findById(Long.valueOf(roleIdParameter)).isPresent();
+        } catch (NumberFormatException exception) {
+            return false;
+        }
+
     }
 
     private boolean isValidStatus(String statusIdParameter) {
-        return this.statusDao.findById(Long.valueOf(statusIdParameter)).isPresent();
+        try {
+            return this.statusDao.findById(Long.valueOf(statusIdParameter)).isPresent();
+        } catch (NumberFormatException exception) {
+            return false;
+        }
     }
 
     private static boolean isValidLogin(String login) {

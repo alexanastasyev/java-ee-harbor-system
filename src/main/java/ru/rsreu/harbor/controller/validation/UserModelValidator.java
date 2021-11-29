@@ -1,4 +1,4 @@
-package ru.rsreu.harbor.controller.command.admin.user.validation;
+package ru.rsreu.harbor.controller.validation;
 
 public interface UserModelValidator {
     boolean isCreateUserFormValid(

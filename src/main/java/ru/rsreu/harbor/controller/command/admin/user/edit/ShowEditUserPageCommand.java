@@ -22,7 +22,7 @@ public class ShowEditUserPageCommand implements ActionCommand {
     public ActionCommandResult execute(HttpServletRequest request) throws ShowEditUserPageException {
         String idParameter = request.getParameter(
                 Resourcer.getString("request.editUser.parameter.id"));
-        if (!(idParameter == null || idParameter.isEmpty())) {
+        try {
             this.formSuccessfulJspParameters(
                     this.showEditUserPageCommandLogic.getUserByLogin(
                             request.getSession().getAttribute(
@@ -31,10 +31,9 @@ public class ShowEditUserPageCommand implements ActionCommand {
                     ),
                     this.showEditUserPageCommandLogic.getUserById(idParameter),
                     request);
-        } else {
+        } catch (IllegalArgumentException exception) {
             throw new ShowEditUserPageException();
         }
-
         return new ActionCommandResult(
                 Resourcer.getString("path.page.editUser"),
                 ActionCommandResultTypes.FORWARD

@@ -1,8 +1,8 @@
 package ru.rsreu.harbor.controller.command.admin.user.create;
 
 import com.prutzkow.resourcer.Resourcer;
-import ru.rsreu.harbor.controller.command.admin.user.validation.UserModelValidator;
-import ru.rsreu.harbor.controller.command.admin.user.validation.UserModelValidatorDbImpl;
+import ru.rsreu.harbor.controller.validation.UserModelValidator;
+import ru.rsreu.harbor.controller.validation.UserModelValidatorDbImpl;
 import ru.rsreu.harbor.controller.dto.DataTransferObject;
 import ru.rsreu.harbor.datalayer.dao.RoleDao;
 import ru.rsreu.harbor.datalayer.dao.StatusDao;

@@ -16,8 +16,10 @@
             Password: <input name="password" type="password"/>
         </label>
         <br/>
-        <p style="color: red">${errorMessage}</p>
-        <c:remove var="errorMessage" scope="session" />
+        <c:if test="${errorMessage != null}">
+            <p style="color: red">${errorMessage}</p>
+            <c:remove var="errorMessage" scope="session" />
+        </c:if>
         <input type="submit" value="Sign In">
     </form>
 </body>
