@@ -6,6 +6,11 @@
   <title>Edit user</title>
 </head>
   <body>
+  <c:if test="${errorMessage != null}">
+    <hr/>
+    <p style="color: red">${errorMessage}</p>
+    <c:remove var="errorMessage" scope="session" />
+  </c:if>
     <b>From: </b>
     ${fromUser.getLogin()}
     <form method="post" action="controller">

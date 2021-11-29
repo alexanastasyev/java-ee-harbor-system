@@ -12,7 +12,6 @@
         <p style="color: red">${errorMessage}</p>
         <c:remove var="errorMessage" scope="session" />
     </c:if>
-
     <hr/>
     <a href="controller?command=show_admin_piers_page">Piers</a>
     <hr/>
