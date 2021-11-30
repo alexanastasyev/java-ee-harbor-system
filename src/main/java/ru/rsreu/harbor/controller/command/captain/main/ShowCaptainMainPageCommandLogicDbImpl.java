@@ -5,7 +5,6 @@ import ru.rsreu.harbor.datalayer.dao.PierAssignmentDao;
 import ru.rsreu.harbor.datalayer.dao.PierDao;
 import ru.rsreu.harbor.datalayer.dao.RequestStatusDao;
 import ru.rsreu.harbor.datalayer.dao.UserDao;
-import ru.rsreu.harbor.datalayer.model.Pier;
 import ru.rsreu.harbor.datalayer.model.PierAssignment;
 
 public class ShowCaptainMainPageCommandLogicDbImpl implements ShowCaptainMainPageCommandLogic {
@@ -39,7 +38,7 @@ public class ShowCaptainMainPageCommandLogicDbImpl implements ShowCaptainMainPag
                 this.pierAssignmentDao
                         .findAll()
                         .stream()
-                        .filter(it -> !it.getPier().equals(new Pier(-1L)))
+                        .filter(it -> it.getPier() != null)
                         .count();
     }
 

@@ -56,4 +56,12 @@ public interface ActionCommandsFactory {
     ActionCommand getShowCreateReportPageCommand();
 
     ActionCommand getCreateReportCommand();
+
+    ActionCommand getShowUnloadPageCommand();
+
+    ActionCommand getUnloadCommand();
+
+    ActionCommand getShowUploadPageCommand();
+
+    ActionCommand getUploadCommand();
 }

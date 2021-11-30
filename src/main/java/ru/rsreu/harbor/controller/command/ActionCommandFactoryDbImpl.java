@@ -15,6 +15,13 @@ import ru.rsreu.harbor.controller.command.captain.main.ShowCaptainMainPageComman
 import ru.rsreu.harbor.controller.command.captain.main.ShowCaptainMainPageCommandLogicDbImpl;
 import ru.rsreu.harbor.controller.command.captain.request_department.RequestDepartmentCommand;
 import ru.rsreu.harbor.controller.command.captain.request_department.RequestDepartmentCommandLogicDbImpl;
+import ru.rsreu.harbor.controller.command.captain.unload.ShowUnloadPageCommand;
+import ru.rsreu.harbor.controller.command.captain.unload.UnloadCommand;
+import ru.rsreu.harbor.controller.command.captain.unload.UnloadCommandLogicDbImpl;
+import ru.rsreu.harbor.controller.command.captain.upload.ShowUploadPageCommand;
+import ru.rsreu.harbor.controller.command.captain.upload.ShowUploadPageCommandLogicDbImpl;
+import ru.rsreu.harbor.controller.command.captain.upload.UploadCommand;
+import ru.rsreu.harbor.controller.command.captain.upload.UploadCommandLogicDbImpl;
 import ru.rsreu.harbor.controller.command.dispatcher.approve_arrival.ApproveArrivalRequestCommand;
 import ru.rsreu.harbor.controller.command.dispatcher.approve_arrival.ApproveArrivalRequestCommandLogicDbImpl;
 import ru.rsreu.harbor.controller.command.dispatcher.approve_arrival.ArrivalRequestFormDataTransferObjectDbImpl;
@@ -244,5 +251,29 @@ public class ActionCommandFactoryDbImpl implements ActionCommandsFactory {
                         this.daoFactory.getUserDao()
                 )
         );
+    }
+
+    @Override
+    public ActionCommand getShowUnloadPageCommand() {
+        return new ShowUnloadPageCommand();
+    }
+
+    @Override
+    public ActionCommand getUnloadCommand() {
+        return new UnloadCommand(new UnloadCommandLogicDbImpl(
+                this.daoFactory.getProductDao(),
+                this.daoFactory.getUserDao(),
+                this.daoFactory.getPierDao()
+        ));
+    }
+
+    @Override
+    public ActionCommand getShowUploadPageCommand() {
+        return new ShowUploadPageCommand(new ShowUploadPageCommandLogicDbImpl(this.daoFactory.getProductDao()));
+    }
+
+    @Override
+    public ActionCommand getUploadCommand() {
+        return new UploadCommand(new UploadCommandLogicDbImpl(this.daoFactory.getProductDao()));
     }
 }

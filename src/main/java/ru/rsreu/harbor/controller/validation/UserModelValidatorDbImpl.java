@@ -47,7 +47,6 @@ public class UserModelValidatorDbImpl implements UserModelValidator {
                 this.isValidRole(roleIdParameter) && this.isValidStatus(statusIdParameter);
     }
 
-
     private boolean isActiveStatus(String statusIdParameter) {
         try {
             return this.statusDao.findById(Long.valueOf(statusIdParameter)).orElseThrow(IllegalArgumentException::new)

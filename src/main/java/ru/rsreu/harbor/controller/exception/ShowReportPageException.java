@@ -14,7 +14,7 @@ public class ShowReportPageException extends ActionCommandException {
                 Resourcer.getString("message.error.moderatorUserPage.noSuchReport")
         );
         return new ActionCommandResult(
-                Resourcer.getString("command.path.showCreateUserPage"),
+                Resourcer.getString("command.path.showModeratorReportsPage"),
                 ActionCommandResultTypes.SEND_REDIRECT
         );
     }

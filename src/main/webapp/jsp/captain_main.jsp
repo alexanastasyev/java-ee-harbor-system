@@ -41,14 +41,8 @@
         </c:when>
         <c:when test="${pierAssignment.requestStatus.getTitle().equals('locked')}">
             <h2>You are in Pearl Harbor pier №${pierAssignment.getPier().getId()}. Enjoy your visiting, captain</h2>
-            <form method="post" action="controller">
-                <input type="hidden" name="command" value="show_upload_page"/>
-                <input type="submit" value="Upload"/>
-            </form>
-            <form method="post" action="controller">
-                <input type="hidden" name="command" value="show_unload_page"/>
-                <input type="submit" value="Unload"/>
-            </form>
+            <a href="controller?command=show_upload_page">Upload</a>
+            <a href="controller?command=show_unload_page">Unload</a>
             <form method="post" action="controller">
                 <input type="hidden" name="command" value="request_department"/>
                 <input type="submit" value="Request department"/>

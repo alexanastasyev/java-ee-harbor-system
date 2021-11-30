@@ -181,6 +181,30 @@ public enum ActionCommands {
         public ActionCommand getCommand(ActionCommandsFactory commandsFactory) {
             return commandsFactory.getCreateReportCommand();
         }
+    },
+    SHOW_UNLOAD_PAGE {
+        @Override
+        public ActionCommand getCommand(ActionCommandsFactory commandsFactory) {
+            return commandsFactory.getShowUnloadPageCommand();
+        }
+    },
+    UNLOAD {
+        @Override
+        public ActionCommand getCommand(ActionCommandsFactory commandsFactory) {
+            return commandsFactory.getUnloadCommand();
+        }
+    },
+    SHOW_UPLOAD_PAGE {
+        @Override
+        public ActionCommand getCommand(ActionCommandsFactory commandsFactory) {
+            return commandsFactory.getShowUploadPageCommand();
+        }
+    },
+    UPLOAD {
+        @Override
+        public ActionCommand getCommand(ActionCommandsFactory commandsFactory) {
+            return commandsFactory.getUploadCommand();
+        }
     };
 
     public abstract ActionCommand getCommand(ActionCommandsFactory commandsFactory);

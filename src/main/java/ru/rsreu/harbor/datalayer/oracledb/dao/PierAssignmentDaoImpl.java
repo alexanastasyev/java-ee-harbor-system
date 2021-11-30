@@ -106,12 +106,12 @@ public class PierAssignmentDaoImpl implements PierAssignmentDao {
     }
 
     private final RowMapper<PierAssignment> pierAssignmentRowMapper = (row) -> {
-        BigDecimal pierId = (BigDecimal) row.get(Resourcer.getString("dao.pier_assignment.column.pier_id"));
+        Object pierId = row.get(Resourcer.getString("dao.pier_assignment.column.pier_id"));
         return new PierAssignment(
                 ((BigDecimal) row.get(Resourcer.getString("dao.pier_assignment.column.id"))).longValue(),
-                (pierId != null) ?
-                        this.pierDao.findById(pierId.longValue()).orElseThrow(IllegalArgumentException::new)
-                        : new Pier(-1L),
+                (pierId == null) ? null :
+                        this.pierDao.findById(((BigDecimal) pierId).longValue())
+                                .orElseThrow(IllegalArgumentException::new),
                 userDao.findById((
                         (BigDecimal) row.get(Resourcer.getString("dao.pier_assignment.column.user_id"))
                 ).longValue()).orElseThrow(IllegalArgumentException::new),
