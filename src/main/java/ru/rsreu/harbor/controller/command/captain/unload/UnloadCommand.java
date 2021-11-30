@@ -16,7 +16,6 @@ import java.util.List;
 
 @CommandSupportedRolesTitles(titles = {"captain"})
 public class UnloadCommand implements ActionCommand {
-
     private final UnloadCommandLogic unloadCommandLogic;
 
     public UnloadCommand(UnloadCommandLogic unloadCommandLogic) {

@@ -10,7 +10,6 @@ import ru.rsreu.harbor.datalayer.model.User;
 import java.util.List;
 
 public class UnloadCommandLogicDbImpl implements UnloadCommandLogic {
-
     private final ProductDao productDao;
     private final UserDao userDao;
     private final PierDao pierDao;

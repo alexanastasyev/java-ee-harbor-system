@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 
 @CommandSupportedRolesTitles(titles = {"captain"})
 public class ShowUploadPageCommand implements ActionCommand {
-
     private final ShowUploadPageCommandLogic showUploadPageCommandLogic;
 
     public ShowUploadPageCommand(ShowUploadPageCommandLogic showUploadPageCommandLogic) {

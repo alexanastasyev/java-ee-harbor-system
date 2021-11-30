@@ -73,11 +73,31 @@
                         <tr>
                             <th>No</th>
                             <th>Captain</th>
+                            <th>Status</th>
                         </tr>
                         <c:forEach var="pierWithAssignment" items="${piersWithAssignments}" varStatus="status">
                             <tr>
                                 <td>${pierWithAssignment.getKey().getId()}</td>
-                                <td>${pierWithAssignment.getValue().getLogin()}</td>
+                                <td>${pierWithAssignment.getValue().getCaptain().getLogin()}</td>
+                                <td>
+                                    <c:choose>
+                                        <c:when test="${pierWithAssignment.getValue() == null}">
+                                            Free
+                                        </c:when>
+                                        <c:when test="${pierWithAssignment.getValue().getRequestStatus().getTitle().equals('approved_arrival')}">
+                                            Engaged
+                                        </c:when>
+                                        <c:when test="${pierWithAssignment.getValue().getRequestStatus().getTitle().equals('locked')}">
+                                            Locked
+                                        </c:when>
+                                        <c:when test="${pierWithAssignment.getValue().getRequestStatus().getTitle().equals('requested_department')}">
+                                            Release requested
+                                        </c:when>
+                                        <c:otherwise>
+                                            Vacated
+                                        </c:otherwise>
+                                    </c:choose>
+                                </td>
                             </tr>
                         </c:forEach>
                     </table>

@@ -6,7 +6,6 @@ import ru.rsreu.harbor.datalayer.model.Product;
 import java.util.List;
 
 public class UploadCommandLogicDbImpl implements UploadCommandLogic {
-
     private final ProductDao productDao;
 
     public UploadCommandLogicDbImpl(ProductDao productDao) {

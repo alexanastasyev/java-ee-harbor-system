@@ -4,12 +4,14 @@ import com.prutzkow.resourcer.Resourcer;
 import ru.rsreu.harbor.controller.command.ActionCommand;
 import ru.rsreu.harbor.controller.dto.DataTransferObject;
 import ru.rsreu.harbor.controller.exception.CreateReportException;
+import ru.rsreu.harbor.controller.filter.role.CommandSupportedRolesTitles;
 import ru.rsreu.harbor.controller.result.ActionCommandResult;
 import ru.rsreu.harbor.controller.result.ActionCommandResultTypes;
 import ru.rsreu.harbor.datalayer.model.Report;
 
 import javax.servlet.http.HttpServletRequest;
 
+@CommandSupportedRolesTitles(titles = {"captain", "dispatcher"})
 public class CreateReportCommand implements ActionCommand {
     private final CreateReportCommandLogic createReportCommandLogic;
     private final DataTransferObject<Report> reportDataTransferObject;

@@ -14,7 +14,6 @@ import java.io.IOException;
 import java.util.List;
 
 public class RoleFilter extends HttpFilter {
-
     @Override
     protected void doFilter(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
             throws IOException, ServletException {

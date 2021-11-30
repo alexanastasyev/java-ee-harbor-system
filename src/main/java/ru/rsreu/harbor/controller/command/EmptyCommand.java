@@ -7,7 +7,6 @@ import ru.rsreu.harbor.controller.result.ActionCommandResultTypes;
 import javax.servlet.http.HttpServletRequest;
 
 public class EmptyCommand implements ActionCommand {
-
     @Override
     public ActionCommandResult execute(HttpServletRequest request) {
         return new ActionCommandResult(

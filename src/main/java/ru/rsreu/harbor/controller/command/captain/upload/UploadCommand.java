@@ -5,6 +5,7 @@ import com.google.gson.reflect.TypeToken;
 import com.prutzkow.resourcer.Resourcer;
 import ru.rsreu.harbor.controller.command.ActionCommand;
 import ru.rsreu.harbor.controller.exception.ActionCommandException;
+import ru.rsreu.harbor.controller.filter.role.CommandSupportedRolesTitles;
 import ru.rsreu.harbor.controller.result.ActionCommandResult;
 import ru.rsreu.harbor.controller.result.ActionCommandResultTypes;
 
@@ -13,8 +14,8 @@ import java.lang.reflect.Type;
 import java.util.Collection;
 import java.util.List;
 
+@CommandSupportedRolesTitles(titles = {"captain"})
 public class UploadCommand implements ActionCommand {
-
     private final UploadCommandLogic uploadCommandLogic;
 
     public UploadCommand(UploadCommandLogic uploadCommandLogic) {
