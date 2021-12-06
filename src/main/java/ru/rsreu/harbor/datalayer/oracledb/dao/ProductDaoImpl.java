@@ -79,7 +79,7 @@ public class ProductDaoImpl implements ProductDao {
     private final ObjectMapper<Product> saveProductObjectMapper = (product) -> new String[] {
             product.getTitle(),
             String.valueOf(product.getQuantity()),
-            product.getCapitan().getId().toString(),
+            product.getCaptain().getId().toString(),
             product.getPier().getId().toString()
     };
 

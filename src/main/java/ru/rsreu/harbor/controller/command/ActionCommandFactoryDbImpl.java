@@ -40,6 +40,8 @@ import ru.rsreu.harbor.controller.command.moderator.users.HandleUserBlockingComm
 import ru.rsreu.harbor.controller.command.moderator.users.HandleUserBlockingLogicDbImpl;
 import ru.rsreu.harbor.controller.command.moderator.users.ShowModeratorUsersPageCommand;
 import ru.rsreu.harbor.controller.command.moderator.users.ShowModeratorUsersPageLogicDbImpl;
+import ru.rsreu.harbor.controller.command.produtct_info.ShowProductsInfoLogicDbImpl;
+import ru.rsreu.harbor.controller.command.produtct_info.ShowProductsInfoPageCommand;
 import ru.rsreu.harbor.controller.command.report_system.create.CreateReportCommand;
 import ru.rsreu.harbor.controller.command.report_system.create.CreateReportCommandLogicDbImpl;
 import ru.rsreu.harbor.controller.command.report_system.create.CreateReportDataTransferObjectDbImpl;
@@ -275,5 +277,10 @@ public class ActionCommandFactoryDbImpl implements ActionCommandsFactory {
     @Override
     public ActionCommand getUploadCommand() {
         return new UploadCommand(new UploadCommandLogicDbImpl(this.daoFactory.getProductDao()));
+    }
+
+    @Override
+    public ActionCommand getShowProductsInfoPageCommand() {
+        return new ShowProductsInfoPageCommand(new ShowProductsInfoLogicDbImpl(this.daoFactory.getProductDao()));
     }
 }

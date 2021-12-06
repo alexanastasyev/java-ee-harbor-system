@@ -107,6 +107,8 @@
     <hr/>
     <a href="controller?command=show_create_report_page">Report</a>
     <hr/>
+    <a href="controller?command=show_products_info_page">Products info</a>
+    <hr/>
     <a href="controller?command=logout">Logout</a>
     </body>
 </html>

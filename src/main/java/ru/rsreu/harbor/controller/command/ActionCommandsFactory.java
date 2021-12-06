@@ -64,4 +64,6 @@ public interface ActionCommandsFactory {
     ActionCommand getShowUploadPageCommand();
 
     ActionCommand getUploadCommand();
+
+    ActionCommand getShowProductsInfoPageCommand();
 }

@@ -205,6 +205,12 @@ public enum ActionCommands {
         public ActionCommand getCommand(ActionCommandsFactory commandsFactory) {
             return commandsFactory.getUploadCommand();
         }
+    },
+    SHOW_PRODUCTS_INFO_PAGE {
+        @Override
+        public ActionCommand getCommand(ActionCommandsFactory commandsFactory) {
+            return commandsFactory.getShowProductsInfoPageCommand();
+        }
     };
 
     public abstract ActionCommand getCommand(ActionCommandsFactory commandsFactory);
