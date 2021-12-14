@@ -2,20 +2,24 @@ function addItem() {
     const divMain = document.getElementById('dynamic-div');
 
     const div = document.createElement('div');
+    div.setAttribute('class', 'margin-top-small form-group');
 
     const labelTitle = document.createElement('label');
-    labelTitle.append('Title: ');
+    labelTitle.append('Title:')
     const inputTitle = document.createElement('input');
     inputTitle.setAttribute('type', 'text');
     inputTitle.setAttribute('name', 'productTitle');
+    inputTitle.setAttribute('class', 'form-control');
     labelTitle.appendChild(inputTitle);
     div.appendChild(labelTitle);
 
     const labelQuantity = document.createElement('label');
-    labelQuantity.append(' Quantity: ');
+    labelQuantity.append('Quantity:')
+    labelQuantity.setAttribute('class', 'margin-left-small');
     const inputQuantity = document.createElement('input');
     inputQuantity.setAttribute('type', 'text');
     inputQuantity.setAttribute('name', 'productQuantity');
+    inputQuantity.setAttribute('class', 'form-control');
     labelQuantity.appendChild(inputQuantity);
     div.appendChild(labelQuantity);
 

@@ -31,7 +31,7 @@
                     <p style="color: red">${errorMessage}</p>
                     <c:remove var="errorMessage" scope="session" />
                 </c:if>
-                <button type="submit" class="btn btn-primary margin-top-small">Sign in</button>
+                <button type="submit" class="btn btn-primary margin-top-medium">Sign in</button>
             </div>
         </form>
     </div>
