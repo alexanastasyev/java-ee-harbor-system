@@ -1,0 +1,58 @@
+.content-container {
+    margin: 50px 100px 50px 100px;
+}
+
+.align-content-center {
+    text-align: center;
+}
+
+.align-content-left {
+    text-align: left;
+}
+
+.align-content-right {
+    text-align: right;
+}
+
+.align-self-right {
+    margin-left: auto;
+    margin-right: 0;
+}
+
+.align-content-opposite {
+    display: flex;
+    justify-content: space-between;
+}
+
+.margin-top-small {
+    margin-top: 10px;
+}
+
+.margin-top-medium {
+    margin-top: 30px;
+}
+
+.margin-top-big {
+    margin-top: 50px;
+}
+
+.margin-bottom-empty {
+    margin-bottom: 0;
+}
+
+.margin-left-small {
+    margin-left: 10px;
+}
+
+.width-match-parent {
+    display: block;
+    width: 100%;
+}
+
+.width-wrap-content {
+    display: inline-block;
+}
+
+.layout-flex {
+    display: flex;
+}
