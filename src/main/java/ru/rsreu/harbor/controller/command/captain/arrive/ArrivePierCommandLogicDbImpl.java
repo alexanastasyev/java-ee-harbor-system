@@ -17,7 +17,11 @@ public class ArrivePierCommandLogicDbImpl implements ArrivePierCommandLogic {
 
     private final CaptainActionValidator captainActionValidator;
 
-    public ArrivePierCommandLogicDbImpl(UserDao userDao, RequestStatusDao requestStatusDao, PierAssignmentDao pierAssignmentDao, CaptainActionValidator captainActionValidator) {
+    public ArrivePierCommandLogicDbImpl(
+            UserDao userDao,
+            RequestStatusDao requestStatusDao,
+            PierAssignmentDao pierAssignmentDao,
+            CaptainActionValidator captainActionValidator) {
         this.userDao = userDao;
         this.requestStatusDao = requestStatusDao;
         this.pierAssignmentDao = pierAssignmentDao;

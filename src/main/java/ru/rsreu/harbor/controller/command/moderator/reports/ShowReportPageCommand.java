@@ -2,7 +2,7 @@ package ru.rsreu.harbor.controller.command.moderator.reports;
 
 import com.prutzkow.resourcer.Resourcer;
 import ru.rsreu.harbor.controller.command.ActionCommand;
-import ru.rsreu.harbor.controller.exception.ShowReportPageException;
+import ru.rsreu.harbor.controller.exception.ReportNotExistsException;
 import ru.rsreu.harbor.controller.filter.role.CommandSupportedRolesTitles;
 import ru.rsreu.harbor.controller.result.ActionCommandResult;
 import ru.rsreu.harbor.controller.result.ActionCommandResultTypes;
@@ -18,7 +18,7 @@ public class ShowReportPageCommand implements ActionCommand {
     }
 
     @Override
-    public ActionCommandResult execute(HttpServletRequest request) throws ShowReportPageException {
+    public ActionCommandResult execute(HttpServletRequest request) throws ReportNotExistsException {
         try {
             request.setAttribute(
                     Resourcer.getString("request.showReportPage.attribute.report"),
@@ -27,7 +27,7 @@ public class ShowReportPageCommand implements ActionCommand {
                     )
             );
         } catch (IllegalArgumentException exception) {
-            throw new ShowReportPageException();
+            throw new ReportNotExistsException();
         }
 
         return new ActionCommandResult(

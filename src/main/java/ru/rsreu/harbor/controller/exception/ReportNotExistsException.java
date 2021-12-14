@@ -6,12 +6,12 @@ import ru.rsreu.harbor.controller.result.ActionCommandResultTypes;
 
 import javax.servlet.http.HttpServletRequest;
 
-public class ShowReportPageException extends ActionCommandException {
+public class ReportNotExistsException extends ActionCommandException {
     @Override
     public ActionCommandResult getActionCommandResult(HttpServletRequest request) {
         request.getSession().setAttribute(
                 Resourcer.getString("request.attribute.key.errorMessage"),
-                Resourcer.getString("message.error.moderatorUserPage.noSuchReport")
+                Resourcer.getString("message.error.moderatorReportsPage.noSuchReport")
         );
         return new ActionCommandResult(
                 Resourcer.getString("command.path.showModeratorReportsPage"),
