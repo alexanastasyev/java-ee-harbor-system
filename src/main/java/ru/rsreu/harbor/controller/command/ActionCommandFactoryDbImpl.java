@@ -48,14 +48,21 @@ import ru.rsreu.harbor.controller.command.report_system.create.CreateReportComma
 import ru.rsreu.harbor.controller.command.report_system.create.CreateReportDto;
 import ru.rsreu.harbor.controller.command.report_system.page.ShowCreateReportPageCommand;
 import ru.rsreu.harbor.controller.command.report_system.page.ShowCreateReportPageCommandLogicDbImpl;
+import ru.rsreu.harbor.controller.validation.CaptainActionValidator;
+import ru.rsreu.harbor.controller.validation.CaptainActionValidatorDbImpl;
 import ru.rsreu.harbor.controller.validation.ProductFormValidatorImpl;
 import ru.rsreu.harbor.datalayer.DaoFactory;
 
 public class ActionCommandFactoryDbImpl implements ActionCommandsFactory {
     private final DaoFactory daoFactory;
 
+    private final CaptainActionValidator captainActionValidator;
+
     public ActionCommandFactoryDbImpl(DaoFactory daoFactory) {
         this.daoFactory = daoFactory;
+        this.captainActionValidator = new CaptainActionValidatorDbImpl(
+                this.daoFactory.getRequestStatusDao(),
+                this.daoFactory.getPierAssignmentDao());
     }
 
     @Override
@@ -168,7 +175,9 @@ public class ActionCommandFactoryDbImpl implements ActionCommandsFactory {
     public ActionCommand getShowCaptainMainPageCommand() {
         return new ShowCaptainMainPageCommand(new ShowCaptainMainPageCommandLogicDbImpl(
                 this.daoFactory.getUserDao(),
-                this.daoFactory.getPierDao(), this.daoFactory.getRequestStatusDao(), this.daoFactory.getPierAssignmentDao()
+                this.daoFactory.getPierDao(),
+                this.daoFactory.getRequestStatusDao(),
+                this.daoFactory.getPierAssignmentDao()
         ));
     }
 
@@ -177,25 +186,25 @@ public class ActionCommandFactoryDbImpl implements ActionCommandsFactory {
         return new RequestArrivalCommand(new RequestArrivalCommandLogicDbImpl(
                 this.daoFactory.getUserDao(),
                 this.daoFactory.getPierAssignmentDao(),
-                this.daoFactory.getRequestStatusDao()
-        ));
+                this.daoFactory.getRequestStatusDao(),
+                this.captainActionValidator));
     }
 
     @Override
     public ActionCommand getCancelArrivalRequestCommand() {
         return new CancelArrivalRequestCommand(new CancelArrivalRequestCommandLogicDbImpl(
                 this.daoFactory.getUserDao(),
-                this.daoFactory.getPierAssignmentDao()
-        ));
+                this.daoFactory.getPierAssignmentDao(),
+                this.captainActionValidator));
     }
 
     @Override
     public ActionCommand getArrivePierCommand() {
         return new ArrivePierCommand(new ArrivePierCommandLogicDbImpl(
-           this.daoFactory.getUserDao(),
-           this.daoFactory.getRequestStatusDao(),
-           this.daoFactory.getPierAssignmentDao()
-        ));
+                this.daoFactory.getUserDao(),
+                this.daoFactory.getRequestStatusDao(),
+                this.daoFactory.getPierAssignmentDao(),
+                this.captainActionValidator));
     }
 
     @Override
@@ -203,8 +212,8 @@ public class ActionCommandFactoryDbImpl implements ActionCommandsFactory {
         return new RequestDepartmentCommand(new RequestDepartmentCommandLogicDbImpl(
                 this.daoFactory.getUserDao(),
                 this.daoFactory.getRequestStatusDao(),
-                this.daoFactory.getPierAssignmentDao()
-        ));
+                this.daoFactory.getPierAssignmentDao(),
+                this.captainActionValidator));
     }
 
     @Override
