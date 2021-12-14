@@ -2,8 +2,23 @@ package ru.rsreu.harbor.datalayer.model;
 
 import java.util.Objects;
 
+
+/**
+ * Class describing user roles
+ * - ADMIN
+ * - MODER
+ * - CAPTAIN
+ * - DISPATCHER
+ */
 public class Role {
+    /**
+     * Identifier of role
+     */
     private final Long id;
+
+    /**
+     * Title of role
+     */
     private final String title;
 
     public Role(Long id, String title) {

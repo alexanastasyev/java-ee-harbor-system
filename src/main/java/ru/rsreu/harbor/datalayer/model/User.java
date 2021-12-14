@@ -2,11 +2,33 @@ package ru.rsreu.harbor.datalayer.model;
 
 import java.util.Objects;
 
+/**
+ * Class describing the user entity
+ */
 public final class User {
+    /**
+     * Identifier of user
+     */
     private final Long id;
+
+    /**
+     * User login
+     */
     private final String login;
+
+    /**
+     * User password
+     */
     private final String password;
+
+    /**
+     * User role
+     */
     private final Role role;
+
+    /**
+     * User status
+     */
     private final Status status;
 
     public User(Long id, String login, String password, Role role, Status status) {

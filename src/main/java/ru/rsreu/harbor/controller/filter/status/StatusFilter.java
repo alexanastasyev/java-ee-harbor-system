@@ -1,7 +1,7 @@
 package ru.rsreu.harbor.controller.filter.status;
 
 import com.prutzkow.resourcer.Resourcer;
-import ru.rsreu.harbor.controller.MainServlet;
+import ru.rsreu.harbor.controller.FrontController;
 import ru.rsreu.harbor.controller.command.ActionCommand;
 import ru.rsreu.harbor.controller.command.ActionCommandsDefiner;
 import ru.rsreu.harbor.controller.command.EmptyCommand;
@@ -26,7 +26,7 @@ public class StatusFilter extends HttpFilter {
         Status activeStatus = (Status) request.getServletContext().getAttribute(
                 Resourcer.getString("servlet.context.attribute.name.activeStatus"));
         ActionCommand currentCommand = ActionCommandsDefiner.defineCommand(request,
-                MainServlet.getActionCommandFactoryFromServletContext(request.getServletContext()));
+                FrontController.getActionCommandFactoryFromServletContext(request.getServletContext()));
 
         if (allowExecution(activeStatus, userStatus, currentCommand)) {
             chain.doFilter(request, response);

@@ -1,9 +1,27 @@
 package ru.rsreu.harbor.datalayer.model;
 
+/**
+ * Class describing the relationship between pier, user and the status of the link
+ */
 public class PierAssignment {
+    /**
+     * Identifier of assignment
+     */
     private final Long id;
+
+    /**
+     * Assignment pier
+     */
     private final Pier pier;
+
+    /**
+     * Assignment user
+     */
     private final User captain;
+
+    /**
+     * Assignment status
+     */
     private final RequestStatus requestStatus;
 
     public PierAssignment(Long id, Pier pier, User captain, RequestStatus requestStatus) {

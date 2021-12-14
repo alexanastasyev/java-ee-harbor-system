@@ -1,9 +1,27 @@
 package ru.rsreu.harbor.datalayer.model;
 
+/**
+ * Class describing the essence a user report about a user
+ */
 public class Report {
+    /**
+     * Identifier of report
+     */
     private final Long id;
+
+    /**
+     * What user the report came from
+     */
     private final User fromUser;
+
+    /**
+     * What user the report came to
+     */
     private final User toUser;
+
+    /**
+     * Text of report
+     */
     private final String text;
 
     public Report(Long id, User fromUser, User toUser, String text) {

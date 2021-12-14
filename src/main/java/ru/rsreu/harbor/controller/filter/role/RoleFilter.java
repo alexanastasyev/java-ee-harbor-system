@@ -1,7 +1,7 @@
 package ru.rsreu.harbor.controller.filter.role;
 
 import com.prutzkow.resourcer.Resourcer;
-import ru.rsreu.harbor.controller.MainServlet;
+import ru.rsreu.harbor.controller.FrontController;
 import ru.rsreu.harbor.controller.command.ActionCommand;
 import ru.rsreu.harbor.controller.command.ActionCommandsDefiner;
 import ru.rsreu.harbor.datalayer.model.Role;
@@ -18,7 +18,7 @@ public class RoleFilter extends HttpFilter {
     protected void doFilter(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
             throws IOException, ServletException {
         ActionCommand currentCommand = ActionCommandsDefiner.defineCommand(
-                request, MainServlet.getActionCommandFactoryFromServletContext(request.getServletContext()));
+                request, FrontController.getActionCommandFactoryFromServletContext(request.getServletContext()));
         List<Role> supportedRoles = defineCommandSupportedRoles(request, currentCommand);
         Role userRole = (Role) request.getSession().getAttribute(
                 Resourcer.getString("session.attribute.name.role"));
@@ -33,7 +33,7 @@ public class RoleFilter extends HttpFilter {
     }
 
     private List<Role> defineCommandSupportedRoles(HttpServletRequest request, ActionCommand command) {
-        List<Role> allRoles = MainServlet.getAllRolesFromServletContext(request.getServletContext());
+        List<Role> allRoles = FrontController.getAllRolesFromServletContext(request.getServletContext());
         ActionCommandSupportedRolesDefiner actionCommandSupportedRolesDefiner =
                 new ActionCommandSupportedRolesDefiner(allRoles);
         return actionCommandSupportedRolesDefiner.getSupportedRoles(command.getClass());

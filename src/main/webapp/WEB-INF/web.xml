@@ -15,7 +15,7 @@
 
     <servlet>
         <servlet-name>MainServlet</servlet-name>
-        <servlet-class>ru.rsreu.harbor.controller.MainServlet</servlet-class>
+        <servlet-class>ru.rsreu.harbor.controller.FrontController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>MainServlet</servlet-name>

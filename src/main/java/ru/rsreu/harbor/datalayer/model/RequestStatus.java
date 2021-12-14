@@ -2,8 +2,18 @@ package ru.rsreu.harbor.datalayer.model;
 
 import java.util.Objects;
 
+/**
+ * Class describing the entity of request status
+ */
 public class RequestStatus {
+    /**
+     * Identifier of status
+     */
     private final Long id;
+
+    /**
+     * Title of status
+     */
     private final String title;
 
     public RequestStatus(Long id, String title) {

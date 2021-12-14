@@ -2,7 +2,13 @@ package ru.rsreu.harbor.datalayer.model;
 
 import java.util.Objects;
 
+/**
+ * Class describing the essence of the pier
+ */
 public class Pier {
+    /**
+     * Identifier of pier
+     */
     private final Long id;
 
     public Pier(Long id) {
