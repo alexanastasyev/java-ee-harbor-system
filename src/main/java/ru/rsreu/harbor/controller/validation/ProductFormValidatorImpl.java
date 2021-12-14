@@ -1,6 +1,6 @@
 package ru.rsreu.harbor.controller.validation;
 
-import ru.rsreu.harbor.controller.command.captain.unload.ProductForm;
+import ru.rsreu.harbor.controller.command.captain.product.unload.ProductForm;
 
 public class ProductFormValidatorImpl implements ProductFormValidator {
     @Override

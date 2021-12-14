@@ -7,6 +7,7 @@ import ru.rsreu.harbor.controller.command.admin.panel.ShowAdminPageLogicDbImpl;
 import ru.rsreu.harbor.controller.command.admin.pier.*;
 import ru.rsreu.harbor.controller.command.captain.arrive.ArrivePierCommand;
 import ru.rsreu.harbor.controller.command.captain.arrive.ArrivePierCommandLogicDbImpl;
+import ru.rsreu.harbor.controller.command.captain.product.ShowProductActionsPageLogicDbImpl;
 import ru.rsreu.harbor.controller.command.captain.request_arrival.RequestArrivalCommand;
 import ru.rsreu.harbor.controller.command.captain.request_arrival.RequestArrivalCommandLogicDbImpl;
 import ru.rsreu.harbor.controller.command.captain.cancel_arrival.CancelArrivalRequestCommand;
@@ -15,14 +16,14 @@ import ru.rsreu.harbor.controller.command.captain.main.ShowCaptainMainPageComman
 import ru.rsreu.harbor.controller.command.captain.main.ShowCaptainMainPageCommandLogicDbImpl;
 import ru.rsreu.harbor.controller.command.captain.request_department.RequestDepartmentCommand;
 import ru.rsreu.harbor.controller.command.captain.request_department.RequestDepartmentCommandLogicDbImpl;
-import ru.rsreu.harbor.controller.command.captain.unload.ShowUnloadPageCommand;
-import ru.rsreu.harbor.controller.command.captain.unload.UnloadCommand;
-import ru.rsreu.harbor.controller.command.captain.unload.UnloadCommandLogicDbImpl;
-import ru.rsreu.harbor.controller.command.captain.unload.UnloadFormDto;
-import ru.rsreu.harbor.controller.command.captain.upload.ShowUploadPageCommand;
-import ru.rsreu.harbor.controller.command.captain.upload.ShowUploadPageCommandLogicDbImpl;
-import ru.rsreu.harbor.controller.command.captain.upload.UploadCommand;
-import ru.rsreu.harbor.controller.command.captain.upload.UploadCommandLogicDbImpl;
+import ru.rsreu.harbor.controller.command.captain.product.unload.ShowUnloadPageCommand;
+import ru.rsreu.harbor.controller.command.captain.product.unload.UnloadCommand;
+import ru.rsreu.harbor.controller.command.captain.product.unload.UnloadCommandLogicDbImpl;
+import ru.rsreu.harbor.controller.command.captain.product.unload.UnloadFormDto;
+import ru.rsreu.harbor.controller.command.captain.product.upload.ShowUploadPageCommand;
+import ru.rsreu.harbor.controller.command.captain.product.upload.ShowUploadPageLogicDbImpl;
+import ru.rsreu.harbor.controller.command.captain.product.upload.UploadCommand;
+import ru.rsreu.harbor.controller.command.captain.product.upload.UploadCommandLogicDbImpl;
 import ru.rsreu.harbor.controller.command.dispatcher.approve_arrival.ApproveArrivalRequestCommand;
 import ru.rsreu.harbor.controller.command.dispatcher.approve_arrival.ApproveArrivalRequestCommandLogicDbImpl;
 import ru.rsreu.harbor.controller.command.dispatcher.approve_arrival.ArrivalRequestFormDto;
@@ -258,17 +259,19 @@ public class ActionCommandFactoryDbImpl implements ActionCommandsFactory {
     public ActionCommand getCreateReportCommand() {
         return new CreateReportCommand(
                 new CreateReportCommandLogicDbImpl(
-                        this.daoFactory.getReportDao()
-                ),
+                        this.daoFactory.getReportDao()),
                 new CreateReportDto(
-                        this.daoFactory.getUserDao()
-                )
+                        this.daoFactory.getUserDao())
         );
     }
 
     @Override
     public ActionCommand getShowUnloadPageCommand() {
-        return new ShowUnloadPageCommand();
+        return new ShowUnloadPageCommand(new ShowProductActionsPageLogicDbImpl(
+                this.daoFactory.getPierAssignmentDao(),
+                this.daoFactory.getUserDao(),
+                this.daoFactory.getRequestStatusDao()
+        ));
     }
 
     @Override
@@ -276,17 +279,28 @@ public class ActionCommandFactoryDbImpl implements ActionCommandsFactory {
         return new UnloadCommand(new UnloadCommandLogicDbImpl(
                 this.daoFactory.getProductDao(),
                 this.daoFactory.getUserDao(),
-                this.daoFactory.getPierDao()), new UnloadFormDto(new ProductFormValidatorImpl()));
+                this.daoFactory.getPierDao(),
+                this.daoFactory.getPierAssignmentDao(),
+                this.daoFactory.getRequestStatusDao()),
+                new UnloadFormDto(new ProductFormValidatorImpl()));
     }
 
     @Override
     public ActionCommand getShowUploadPageCommand() {
-        return new ShowUploadPageCommand(new ShowUploadPageCommandLogicDbImpl(this.daoFactory.getProductDao()));
+        return new ShowUploadPageCommand(new ShowUploadPageLogicDbImpl(
+                this.daoFactory.getProductDao(),
+                this.daoFactory.getPierAssignmentDao(),
+                this.daoFactory.getUserDao(),
+                this.daoFactory.getRequestStatusDao()));
     }
 
     @Override
     public ActionCommand getUploadCommand() {
-        return new UploadCommand(new UploadCommandLogicDbImpl(this.daoFactory.getProductDao()));
+        return new UploadCommand(new UploadCommandLogicDbImpl(
+                this.daoFactory.getProductDao(),
+                this.daoFactory.getUserDao(),
+                this.daoFactory.getPierAssignmentDao(),
+                this.daoFactory.getRequestStatusDao()));
     }
 
     @Override

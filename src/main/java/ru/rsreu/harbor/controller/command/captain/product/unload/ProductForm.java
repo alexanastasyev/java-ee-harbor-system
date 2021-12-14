@@ -1,4 +1,4 @@
-package ru.rsreu.harbor.controller.command.captain.unload;
+package ru.rsreu.harbor.controller.command.captain.product.unload;
 
 import com.google.gson.annotations.SerializedName;
 

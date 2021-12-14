@@ -1,4 +1,4 @@
-package ru.rsreu.harbor.controller.command.captain.unload;
+package ru.rsreu.harbor.controller.command.captain.product.unload;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
