@@ -11,7 +11,7 @@ import ru.rsreu.harbor.datalayer.model.User;
 
 import javax.servlet.http.HttpServletRequest;
 
-public class CreateUserDataTransferObjectDbImpl implements DataTransferObject<User> {
+public class CreateUserDto implements DataTransferObject<User> {
     private final static Long ACTIVE_STATUS_ID = 1L;
 
     private final RoleDao roleDao;
@@ -19,7 +19,7 @@ public class CreateUserDataTransferObjectDbImpl implements DataTransferObject<Us
     private final UserModelValidator userModelValidator;
 
 
-    public CreateUserDataTransferObjectDbImpl(UserDao userDao, RoleDao roleDao, StatusDao statusDao) {
+    public CreateUserDto(UserDao userDao, RoleDao roleDao, StatusDao statusDao) {
         this.roleDao = roleDao;
         this.statusDao = statusDao;
         this.userModelValidator = new UserModelValidatorDbImpl(

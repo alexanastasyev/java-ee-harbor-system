@@ -9,12 +9,12 @@ import ru.rsreu.harbor.datalayer.model.Report;
 
 import javax.servlet.http.HttpServletRequest;
 
-public class CreateReportDataTransferObjectDbImpl implements DataTransferObject<Report> {
+public class CreateReportDto implements DataTransferObject<Report> {
     private final UserDao userDao;
 
     private final HandleUserBlockingOrCreateReportValidator handleUserBlockingOrCreateReportValidator;
 
-    public CreateReportDataTransferObjectDbImpl(UserDao userDao) {
+    public CreateReportDto(UserDao userDao) {
         this.userDao = userDao;
         this.handleUserBlockingOrCreateReportValidator = new HandleUserBlockingOrCreateReportValidatorDbImpl(
                 this.userDao

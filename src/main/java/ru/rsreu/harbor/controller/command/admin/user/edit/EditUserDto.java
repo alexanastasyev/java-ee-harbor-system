@@ -11,12 +11,12 @@ import ru.rsreu.harbor.datalayer.model.User;
 
 import javax.servlet.http.HttpServletRequest;
 
-public class EditUserDataTransferObjectDbImpl implements DataTransferObject<User> {
+public class EditUserDto implements DataTransferObject<User> {
     private final RoleDao roleDao;
     private final StatusDao statusDao;
     private final UserModelValidator userModelValidator;
 
-    public EditUserDataTransferObjectDbImpl(UserDao userDao, RoleDao roleDao, StatusDao statusDao) {
+    public EditUserDto(UserDao userDao, RoleDao roleDao, StatusDao statusDao) {
         this.roleDao = roleDao;
         this.statusDao = statusDao;
         this.userModelValidator = new UserModelValidatorDbImpl(

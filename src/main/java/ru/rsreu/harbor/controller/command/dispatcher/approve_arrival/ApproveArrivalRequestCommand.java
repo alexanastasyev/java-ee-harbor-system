@@ -11,19 +11,19 @@ import javax.servlet.http.HttpServletRequest;
 @CommandSupportedRolesTitles(titles = {"dispatcher"})
 public class ApproveArrivalRequestCommand implements ActionCommand {
     private final ApproveArrivalRequestCommandLogic approveArrivalRequestCommandLogic;
-    private final ArrivalRequestFormDataTransferObjectDbImpl arrivalRequestFormDataTransferObjectDbImpl;
+    private final ArrivalRequestFormDto arrivalRequestFormDto;
 
     public ApproveArrivalRequestCommand(
             ApproveArrivalRequestCommandLogic approveArrivalRequestCommandLogic,
-            ArrivalRequestFormDataTransferObjectDbImpl arrivalRequestFormDataTransferObjectDbImpl) {
+            ArrivalRequestFormDto arrivalRequestFormDto) {
         this.approveArrivalRequestCommandLogic = approveArrivalRequestCommandLogic;
-        this.arrivalRequestFormDataTransferObjectDbImpl = arrivalRequestFormDataTransferObjectDbImpl;
+        this.arrivalRequestFormDto = arrivalRequestFormDto;
     }
 
     @Override
     public ActionCommandResult execute(HttpServletRequest request) {
         approveArrivalRequestCommandLogic.approveArrivalRequest(
-                this.arrivalRequestFormDataTransferObjectDbImpl.formModel(request));
+                this.arrivalRequestFormDto.formModel(request));
         return new ActionCommandResult(
                 Resourcer.getString("command.path.showDispatcherMainPage"),
                 ActionCommandResultTypes.SEND_REDIRECT

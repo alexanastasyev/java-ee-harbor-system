@@ -18,13 +18,14 @@ import ru.rsreu.harbor.controller.command.captain.request_department.RequestDepa
 import ru.rsreu.harbor.controller.command.captain.unload.ShowUnloadPageCommand;
 import ru.rsreu.harbor.controller.command.captain.unload.UnloadCommand;
 import ru.rsreu.harbor.controller.command.captain.unload.UnloadCommandLogicDbImpl;
+import ru.rsreu.harbor.controller.command.captain.unload.UnloadFormDto;
 import ru.rsreu.harbor.controller.command.captain.upload.ShowUploadPageCommand;
 import ru.rsreu.harbor.controller.command.captain.upload.ShowUploadPageCommandLogicDbImpl;
 import ru.rsreu.harbor.controller.command.captain.upload.UploadCommand;
 import ru.rsreu.harbor.controller.command.captain.upload.UploadCommandLogicDbImpl;
 import ru.rsreu.harbor.controller.command.dispatcher.approve_arrival.ApproveArrivalRequestCommand;
 import ru.rsreu.harbor.controller.command.dispatcher.approve_arrival.ApproveArrivalRequestCommandLogicDbImpl;
-import ru.rsreu.harbor.controller.command.dispatcher.approve_arrival.ArrivalRequestFormDataTransferObjectDbImpl;
+import ru.rsreu.harbor.controller.command.dispatcher.approve_arrival.ArrivalRequestFormDto;
 import ru.rsreu.harbor.controller.command.dispatcher.approve_department.ApproveDepartmentRequestCommand;
 import ru.rsreu.harbor.controller.command.dispatcher.approve_department.ApproveDepartmentRequestCommandLogicDbImpl;
 import ru.rsreu.harbor.controller.command.dispatcher.main.ShowDispatcherMainPageCommand;
@@ -44,9 +45,10 @@ import ru.rsreu.harbor.controller.command.produtct_info.ShowProductsInfoLogicDbI
 import ru.rsreu.harbor.controller.command.produtct_info.ShowProductsInfoPageCommand;
 import ru.rsreu.harbor.controller.command.report_system.create.CreateReportCommand;
 import ru.rsreu.harbor.controller.command.report_system.create.CreateReportCommandLogicDbImpl;
-import ru.rsreu.harbor.controller.command.report_system.create.CreateReportDataTransferObjectDbImpl;
+import ru.rsreu.harbor.controller.command.report_system.create.CreateReportDto;
 import ru.rsreu.harbor.controller.command.report_system.page.ShowCreateReportPageCommand;
 import ru.rsreu.harbor.controller.command.report_system.page.ShowCreateReportPageCommandLogicDbImpl;
+import ru.rsreu.harbor.controller.validation.ProductFormValidatorImpl;
 import ru.rsreu.harbor.datalayer.DaoFactory;
 
 public class ActionCommandFactoryDbImpl implements ActionCommandsFactory {
@@ -90,7 +92,7 @@ public class ActionCommandFactoryDbImpl implements ActionCommandsFactory {
     public ActionCommand getCreateUserCommand() {
         return new CreateUserCommand(
                 new CreateUserLogicDbImpl(daoFactory.getUserDao()),
-                new CreateUserDataTransferObjectDbImpl(this.daoFactory.getUserDao(),
+                new CreateUserDto(this.daoFactory.getUserDao(),
                         daoFactory.getRoleDao(), daoFactory.getStatusDao()));
     }
 
@@ -105,7 +107,7 @@ public class ActionCommandFactoryDbImpl implements ActionCommandsFactory {
     public ActionCommand getEditUserCommand() {
         return new EditUserCommand(
                 new EditUserLogicDbImpl(this.daoFactory.getUserDao()),
-                new EditUserDataTransferObjectDbImpl(
+                new EditUserDto(
                         this.daoFactory.getUserDao(),
                         this.daoFactory.getRoleDao(),
                         this.daoFactory.getStatusDao()));
@@ -220,7 +222,7 @@ public class ActionCommandFactoryDbImpl implements ActionCommandsFactory {
                         this.daoFactory.getPierDao(),
                         this.daoFactory.getRequestStatusDao(),
                         this.daoFactory.getPierAssignmentDao()),
-                new ArrivalRequestFormDataTransferObjectDbImpl()
+                new ArrivalRequestFormDto()
         );
     }
 
@@ -249,7 +251,7 @@ public class ActionCommandFactoryDbImpl implements ActionCommandsFactory {
                 new CreateReportCommandLogicDbImpl(
                         this.daoFactory.getReportDao()
                 ),
-                new CreateReportDataTransferObjectDbImpl(
+                new CreateReportDto(
                         this.daoFactory.getUserDao()
                 )
         );
@@ -265,8 +267,7 @@ public class ActionCommandFactoryDbImpl implements ActionCommandsFactory {
         return new UnloadCommand(new UnloadCommandLogicDbImpl(
                 this.daoFactory.getProductDao(),
                 this.daoFactory.getUserDao(),
-                this.daoFactory.getPierDao()
-        ));
+                this.daoFactory.getPierDao()), new UnloadFormDto(new ProductFormValidatorImpl()));
     }
 
     @Override
