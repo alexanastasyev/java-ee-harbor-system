@@ -1,6 +1,8 @@
 package ru.rsreu.harbor.controller.command.dispatcher.approve_arrival;
 
 import com.prutzkow.resourcer.Resourcer;
+import ru.rsreu.harbor.controller.validation.DispatcherApprovalValidator;
+import ru.rsreu.harbor.controller.validation.DispatcherApprovalValidatorDbImpl;
 import ru.rsreu.harbor.datalayer.dao.PierAssignmentDao;
 import ru.rsreu.harbor.datalayer.dao.PierDao;
 import ru.rsreu.harbor.datalayer.dao.RequestStatusDao;
@@ -11,6 +13,7 @@ public class ApproveArrivalRequestCommandLogicDbImpl implements ApproveArrivalRe
     private final RequestStatusDao requestStatusDao;
     private final PierAssignmentDao pierAssignmentDao;
 
+    private final DispatcherApprovalValidator dispatcherApprovalValidator;
 
     public ApproveArrivalRequestCommandLogicDbImpl(
             PierDao pierDao,
@@ -20,22 +23,26 @@ public class ApproveArrivalRequestCommandLogicDbImpl implements ApproveArrivalRe
         this.pierDao = pierDao;
         this.requestStatusDao = requestStatusDao;
         this.pierAssignmentDao = pierAssignmentDao;
-
+        this.dispatcherApprovalValidator = new DispatcherApprovalValidatorDbImpl(this.requestStatusDao);
     }
 
     @Override
     public void approveArrivalRequest(ArrivalRequestForm arrivalRequestForm) {
         PierAssignment oldPierAssignment = this.pierAssignmentDao.findById(arrivalRequestForm.getPierAssignmentId())
                 .orElseThrow(IllegalArgumentException::new);
-        this.pierAssignmentDao.update(
-                new PierAssignment(
-                        oldPierAssignment.getId(),
-                        this.pierDao.findById(arrivalRequestForm.getPierId()).orElseThrow(IllegalArgumentException::new),
-                        oldPierAssignment.getCaptain(),
-                        this.requestStatusDao.findByTitle(
-                                        Resourcer.getString("db.requestStatus.approved_arrival"))
-                                .orElseThrow(IllegalArgumentException::new)
-                )
-        );
+        if (dispatcherApprovalValidator.isDispatcherApprovalValid(oldPierAssignment.getRequestStatus())) {
+            this.pierAssignmentDao.update(
+                    new PierAssignment(
+                            oldPierAssignment.getId(),
+                            this.pierDao.findById(arrivalRequestForm.getPierId()).orElseThrow(IllegalArgumentException::new),
+                            oldPierAssignment.getCaptain(),
+                            this.requestStatusDao.findByTitle(
+                                            Resourcer.getString("db.requestStatus.approved_arrival"))
+                                    .orElseThrow(IllegalArgumentException::new)
+                    )
+            );
+        } else {
+            throw new IllegalArgumentException();
+        }
     }
 }
