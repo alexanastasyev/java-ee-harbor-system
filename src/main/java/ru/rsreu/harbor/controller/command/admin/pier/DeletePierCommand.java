@@ -2,6 +2,7 @@ package ru.rsreu.harbor.controller.command.admin.pier;
 
 import com.prutzkow.resourcer.Resourcer;
 import ru.rsreu.harbor.controller.command.ActionCommand;
+import ru.rsreu.harbor.controller.exception.PierDeletingException;
 import ru.rsreu.harbor.controller.filter.role.CommandSupportedRolesTitles;
 import ru.rsreu.harbor.controller.result.ActionCommandResult;
 import ru.rsreu.harbor.controller.result.ActionCommandResultTypes;
@@ -17,10 +18,14 @@ public class DeletePierCommand implements ActionCommand {
     }
 
     @Override
-    public ActionCommandResult execute(HttpServletRequest request) {
-        this.deletePierLogic.deletePierById(request.getParameter(
-                Resourcer.getString("request.deletePierCommand.parameter.id")
-        ));
+    public ActionCommandResult execute(HttpServletRequest request) throws PierDeletingException {
+        try {
+            this.deletePierLogic.deletePierById(request.getParameter(
+                    Resourcer.getString("request.deletePierCommand.parameter.id")
+            ));
+        } catch (IllegalArgumentException exception) {
+            throw new PierDeletingException();
+        }
         return new ActionCommandResult(
                 Resourcer.getString("command.path.showAdminPiersPage"),
                 ActionCommandResultTypes.SEND_REDIRECT

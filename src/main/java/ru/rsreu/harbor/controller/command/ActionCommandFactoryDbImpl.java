@@ -169,7 +169,8 @@ public class ActionCommandFactoryDbImpl implements ActionCommandsFactory {
 
     @Override
     public ActionCommand getDeletePierCommand() {
-        return new DeletePierCommand(new DeletePierLogicDbImpl(this.daoFactory.getPierDao()));
+        return new DeletePierCommand(new DeletePierLogicDbImpl(
+                this.daoFactory.getPierDao(), this.daoFactory.getPierAssignmentDao()));
     }
 
     @Override
