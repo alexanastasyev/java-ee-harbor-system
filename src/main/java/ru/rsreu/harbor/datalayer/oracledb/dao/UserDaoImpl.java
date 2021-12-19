@@ -25,6 +25,9 @@ public class UserDaoImpl implements UserDao {
     private static final String USER_ALL_EXCLUDE_USER =
             Resourcer.getString("dao.user.all.notAdminsAndModerators.notDeleted.excludeUser.sql");
 
+    private static final int IS_ONLINE_NUMBER = 1;
+    private static final int IS_OFFLINE_NUMBER = 0;
+
     private final JdbcQueryExecutor jdbcQueryExecutor;
 
     private RoleDao roleDao;
@@ -82,7 +85,9 @@ public class UserDaoImpl implements UserDao {
             roleDao.findById(((BigDecimal) row.get(Resourcer.getString("dao.user.column.roleId")))
                     .longValue()).orElseThrow(IllegalArgumentException::new),
             statusDao.findById(((BigDecimal) row.get(Resourcer.getString("dao.user.column.statusId")))
-                    .longValue()).orElseThrow(IllegalArgumentException::new));
+                    .longValue()).orElseThrow(IllegalArgumentException::new),
+            ((BigDecimal) row.get(Resourcer.getString("dao.user.column.online"))).intValue()
+                    == IS_ONLINE_NUMBER);
 
     private final ObjectMapper<User> saveUserObjectMapper = user -> new String[]{
             user.getLogin(),
@@ -96,6 +101,7 @@ public class UserDaoImpl implements UserDao {
             user.getPassword(),
             user.getRole().getId().toString(),
             user.getStatus().getId().toString(),
+            String.valueOf(user.isOnline() ? IS_ONLINE_NUMBER : IS_OFFLINE_NUMBER),
             user.getId().toString()
     };
 }

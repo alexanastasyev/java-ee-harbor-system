@@ -101,7 +101,8 @@ public class FrontController extends HttpServlet {
      * @throws ServletException if the request for the HEAD
      *                                        could not be handled
      */
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws IOException, ServletException {
         this.processRequest(request, response);
     }
 
@@ -115,23 +116,20 @@ public class FrontController extends HttpServlet {
      * @throws ServletException if the HTTP request
      *                                       cannot be handled
      */
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws IOException, ServletException {
         this.processRequest(request, response);
     }
 
     /**
-     * Depending on the command that came in the request,
-     *                      it performs some actions related to the command logic.
-     *                      Forms a response
+     * Depending on the command that came in the request, it performs some actions related to the command logic. Forms a response
      * @param request request the {@link HttpServletRequest} object that contains the request the client made of the servlet
      * @param response response the {@link HttpServletResponse} object that contains the response the servlet returns to the
-     * @throws ServletException if an input or output error occurs
-     *                                          while the servlet is handling the
-     *                                          HTTP request
-     * @throws IOException if the HTTP request
-     *                        cannot be handled
+     * @throws ServletException if an input or output error occurs while the servlet is handling the HTTP request
+     * @throws IOException if the HTTP request cannot be handled
      */
-    private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
         response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
         ActionCommand actionCommand = ActionCommandsDefiner.defineCommand(request, this.commandsFactory);
         ActionCommandResult result;
@@ -154,9 +152,12 @@ public class FrontController extends HttpServlet {
     private void initServletContext() {
         getServletContext().setAttribute(Resourcer.getString("servlet.context.attribute.name.allRoles"),
                 this.daoFactory.getRoleDao().findAll());
-        getServletContext().setAttribute(Resourcer.getString("servlet.context.attribute.name.commandsFactory"),
-                this.commandsFactory);
+        getServletContext().setAttribute(
+                Resourcer.getString("servlet.context.attribute.name.commandsFactory"), this.commandsFactory);
         getServletContext().setAttribute(Resourcer.getString("servlet.context.attribute.name.activeStatus"),
-                this.daoFactory.getStatusDao().findByTitle(Resourcer.getString("db.status.active")).orElse(null));
+                this.daoFactory.getStatusDao().findByTitle(Resourcer.getString("db.status.active"))
+                        .orElse(null));
+        getServletContext().setAttribute(Resourcer.getString("servlet.context.attribute.name.user.dao"),
+                this.daoFactory.getUserDao());
     }
 }

@@ -20,4 +20,17 @@ public class LoginCommandLogicDbImpl implements LoginCommandLogic {
     public boolean checkLogin(String verifiablePassword, String password) {
         return verifiablePassword.equals(password);
     }
+
+    @Override
+    public void setUserOnline(String login) {
+        User user = userDao.findByLogin(login).orElseThrow(IllegalArgumentException::new);
+        this.userDao.update(new User(
+                user.getId(),
+                user.getLogin(),
+                user.getPassword(),
+                user.getRole(),
+                user.getStatus(),
+                true
+        ));
+    }
 }

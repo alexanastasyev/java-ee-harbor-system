@@ -7,4 +7,6 @@ public interface LoginCommandLogic {
     User getUserByLogin(String login) throws LoginFaultException;
 
     boolean checkLogin(String verifiablePassword, String password);
+
+    void setUserOnline(String login);
 }

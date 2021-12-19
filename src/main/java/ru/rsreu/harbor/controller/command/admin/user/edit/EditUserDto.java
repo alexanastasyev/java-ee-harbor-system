@@ -1,9 +1,9 @@
 package ru.rsreu.harbor.controller.command.admin.user.edit;
 
 import com.prutzkow.resourcer.Resourcer;
+import ru.rsreu.harbor.controller.dto.DataTransferObject;
 import ru.rsreu.harbor.controller.validation.UserModelValidator;
 import ru.rsreu.harbor.controller.validation.UserModelValidatorDbImpl;
-import ru.rsreu.harbor.controller.dto.DataTransferObject;
 import ru.rsreu.harbor.datalayer.dao.RoleDao;
 import ru.rsreu.harbor.datalayer.dao.StatusDao;
 import ru.rsreu.harbor.datalayer.dao.UserDao;
@@ -41,8 +41,8 @@ public class EditUserDto implements DataTransferObject<User> {
                     login,
                     password,
                     this.roleDao.findById(Long.valueOf(roleIdParameter)).orElseThrow(IllegalArgumentException::new),
-                    this.statusDao.findById(Long.valueOf(statusIdParameter)).orElseThrow(IllegalArgumentException::new)
-            );
+                    this.statusDao.findById(Long.valueOf(statusIdParameter)).orElseThrow(IllegalArgumentException::new),
+                    false);
         }
         throw new IllegalArgumentException();
     }

@@ -10,8 +10,6 @@ import ru.rsreu.harbor.datalayer.model.User;
 import javax.servlet.http.HttpServletRequest;
 
 public class LoginCommand implements ActionCommand {
-    private static final String LOGIN_PARAMETER_NAME = "login";
-    private static final String PASSWORD_PARAMETER_NAME = "password";
 
     private final LoginCommandLogic loginCommandLogic;
 
@@ -21,11 +19,12 @@ public class LoginCommand implements ActionCommand {
 
     @Override
     public ActionCommandResult execute(HttpServletRequest request) throws LoginFaultException {
-        String login = request.getParameter(LOGIN_PARAMETER_NAME);
-        String password = request.getParameter(PASSWORD_PARAMETER_NAME);
+        String login = request.getParameter(Resourcer.getString("request.user.login"));
+        String password = request.getParameter(Resourcer.getString("request.user.password"));
         User user = this.loginCommandLogic.getUserByLogin(login);
         String page;
         if (loginCommandLogic.checkLogin(user.getPassword(), password)) {
+            loginCommandLogic.setUserOnline(login);
             page = Resourcer.getString("command.path.showMainPage");
             this.formSuccessfulJspParameters(user, request);
             return new ActionCommandResult(page, ActionCommandResultTypes.FORWARD);

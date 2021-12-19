@@ -22,6 +22,14 @@
         <url-pattern>/controller</url-pattern>
     </servlet-mapping>
 
+    <session-config>
+        <session-timeout>1</session-timeout>
+    </session-config>
+
+    <listener>
+        <listener-class>ru.rsreu.harbor.controller.listener.SessionTimeoutListener</listener-class>
+    </listener>
+
     <filter>
         <filter-name>loginFilter</filter-name>
         <filter-class>ru.rsreu.harbor.controller.filter.login.LoginFilter</filter-class>

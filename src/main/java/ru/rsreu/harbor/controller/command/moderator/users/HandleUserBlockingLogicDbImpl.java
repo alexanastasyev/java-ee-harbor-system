@@ -16,7 +16,8 @@ public class HandleUserBlockingLogicDbImpl implements HandleUserBlockingLogic {
     public HandleUserBlockingLogicDbImpl(UserDao userDao, StatusDao statusDao) {
         this.userDao = userDao;
         this.statusDao = statusDao;
-        this.handleUserBlockingOrCreateReportValidator = new HandleUserBlockingOrCreateReportValidatorDbImpl(this.userDao);
+        this.handleUserBlockingOrCreateReportValidator =
+                new HandleUserBlockingOrCreateReportValidatorDbImpl(this.userDao);
     }
 
     @Override
@@ -29,8 +30,8 @@ public class HandleUserBlockingLogicDbImpl implements HandleUserBlockingLogic {
                     blockingUser.getLogin(),
                     blockingUser.getPassword(),
                     blockingUser.getRole(),
-                    newStatus
-            ));
+                    newStatus,
+                    false));
         } else {
             throw new IllegalArgumentException();
         }

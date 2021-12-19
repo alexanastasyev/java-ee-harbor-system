@@ -21,6 +21,7 @@ CREATE TABLE harbour_users
     password  VARCHAR2(100) NOT NULL,
     role_id   NUMBER NOT NULL,
     status_id NUMBER NOT NULL,
+    is_online NUMBER DEFAULT 0,
     PRIMARY KEY (id),
 
     CONSTRAINT fk_user_role

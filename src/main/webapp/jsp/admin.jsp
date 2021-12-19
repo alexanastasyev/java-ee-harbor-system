@@ -39,6 +39,7 @@
                 <th>Password</th>
                 <th>Role</th>
                 <th>Status</th>
+                <th>Online</th>
                 <th></th>
             </tr>
             <c:forEach var="user" items="${users}" varStatus="status">
@@ -48,6 +49,12 @@
                     <td><c:out value="${user.getPassword()}" /></td>
                     <td><c:out value="${user.getRole().getTitle()}" /></td>
                     <td><c:out value="${user.getStatus().getTitle()}" /></td>
+                    <td>
+                        <c:choose>
+                            <c:when test="${user.isOnline()}">Online</c:when>
+                            <c:otherwise>Offline</c:otherwise>
+                        </c:choose>
+                    </td>
                     <td><a href="controller?command=show_edit_user_page&id=${user.getId()}"><button class="btn btn-outline-info btn-sm">Edit</button></a></td>
                 </tr>
             </c:forEach>

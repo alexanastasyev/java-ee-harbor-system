@@ -5,7 +5,7 @@ import java.util.Objects;
 /**
  * Class describing the user entity
  */
-public final class User {
+public class User {
     /**
      * Identifier of user
      */
@@ -31,12 +31,18 @@ public final class User {
      */
     private final Status status;
 
-    public User(Long id, String login, String password, Role role, Status status) {
+    /**
+     * User online
+     */
+    private final boolean isOnline;
+
+    public User(Long id, String login, String password, Role role, Status status, boolean isOnline) {
         this.id = id;
         this.login = login;
         this.password = password;
         this.role = role;
         this.status = status;
+        this.isOnline = isOnline;
     }
 
     public Long getId() {
@@ -59,6 +65,10 @@ public final class User {
         return status;
     }
 
+    public boolean isOnline() {
+        return isOnline;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -75,4 +85,5 @@ public final class User {
     public int hashCode() {
         return Objects.hash(id, login, password, role, status);
     }
+
 }

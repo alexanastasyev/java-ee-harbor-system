@@ -34,14 +34,15 @@ public class CreateUserDto implements DataTransferObject<User> {
         String login = request.getParameter(Resourcer.getString("user.form.dto.login"));
         String password = request.getParameter(Resourcer.getString("user.form.dto.password"));
         String roleIdParameter = request.getParameter(Resourcer.getString("user.form.dto.role"));
-        if (this.userModelValidator.isCreateUserFormValid(login, password, roleIdParameter, ACTIVE_STATUS_ID.toString())) {
+        if (this.userModelValidator.isCreateUserFormValid(
+                login, password, roleIdParameter, ACTIVE_STATUS_ID.toString())) {
             return new User(
                     null,
                     login,
                     password,
                     roleDao.findById(Long.valueOf(roleIdParameter)).orElseThrow(IllegalArgumentException::new),
-                    statusDao.findById(ACTIVE_STATUS_ID).orElseThrow(IllegalArgumentException::new)
-            );
+                    statusDao.findById(ACTIVE_STATUS_ID).orElseThrow(IllegalArgumentException::new),
+                    false);
         }
         throw new IllegalArgumentException();
     }
