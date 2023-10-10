@@ -108,14 +108,14 @@ public class PierAssignmentDaoImpl implements PierAssignmentDao {
     private final RowMapper<PierAssignment> pierAssignmentRowMapper = (row) -> {
         Object pierId = row.get(Resourcer.getString("dao.pier_assignment.column.pier_id"));
         return new PierAssignment(
-                ((BigDecimal) row.get(Resourcer.getString("dao.pier_assignment.column.id"))).longValue(),
+                ((Integer) row.get(Resourcer.getString("dao.pier_assignment.column.id"))).longValue(),
                 (pierId == null) ? null :
-                        this.pierDao.findById(((BigDecimal) pierId).longValue())
+                        this.pierDao.findById(((Integer) pierId).longValue())
                                 .orElseThrow(IllegalArgumentException::new),
                 userDao.findById((
-                        (BigDecimal) row.get(Resourcer.getString("dao.pier_assignment.column.user_id"))
+                        (Integer) row.get(Resourcer.getString("dao.pier_assignment.column.user_id"))
                 ).longValue()).orElseThrow(IllegalArgumentException::new),
-                requestStatusDao.findById(((BigDecimal) row.get(
+                requestStatusDao.findById(((Integer) row.get(
                         Resourcer.getString("dao.pier_assignment.column.request_status_id"))
                 ).longValue()).orElseThrow(IllegalArgumentException::new)
         );

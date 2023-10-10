@@ -63,12 +63,12 @@ public class ProductDaoImpl implements ProductDao {
     private final RowMapper<Product> productRowMapper = (row) -> {
         Object departureDate = row.get(Resourcer.getString("dao.product.column.departure_date"));
         return new Product(
-                ((BigDecimal) row.get(Resourcer.getString("dao.product.column.id"))).longValue(),
+                ((Integer) row.get(Resourcer.getString("dao.product.column.id"))).longValue(),
                 row.get(Resourcer.getString("dao.product.column.title")).toString(),
-                ((BigDecimal) row.get(Resourcer.getString("dao.product.column.quantity"))).intValueExact(),
-                userDao.findById(((BigDecimal) row.get(Resourcer.getString("dao.product.column.captain_id")))
+                ((Integer) row.get(Resourcer.getString("dao.product.column.quantity"))).intValue(),
+                userDao.findById(((Integer) row.get(Resourcer.getString("dao.product.column.captain_id")))
                         .longValue()).orElseThrow(IllegalArgumentException::new),
-                pierDao.findById(((BigDecimal) row.get(Resourcer.getString("dao.product.column.pier_id")))
+                pierDao.findById(((Integer) row.get(Resourcer.getString("dao.product.column.pier_id")))
                         .longValue()).orElseThrow(IllegalArgumentException::new),
                 ((Timestamp) row.get(Resourcer.getString("dao.product.column.arrival_date")))
                         .toLocalDateTime().toLocalDate(),

@@ -40,7 +40,7 @@ public class StatusDaoImpl implements StatusDao {
     }
 
     private final RowMapper<Status> statusRowMapper = (row) -> new Status(
-            ((BigDecimal) row.get(Resourcer.getString("dao.status.column.id"))).longValue(),
+            ((Integer) row.get(Resourcer.getString("dao.status.column.id"))).longValue(),
             row.get(Resourcer.getString("dao.status.column.title")).toString()
     );
 }

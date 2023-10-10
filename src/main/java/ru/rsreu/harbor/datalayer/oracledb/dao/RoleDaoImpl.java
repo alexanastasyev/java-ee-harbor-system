@@ -33,7 +33,7 @@ public class RoleDaoImpl implements RoleDao {
     }
 
     private final RowMapper<Role> roleRowMapper = (row) -> new Role(
-            ((BigDecimal) row.get(Resourcer.getString("dao.role.column.id"))).longValue(),
+            ((Integer) row.get(Resourcer.getString("dao.role.column.id"))).longValue(),
             row.get(Resourcer.getString("dao.role.column.title")).toString()
     );
 }

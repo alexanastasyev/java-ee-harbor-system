@@ -36,7 +36,7 @@ public class RequestStatusDaoImpl implements RequestStatusDao {
     }
 
     private final RowMapper<RequestStatus> requestStatusRowMapper = (row) -> new RequestStatus(
-            ((BigDecimal) row.get(Resourcer.getString("dao.status.column.id"))).longValue(),
+            ((Integer) row.get(Resourcer.getString("dao.status.column.id"))).longValue(),
             row.get(Resourcer.getString("dao.status.column.title")).toString()
     );
 }

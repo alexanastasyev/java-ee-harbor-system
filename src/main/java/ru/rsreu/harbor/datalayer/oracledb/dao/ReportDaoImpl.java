@@ -49,10 +49,10 @@ public class ReportDaoImpl implements ReportDao {
     }
 
     private final RowMapper<Report> reportRowMapper = (row) -> new Report(
-            ((BigDecimal) row.get(Resourcer.getString("dao.report.column.id"))).longValue(),
-            userDao.findById(((BigDecimal) row.get(Resourcer.getString("dao.report.column.from_id")))
+            ((Integer) row.get(Resourcer.getString("dao.report.column.id"))).longValue(),
+            userDao.findById(((Integer) row.get(Resourcer.getString("dao.report.column.from_id")))
                     .longValue()).orElseThrow(IllegalArgumentException::new),
-            userDao.findById(((BigDecimal) row.get(Resourcer.getString("dao.report.column.to_id")))
+            userDao.findById(((Integer) row.get(Resourcer.getString("dao.report.column.to_id")))
                     .longValue()).orElseThrow(IllegalArgumentException::new),
             row.get(Resourcer.getString("dao.report.column.text")).toString()
     );

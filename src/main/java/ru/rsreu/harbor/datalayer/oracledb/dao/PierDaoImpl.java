@@ -54,7 +54,7 @@ public class PierDaoImpl implements PierDao {
     }
 
     private final RowMapper<Pier> pierRowMapper = (row) -> new Pier(
-            ((BigDecimal) row.get(Resourcer.getString("dao.pier.column.id"))).longValue()
+            ((Integer) row.get(Resourcer.getString("dao.pier.column.id"))).longValue()
     );
 
     private final ObjectMapper<Pier> createPierObjectMapper = pier -> new String[] { };

@@ -79,14 +79,14 @@ public class UserDaoImpl implements UserDao {
     }
 
     private final RowMapper<User> userRowMapper = (row) -> new User(
-            ((BigDecimal) row.get(Resourcer.getString("dao.user.column.id"))).longValue(),
+            ((Integer) row.get(Resourcer.getString("dao.user.column.id"))).longValue(),
             row.get(Resourcer.getString("dao.user.column.login")).toString(),
             row.get(Resourcer.getString("dao.user.column.password")).toString(),
-            roleDao.findById(((BigDecimal) row.get(Resourcer.getString("dao.user.column.roleId")))
+            roleDao.findById(((Integer) row.get(Resourcer.getString("dao.user.column.roleId")))
                     .longValue()).orElseThrow(IllegalArgumentException::new),
-            statusDao.findById(((BigDecimal) row.get(Resourcer.getString("dao.user.column.statusId")))
+            statusDao.findById(((Integer) row.get(Resourcer.getString("dao.user.column.statusId")))
                     .longValue()).orElseThrow(IllegalArgumentException::new),
-            ((BigDecimal) row.get(Resourcer.getString("dao.user.column.online"))).intValue()
+            ((Integer) row.get(Resourcer.getString("dao.user.column.online"))).intValue()
                     == IS_ONLINE_NUMBER);
 
     private final ObjectMapper<User> saveUserObjectMapper = user -> new String[]{
